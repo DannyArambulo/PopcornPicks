@@ -1,0 +1,35 @@
+mat-toolbar
+{
+  background-color:rgb(217, 194, 20);
+}
+
+.example-spacer 
+{
+    flex: 1 1 auto;
+}
+
+.searchBar 
+{
+  width: 40;
+  height: 50;
+  flex: auto;
+}
+
+.searchArea
+{
+  width:  50px;
+  height: 60px;
+  flex: auto;
+  align-content: center;
+  border-radius: 100%
+}
+
+.register
+{
+  margin-right: 40px;
+}
+
+.login
+{
+  margin: auto;
+}
