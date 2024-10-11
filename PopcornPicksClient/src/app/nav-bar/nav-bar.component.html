@@ -1,6 +1,8 @@
 <mat-toolbar>
     <span>
+      <a routerLink="/welcomecomponent" routerLinkActive="active" ariaCurrentWhenActive="page" routerLink="welcomecomponent">
       PopcornPicks<img src="assets/popcorn-kernel.jpg" alt="PopcornPicks" width="40" height="50" style="vertical-align:middle">
+      </a>
     </span>
 
     <span class="example-spacer"></span>
@@ -18,8 +20,9 @@
       Register Now
     </button>
 
-    <button class = "login" mat-raised-button href = "" target = "">
+    <a routerLink="/logincomponent" routerLinkActive="active" ariaCurrentWhenActive="page" mat-raised-button class = "login" routerLink="logincomponent">
       Log In
-    </button>
+    </a>
     
   </mat-toolbar>
+  <router-outlet></router-outlet>
