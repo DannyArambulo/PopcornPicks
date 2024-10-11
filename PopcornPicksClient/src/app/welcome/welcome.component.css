@@ -1,0 +1,20 @@
+.welcomeText
+{
+  text-align: center;
+  color:white;
+}
+
+img
+{
+  vertical-align: center;
+  width: 200px;
+  height: 300px;
+}
+
+.register
+{
+  width: 300px;
+  height: 100px;
+  text-size-adjust: 250;
+  font-size: 30px;
+}
