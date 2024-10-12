@@ -1,0 +1,63 @@
+<div class="register">
+    <mat-card appearance="outlined" class="registerCard">
+        <mat-card-header>
+            <mat-label><h1>Register</h1></mat-label>
+        </mat-card-header>
+        <br>
+        <br>
+        <mat-card-content>
+            <!-- Email Field -->
+            <mat-form-field>
+                <mat-label>Enter your email</mat-label>
+                <input 
+                    class="email" 
+                    type="email" 
+                    matInput 
+                    placeholder="something@something.com" 
+                    [formControl]="email" 
+                    (blur)="updateErrorMessage()" 
+                    required/>
+                <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">
+                    {{ errorMessage }}
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <br>
+
+            <!-- Password Field -->
+            <mat-form-field>
+                <mat-label>Enter your password</mat-label>
+                <input 
+                    class="password" 
+                    type="password" 
+                    matInput 
+                    [formControl]="password" 
+                    required/>
+                <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">
+                    {{ errorMessage }}
+                </mat-error>
+            </mat-form-field>
+            <br>
+            <br>
+
+            <!-- Confirm Password Field -->
+            <mat-form-field>
+                <mat-label>Confirm your password</mat-label>
+                <input 
+                    class="confirmPassword" 
+                    type="password" 
+                    matInput 
+                    [formControl]="confirmPassword" 
+                    required/>
+                <mat-error *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+                    {{ errorMessage }}
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="onSubmit()" [disabled]="!registerForm.valid">
+                Register
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
