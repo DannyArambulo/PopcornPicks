@@ -16,9 +16,9 @@
       </mat-form-field>
     </span>
 
-    <button class = "register" mat-raised-button href = "" target = "">
+    <button mat-raised-button [routerLink]="['/registercomponent']" class="register">
       Register Now
-    </button>
+  </button>
 
     <a routerLink="/logincomponent" routerLinkActive="active" ariaCurrentWhenActive="page" mat-raised-button class = "login" routerLink="logincomponent">
       Log In
