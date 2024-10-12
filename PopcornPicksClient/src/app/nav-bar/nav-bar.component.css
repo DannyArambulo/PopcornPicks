@@ -33,3 +33,8 @@ mat-toolbar
 {
   margin: auto;
 }
+
+a
+{
+  text-decoration: none;
+}
