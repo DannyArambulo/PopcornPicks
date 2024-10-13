@@ -1,0 +1,25 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .favoritesSection, .lastWatchedSection {
+    width: 80%;
+    margin: 10px 0;
+  }
+  
+  mat-card-header h2 {
+    margin: 0;
+  }
+  
+  mat-card-content {
+    padding: 10px;
+  }
+  
+  mat-card-actions {
+    text-align: right;
+  }
+  
