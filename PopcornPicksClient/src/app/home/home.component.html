@@ -1,0 +1,30 @@
+<div class="home">
+    <mat-card class="favoritesSection" appearance="outlined">
+        <mat-card-header>
+            <h2>Your Favorites</h2>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- Add backend logic for favorites section -->
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="viewFavorites()">See All</button>
+        </mat-card-actions>
+    </mat-card>
+    <br>
+    <br>
+    <mat-card class="lastWatchedSection" apperance="outlined">
+        <mat-card-header>
+            <h2>Last Watched</h2>
+        </mat-card-header>
+        <mat-card-content>
+            <!-- Add logic for backend database interaction (user database and movie database)-->
+            <p><strong>Title:</strong></p>
+            <p><strong>Rating:</strong></p>
+            <p><strong>Date Watched:</strong></p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="viewHistory()">See All</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
