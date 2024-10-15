@@ -1,13 +1,22 @@
 <div class="SetupCard">
-    <mat-stepper orientation="horizontal" linear="true">
+    <mat-stepper orientation="vertical" linear=true>
         <mat-step label="Select your favorite Movie Genres">
-            <mat-form-field>
-                <mat-checkbox>Action</mat-checkbox>
-                <mat-checkbox>Comedy</mat-checkbox>
-                <mat-checkbox>Romance</mat-checkbox>
-                <mat-checkbox>Horror</mat-checkbox>
-                <mat-checkbox>Sci-Fi</mat-checkbox>
-            </mat-form-field>
+            <mat-checkbox id="Action">Action</mat-checkbox> <br>
+            <mat-checkbox id="Comedy">Comedy</mat-checkbox> <br>
+            <mat-checkbox id="Romance">Romance</mat-checkbox> <br>
+            <mat-checkbox id="Horror">Horror</mat-checkbox> <br>
+            <mat-checkbox id="Sci-Fi">Sci-Fi</mat-checkbox> <br>
+            <button mat-raised-button matStepperNext>Next</button>
+        </mat-step>
+
+        <mat-step label="Write down your favorite 3 movies">
+            <input matInput id="movie1">
+            <br>
+            <br>
+            <input matInput id="movie2">
+            <br>
+            <br>
+            <input matInput id="movie3">
         </mat-step>
     </mat-stepper>
 </div>
