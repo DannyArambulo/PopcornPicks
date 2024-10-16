@@ -5,7 +5,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HistoryComponent } from './history/history.component';
-import { FavoritesComponent } from './favorites/favorites.component';
 import { FirstTimeSetupComponent } from './first-time-setup/first-time-setup.component';
 
 
@@ -13,8 +12,7 @@ export const routes: Routes = [
   {path: 'logincomponent', component: LoginComponent},
   {path: 'welcomecomponent', component: WelcomeComponent},
   {path: 'registercomponent', component: RegisterComponent},
-  {path: 'homecomponent', component: HomeComponent },
-  {path: 'favoritescomponent', component: FavoritesComponent }, 
+  {path: 'homecomponent', component: HomeComponent }, 
   {path: 'historycomponent', component: HistoryComponent }, 
   {path: 'firsttimesetupcomponent', component: FirstTimeSetupComponent }, 
   {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
