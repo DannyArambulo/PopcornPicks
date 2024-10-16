@@ -39,11 +39,11 @@ export class HomeComponent {
   // Navigation for 'See All' buttons
   viewFavorites() {
     // Navigate to "Favorites" page
-    this.router.navigate(['/favoritesComponent']);
+    this.router.navigate(['/historycomponent'], {queryParams: { filter: 'favorites'} });
   }
 
   viewHistory() {
     // Navigate to "Watch History" page
-    this.router.navigate(['/historyComponent']);
+    this.router.navigate(['/historycomponent']);
   }
 }

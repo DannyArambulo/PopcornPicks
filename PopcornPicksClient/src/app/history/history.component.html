@@ -1,1 +1,31 @@
-<p>history works!</p>
+<div class="history">
+    <h1>Watch History</h1>
+
+    <!-- Filter -->
+    <mat-form-field>
+        <mat-select placeholder="Filter by" [(value)]="filter">
+            <mat-option value="all">All Movies</mat-option>
+            <mat-option value="favorites">Favorites</mat-option>
+        </mat-select>
+     </mat-form-field>
+
+     <!-- Movie List -->
+    <div *ngFor="let movie of watchedMovies(); let i = index">
+        <mat-card class="movie-card">
+            <img mat-card-image [src]="movie.poster" alt="{{movie.title}} poster">
+            <mat-card-content>
+                <p><b>{{ movie.title }}</b></p>
+                <p>Rating: {{ movie.rating }}</p>
+                <p>Date Watched: {{ movie.dateWatched }}</p>
+
+                <!-- Favorite Icon (Filled or Empty Heart) -->
+                <button mat-icon-button (click)="toggleFavorite(i)">
+                    <mat-icon> {{ movie.favorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <!-- If no movies watched yet -->
+    <p *ngIf="watchedMovies().length === 0">No movies watched yet.</p>
+</div>
