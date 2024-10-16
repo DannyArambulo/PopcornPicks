@@ -164,3 +164,9 @@
       margin-block: 1.5rem;
     }
   }
+
+  router-outlet
+  {
+    vertical-align: center;
+    
+  }
