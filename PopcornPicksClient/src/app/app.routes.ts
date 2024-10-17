@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { HistoryComponent } from './history/history.component';
 import { FirstTimeSetupComponent } from './first-time-setup/first-time-setup.component';
+import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
   {path: 'homecomponent', component: HomeComponent }, 
   {path: 'historycomponent', component: HistoryComponent }, 
   {path: 'firsttimesetupcomponent', component: FirstTimeSetupComponent }, 
+  {path: 'forgotpasswordcomponent', component: ForgotpasswordComponent }, 
   {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
 ];
 

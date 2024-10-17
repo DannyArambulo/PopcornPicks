@@ -8,11 +8,12 @@ import {merge} from 'rxjs';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import { MatCardActions } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatCardModule, MatFormField, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatCardActions, MatButtonModule],
+  imports: [MatCardModule, MatFormField, MatLabel, MatInputModule, FormsModule, ReactiveFormsModule, MatCardActions, MatButtonModule, RouterLink, RouterOutlet],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
