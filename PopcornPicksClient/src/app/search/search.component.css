@@ -1,0 +1,31 @@
+.search {
+    margin: 20px;
+}
+
+.movie-item {
+    margin-bottom: 20px;
+}
+
+.movie-card {
+    display: block;
+}
+
+.movie-content {
+    display: flex;
+    align-items: center;
+}
+
+.movie-poster {
+    width: 100px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.movie-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+p {
+    color: black;
+}
