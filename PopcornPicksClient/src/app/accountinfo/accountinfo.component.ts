@@ -9,11 +9,12 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import { MatCardActions } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterOutlet, RouterLink } from '@angular/router';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-accountinfo',
   standalone: true,
-  imports: [MatCardModule, MatFormField,MatLabel,MatInputModule,MatCardActions,MatButtonModule],
+  imports: [MatCardModule, MatFormField,MatLabel,MatInputModule,MatCardActions,MatButtonModule,MatCheckbox,RouterLink,RouterOutlet],
   templateUrl: './accountinfo.component.html',
   styleUrl: './accountinfo.component.css'
 })
