@@ -6,6 +6,19 @@
         <br>
         <br>
         <mat-card-content>
+            <mat-form-field>
+                <mat-label>Enter your name</mat-label>
+                <input 
+                    class="email" 
+                    type="email" 
+                    matInput 
+                    placeholder="John Doe" 
+                    [formControl]="email" 
+                    required/>
+            </mat-form-field>
+            <br>
+            <br>
+
             <!-- Email Field -->
             <mat-form-field>
                 <mat-label>Enter your email</mat-label>
