@@ -8,6 +8,7 @@ import { HistoryComponent } from './history/history.component';
 import { FirstTimeSetupComponent } from './first-time-setup/first-time-setup.component';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { SearchComponent } from './search/search.component';
+import { AccountinfoComponent } from './accountinfo/accountinfo.component';
 
 
 export const routes: Routes = [
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {path: 'firsttimesetupcomponent', component: FirstTimeSetupComponent }, 
   {path: 'forgotpasswordcomponent', component: ForgotpasswordComponent },
   {path: 'searchcomponent', component: SearchComponent }, 
+  {path: 'accountinfocomponent', component: AccountinfoComponent }, 
   {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
 ];
 

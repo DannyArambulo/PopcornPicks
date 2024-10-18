@@ -15,3 +15,8 @@ p
 {
     color: white
 }
+
+input:disabled,select:disabled,textarea:disabled 
+{
+    color: black !important;
+}
