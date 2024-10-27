@@ -22,6 +22,28 @@
                 <mat-label>Password</mat-label>
                 <input matInput placeholder="****************" value="***************" disabled>
               </mat-form-field>
+
+              <br>
+              <br>
+
+                <mat-label>Favorite Movie Genres</mat-label>
+                <br>
+                <mat-checkbox id="Action" disabled checked>Action</mat-checkbox>
+                <mat-checkbox id="Comedy" disabled checked>Comedy</mat-checkbox> <br>
+                <mat-checkbox id="Romance" disabled>Romance</mat-checkbox>
+                <mat-checkbox id="Horror" disabled>Horror</mat-checkbox> <br>
+                <mat-checkbox id="Sci-Fi" disabled>Sci-Fi</mat-checkbox> 
+
+              <br>
+              <br>
+
+              <button mat-raised-button onclick=toggleEdit()>
+                Edit
+              </button>
+
+              <a routerLink="/forgotpasswordcomponent"  mat-raised-button class="changePass">
+                Change Password
+              </a>
         </mat-card-content>
     </mat-card>
 </div>
