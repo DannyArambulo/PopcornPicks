@@ -1,16 +1,1 @@
-<div class="search">
-    <h1>Search Results</h1>
-
-    <!-- Movie List -->
-    <div *ngFor="let movie of searchResults" class="movie-item">
-        <mat-card class="movie-card">
-            <div class="movie-content">
-                <img mat-card-image [src]="movie.poster" alt="{{movie.title}} poster" class="movie-poster">
-                <p class="movie-title">{{ movie.title }}</p>
-            </div>
-        </mat-card>
-    </div>
-
-    <!-- If no search result -->
-    <p *ngIf="searchResults.length === 0">No Movie found.</p>
-</div>
+<h1>search doesn't work <!-- :( --> </h1>
