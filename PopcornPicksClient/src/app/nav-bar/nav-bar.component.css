@@ -10,7 +10,7 @@ mat-toolbar
 
 .searchBar 
 {
-  display:block;
+  display: none;
   visibility: hidden;
   width: 0;
   height: 0;
