@@ -1,10 +1,10 @@
-<div class = "infoArea">
+<div class = "infoArea" *ngIf="user$ | async as user">
     <mat-card appearance="outlined">
         <mat-card-header><mat-label><h1>Account Information</h1></mat-label></mat-card-header>
         <mat-card-content>
             <mat-form-field class="Name">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="John Doe" value="John Doe" disabled>
+                <input matInput placeholder="John Doe" value="{{user.name}}" disabled>
               </mat-form-field>
             
               <br>
@@ -12,19 +12,19 @@
 
               <mat-form-field class="Email">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="johndoe@example.com" value="johndoe@example.com" disabled>
+                <input matInput placeholder="johndoe@example.com" value="{{user.email}}" disabled>
               </mat-form-field>
 
               <br>
               <br>
 
-              <mat-form-field class="Password">
+              <!-- <mat-form-field class="Password">
                 <mat-label>Password</mat-label>
                 <input matInput placeholder="****************" value="***************" disabled>
               </mat-form-field>
 
               <br>
-              <br>
+              <br> -->
 
                 <mat-label>Favorite Movie Genres</mat-label>
                 <br>
