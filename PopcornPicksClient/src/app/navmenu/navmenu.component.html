@@ -1,0 +1,9 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Vertical dots menu">
+    <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/homecomponent">Home</button>
+  <button mat-menu-item routerLink="/historycomponent">History</button>
+  <button mat-menu-item routerLink="/accountinfocomponent">Profile</button>
+  <app-auth-button></app-auth-button>
+</mat-menu>

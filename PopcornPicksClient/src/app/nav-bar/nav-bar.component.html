@@ -1,3 +1,29 @@
+<div *ngIf="userLoggedIn(); else notLoggedIn">
+  <mat-toolbar>
+    <span class="home">
+      <a routerLink="/homecomponent" routerLinkActive="active" ariaCurrentWhenActive="page" routerLink="homecomponent">
+      PopcornPicks<img src="assets/popcorn-kernel.jpg" alt="PopcornPicks" width="40" height="50" style="vertical-align:middle">
+      </a>
+    </span>
+
+    <span class="example-spacer"></span>
+
+    <span class = "searchArea">
+      <mat-form-field>
+        <input matInput type="search">
+        <button matSuffix mat-icon-button aria-label="Search">
+         <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+    </span>
+
+
+    <app-navmenu></app-navmenu>
+  
+  </mat-toolbar>
+</div>
+
+<ng-template #notLoggedIn>
 <mat-toolbar>
     <span class="home">
       <a routerLink="/welcomecomponent" routerLinkActive="active" ariaCurrentWhenActive="page" routerLink="welcomecomponent">
@@ -23,3 +49,4 @@
    <app-auth-button></app-auth-button>
     
   </mat-toolbar>
+</ng-template>
