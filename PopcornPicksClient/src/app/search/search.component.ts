@@ -11,9 +11,11 @@ import { MovieSearchService } from '../movie-search/movie-search.service';
   template: `
     <input [(ngModel)]="query" (keyup.enter)="onSearch()" placeholder="Search Movies..."/>
     <div *ngIf="results?.length">
+      <mat-card appearance="outlined">
       <ul>
         <li *ngFor="let movie of results">{{ movie.title }}</li>
       </ul>
+      </mat-card>
     </div>
   `,
   styles: [``]

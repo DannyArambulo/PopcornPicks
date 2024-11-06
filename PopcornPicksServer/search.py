@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 import os
 import requests
 from dotenv import load_dotenv
@@ -7,6 +8,7 @@ load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
 
 search = Flask(__name__)
+CORS(search, resources={r"/search/*": {"origins": "http://localhost:4200"}}) 
 
 @search.route('/search', methods=['GET'])
 def search_movies():
