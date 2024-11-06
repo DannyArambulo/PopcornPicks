@@ -1,21 +1,19 @@
-<div>
-    <mat-form-field appearance="fill">
+<div class="search">
+    <mat-form-field appearance="fill" class="search-bar">
         <mat-label>Search for movies...</mat-label>
-        <input matInput [(ngModel)]="query" (keydown.enter)="searchMovies()">
+        <input matInput [(ngModel)]="query" (keydown.enter)="searchMovies()" >
+        <button mat-icon-button matSuffix (click)="searchMovies()" routerLink="/searchresultscomponent">
+            <mat-icon>search</mat-icon>
+        </button>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="searchMovies()">Search</button>
 </div>
 
-<div *ngIf="movies.length > 0">
+<div *ngIf="movies.length > 0" class="search-results">
     <h2>Search Results:</h2>
     <mat-list>
         <mat-list-item *ngFor="let movie of movies">
             <mat-card>
                 <mat-card-title>{{ movie.title }}</mat-card-title>
-                <mat-card-content>
-                    <p>{{ movie.overview }}</p>
-                    <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
-                </mat-card-content>
             </mat-card>
         </mat-list-item>
     </mat-list>
