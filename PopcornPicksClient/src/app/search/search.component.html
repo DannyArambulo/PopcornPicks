@@ -1,1 +1,22 @@
-<h1>search doesn't work <!-- :( --> </h1>
+<div>
+    <mat-form-field appearance="fill">
+        <mat-label>Search for movies...</mat-label>
+        <input matInput [(ngModel)]="query" (keydown.enter)="searchMovies()">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="searchMovies()">Search</button>
+</div>
+
+<div *ngIf="movies.length > 0">
+    <h2>Search Results:</h2>
+    <mat-list>
+        <mat-list-item *ngFor="let movie of movies">
+            <mat-card>
+                <mat-card-title>{{ movie.title }}</mat-card-title>
+                <mat-card-content>
+                    <p>{{ movie.overview }}</p>
+                    <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-list-item>
+    </mat-list>
+</div>
