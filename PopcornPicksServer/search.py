@@ -1,11 +1,28 @@
-import pandas as pd
 from flask import Flask, request, jsonify
+import os
+import requests
+from dotenv import load_dotenv
 
-app = Flask(__name__)
-tmdb_data = pd.read_csv('../PopcornPicks Movie Recommender/tmdb_movies_data.csv')
+load_dotenv()
+TMDB_API_KEY = os.getenv('TMDB_API_KEY')
 
-@app.route('/search', methods=['GET'])
+search = Flask(__name__)
+
+@search.route('/search', methods=['GET'])
 def search_movies():
-    query = request.args.get('query','').lower()
-    results = tmdb_data[tmdb_data['title'].str.contains(query, case=False)]
-    return jsonify(results.to_dict(orient='records'))
+    query = request.args.get('query')
+    if not query:
+        return jsonify({"error": "Query parameter is required"}), 400
+
+    url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&query={query}&include_adult=false&language=en-US&page=1"
+    headers = {"accept": "application/json"}
+    
+    response = requests.get(url, headers=headers)
+
+    if response.status_code != 200:
+        return jsonify({"error": "Failed to fetch data from TMDb"}), response.status_code
+    
+    return jsonify(response.json())
+
+if __name__ == '__main__':
+    search.run(debug=True)

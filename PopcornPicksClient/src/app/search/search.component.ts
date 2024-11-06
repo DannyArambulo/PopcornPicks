@@ -8,15 +8,15 @@ import { MovieSearchService } from '../movie-search/movie-search.service';
   selector: 'app-search',
   standalone: true,
   imports: [MatCardModule, CommonModule, FormsModule],
-  styleUrl: './search.component.css',
   template: `
-    <input [(ngModel)]="query" (input)="onSearch()" placeholder="Search Movies..."/>
-    <div *ngIf="results.length">
+    <input [(ngModel)]="query" (keyup.enter)="onSearch()" placeholder="Search Movies..."/>
+    <div *ngIf="results?.length">
       <ul>
         <li *ngFor="let movie of results">{{ movie.title }}</li>
       </ul>
     </div>
   `,
+  styles: [``]
 })
 export class SearchComponent {
   query: string = '';
@@ -25,12 +25,10 @@ export class SearchComponent {
   constructor(private movieSearchService: MovieSearchService) {}
 
   onSearch(): void {
-    if (this.query) {
+    if (this.query.trim()) {
       this.movieSearchService.searchMovies(this.query).subscribe((data) => {
-        this.results = data;
+        this.results = data.results || [];
       });
-    } else {
-      this.results = [];
     }
   }
 }
