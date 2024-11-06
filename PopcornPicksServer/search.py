@@ -13,17 +13,7 @@ CORS(search, resources={r"/search/*": {"origins": "http://localhost:4200"}})
 @search.route('/search', methods=['GET'])
 def search_movies():
     query = request.args.get('query')
-    if not query:
-        return jsonify({"error": "Query parameter is required"}), 400
-
-    url = f"https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&query={query}&include_adult=false&language=en-US&page=1"
-    headers = {"accept": "application/json"}
-    
-    response = requests.get(url, headers=headers)
-
-    if response.status_code != 200:
-        return jsonify({"error": "Failed to fetch data from TMDb"}), response.status_code
-    
+    response = requests.get(f'https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&query={query}')
     return jsonify(response.json())
 
 if __name__ == '__main__':
