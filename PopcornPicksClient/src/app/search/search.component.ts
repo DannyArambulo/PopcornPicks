@@ -7,8 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 interface Movie {
   title: string;
@@ -32,23 +32,17 @@ interface TMDbResponse {
     MatCardModule,
     MatIconModule,
     MatListModule,
-    RouterOutlet,
     RouterModule
   ]
 })
 export class SearchComponent {
   query: string = '';
-  movies: Movie[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   searchMovies() {
     if (this.query) {
-      this.http.get<TMDbResponse>(`http://127.0.0.1:5000/search?query=${this.query}`)
-        .subscribe(response => {
-          console.log(response);
-          this.movies = response.results;
-        })
+      this.router.navigate(['/searchresults'], { queryParams: { query: this.query } });
     }
   }
 }
