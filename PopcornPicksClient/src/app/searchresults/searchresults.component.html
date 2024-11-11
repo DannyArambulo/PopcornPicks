@@ -1,0 +1,15 @@
+<div *ngIf="movies.length > 0" class="search-results">
+    <h2>Search Results for "{{ query }}"</h2>
+    <mat-list>
+      <mat-list-item *ngFor="let movie of movies">
+        <mat-card>
+          <mat-card-title>{{ movie.title }} ({{ movie.release_date | slice:0:4}})</mat-card-title>
+        </mat-card>
+      </mat-list-item>
+    </mat-list>
+  </div>
+  
+  <div *ngIf="movies.length === 0" class="no-results">
+    <p>No movies found for "{{ query }}".</p>
+  </div>
+  

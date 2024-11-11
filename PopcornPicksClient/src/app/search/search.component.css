@@ -8,31 +8,6 @@
     width: 350px;
 }
 
-.search-results {
-    margin-top: 20px;
-    padding: 0 10px;
-}
-
-mat-card {
-    width: 100%;
-    max-width: 350px;
-    min-height: 120px;
-    padding: 16px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-mat-card-title {
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-mat-card-content {
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
 mat-icon-button {
     padding: 0;
     margin-right: 4px;
@@ -40,13 +15,4 @@ mat-icon-button {
 
 mat-form-field {
     width: 100%;
-}
-
-mat-list-item {
-    width: 100%;
-    display: block;
-}
-
-h2 {
-    color: white;
 }
