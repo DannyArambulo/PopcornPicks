@@ -1,8 +1,27 @@
-.example-card {
-    max-width: 400px;
+.movieInfoCard {
+  display: flex;
+    max-width: 1200px; 
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 100px;
   }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+
+  mat-card-content{
+    align-content: center;
+  }
+
+  .movieInfo {
+    padding-left: 300px;
+  }
+
+  .movieInfo p{
+    color:black;
+    align-items: center;
+  }
+
+  img{
+    width: 250px;
+    height: 400px;
+    float: left;
   }
