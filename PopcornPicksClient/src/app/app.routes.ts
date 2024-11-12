@@ -10,6 +10,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { SearchComponent } from './search/search.component';
 import { AccountinfoComponent } from './accountinfo/accountinfo.component';
 import { SearchResultsComponent } from './searchresults/searchresults.component';
+import { MovieInfoComponent } from './movie-info/movie-info.component';
 
 
 export const routes: Routes = [
@@ -22,7 +23,8 @@ export const routes: Routes = [
   {path: 'forgotpasswordcomponent', component: ForgotpasswordComponent },
   {path: 'searchcomponent', component: SearchComponent }, 
   {path: 'accountinfocomponent', component: AccountinfoComponent }, 
-  {path: 'searchresults', component: SearchResultsComponent }, 
+  {path: 'searchresults', component: SearchResultsComponent },
+  {path: 'movieinfocomponent', component: MovieInfoComponent}, 
   {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
 ];
 
