@@ -9,6 +9,7 @@ import { FirstTimeSetupComponent } from './first-time-setup/first-time-setup.com
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { SearchComponent } from './search/search.component';
 import { AccountinfoComponent } from './accountinfo/accountinfo.component';
+import { SearchResultsComponent } from './searchresults/searchresults.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   {path: 'forgotpasswordcomponent', component: ForgotpasswordComponent },
   {path: 'searchcomponent', component: SearchComponent }, 
   {path: 'accountinfocomponent', component: AccountinfoComponent }, 
+  {path: 'searchresults', component: SearchResultsComponent }, 
   {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
 ];
 
