@@ -25,3 +25,21 @@
     height: 400px;
     float: left;
   }
+
+  .starRating {
+    padding-left: 50px;
+  }
+
+  .reviewText {
+    padding-left: 50px;
+    width: 100%;
+  }
+  
+  .inputReview {
+    width: 100%;
+  }
+
+  textarea{
+    width: 80%;
+    height: 100px;
+  }

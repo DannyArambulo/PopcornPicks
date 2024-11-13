@@ -6,14 +6,38 @@
 
       <div class="movieInfo">
       <h1>Movie Title</h1>
-      <h2>Movie Year</h2>
+      <h2>Relase Date or Year</h2>
       <h3>Genres</h3>
       <h4>Description</h4>
       <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+       <i>"Lorem ipsum dolor sit amet, 
+        consectetur adipiscing elit, 
+        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Ut enim ad minim veniam, 
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      </i>
       </p>
       </div>
     </mat-card-content>
+    <br>
+    <div class="starRating">
+      <h2>Rating:</h2> 
+    </div>
+
+    <div class="reviewText">
+      <h2>Your Movie Review</h2>
+      <form class="reviewForm">
+      <mat-form-field class="inputReview">
+        <textarea matInput placeholder="Write a Review here!"></textarea><br>
+        <button mat-raised-button>Edit</button>
+        <button mat-raised-button disabled>Save</button>
+        <button mat-raised-button disabled>Cancel</button>
+      </mat-form-field>
+    </form>
+
+    </div>
   </mat-card>
 </div>
 
