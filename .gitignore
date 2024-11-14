@@ -43,3 +43,6 @@ Thumbs.db
 
 # Local Website Folders
 PopcornPicksServer/*
+PopcornPicksClient/node_modules/
+PopcornPicksClient/.angular/cache/18.2.7/PopcornPicksClient/
+PopcornPicksClient/.angular/cache/18.2.7/PopcornPicksClient/.tsbuildinfo
