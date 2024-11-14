@@ -24,6 +24,9 @@
     <br>
     <div class="starRating">
       <h2>Rating:</h2> 
+      
+    <button mat-icon-button *ngFor="let numStar of numStars; index as i" [id] = "'rate_' + i"><mat-icon class="yellow-icon" (click)="starRating(i+1)">{{showStar(i)}}</mat-icon></button>
+      
     </div>
 
     <div class="reviewText">
