@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 # Local Website Folders
-.PopcornPicksServer/*
+PopcornPicksServer/*
