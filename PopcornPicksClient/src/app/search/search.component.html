@@ -2,7 +2,7 @@
     <mat-form-field appearance="fill" class="search-bar">
         <mat-label>Search for movies...</mat-label>
         <input matInput [(ngModel)]="query" (keydown.enter)="searchMovies()" >
-        <button mat-icon-button matSuffix (click)="searchMovies()" routerLink="/searchresultscomponent">
+        <button mat-icon-button matSuffix (click)="searchMovies()" routerLink="/searchresults">
             <mat-icon>search</mat-icon>
         </button>
     </mat-form-field>
