@@ -24,7 +24,7 @@ export const routes: Routes = [
   {path: 'searchcomponent', component: SearchComponent }, 
   {path: 'accountinfocomponent', component: AccountinfoComponent }, 
   {path: 'searchresults', component: SearchResultsComponent },
-  {path: 'movieinfocomponent', component: MovieInfoComponent}, 
+  {path: 'movie', component: MovieInfoComponent}, 
   {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
 ];
 

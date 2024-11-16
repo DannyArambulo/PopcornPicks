@@ -4,11 +4,11 @@
       
       <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
 
-      <div class="movieInfo">
-      <h1>Movie Title</h1>
+      <div class="movieInfo" *ngFor="let movie of movies">
+      <h1>{{ movie.title }}</h1>
       <h2>Relase Date or Year</h2>
       <h3>Genres</h3>
-      <h4>Description</h4>
+      <h4>movie.overview</h4>
       <p>
        <i>"Lorem ipsum dolor sit amet, 
         consectetur adipiscing elit, 

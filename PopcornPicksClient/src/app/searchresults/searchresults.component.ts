@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -9,6 +9,7 @@ interface Movie {
   title: string;
   overview: string;
   release_date: string;
+  id: number;
 }
 
 interface TMDbResponse {
@@ -21,7 +22,8 @@ interface TMDbResponse {
   imports: [
     CommonModule,
     MatCardModule,
-    MatListModule
+    MatListModule,
+    RouterLink
   ],
   templateUrl: './searchresults.component.html',
   styleUrls: ['./searchresults.component.css']

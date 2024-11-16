@@ -3,7 +3,7 @@
     <mat-list>
       <mat-list-item *ngFor="let movie of movies">
         <mat-card>
-          <mat-card-title>{{ movie.title }} ({{ movie.release_date | slice:0:4}})</mat-card-title>
+          <mat-card-title><a [routerLink]="['/movie']" [queryParams]="{id: movie.id}" routerLinkActiveOptions="{ exact: true }" ariaCurrentWhenActive="page" routerLink="movie">{{ movie.title }} ({{ movie.release_date | slice:0:4}})</a></mat-card-title>
         </mat-card>
       </mat-list-item>
     </mat-list>
