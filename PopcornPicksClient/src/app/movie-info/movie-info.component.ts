@@ -14,6 +14,7 @@ interface Movie {
   overview: string;
   release_date: string;
   id: number;
+  genres: Genre[];
 }
 
 interface TMDbResponse {
@@ -21,6 +22,12 @@ interface TMDbResponse {
   overview: string;
   release_date: string;
   poster_path: string;
+  genres: Genre[];
+}
+
+interface Genre {
+  id: number;
+  name: string;
 }
 
 @Component({
@@ -39,6 +46,7 @@ export class MovieInfoComponent {
   movieDate: string = "";
   movieOverview: string = "";
   posterPath: string = "";
+  movieGenres: string[] = [];
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
@@ -57,10 +65,12 @@ export class MovieInfoComponent {
        console.log("Date is: " + response.release_date);
        console.log("Overview is: " + response.overview);
        console.log("Poster is: " + response.poster_path);
+       console.log("Genres are: " + response.genres);
        this.movieTitle = response.title;
        this.movieDate = response.release_date;
        this.movieOverview = response.overview;
        this.posterPath = response.poster_path;
+       this.movieGenres = response.genres.map((genre: Genre) => genre.name);
       });
   }
 
