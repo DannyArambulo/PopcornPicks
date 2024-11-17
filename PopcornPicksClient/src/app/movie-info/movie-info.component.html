@@ -2,7 +2,8 @@
 <mat-card appearance="outlined">
     <mat-card-content>
       
-      <img mat-card-image src="https://image.tmdb.org/t/p/w1280{{posterPath}}" alt="{{movieTitle}} Poster">
+      <img mat-card-image *ngIf="posterPath != null"  src="https://image.tmdb.org/t/p/w1280{{posterPath}}" alt="{{movieTitle}} Poster">
+      <img mat-card-image src="assets/filmreel.svg" alt="This movie doesn't have a poster.">
 
       <div class="movieInfo">
       <h1>{{movieTitle}}</h1>

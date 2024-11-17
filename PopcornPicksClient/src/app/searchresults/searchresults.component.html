@@ -3,7 +3,12 @@
     <div class="movie-grid">
       <div *ngFor="let movie of movies" class="movie-item">
         <mat-card [routerLink]="['/movie']" [queryParams]="{id: movie.id}" routerLinkActiveOptions="{ exact: true }" ariaCurrentWhenActive="page" routerLink="movie">
-          <img mat-card-image src="https://image.tmdb.org/t/p/w1280{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+          <ng-container *ngIf="movie.poster_path != null">
+            <img mat-card-image src="https://image.tmdb.org/t/p/w1280{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+          </ng-container>
+          <ng-container *ngIf="movie.poster_path === null">
+            <img class="noMoviePoster" mat-card-image height=300px src="assets/filmreel.svg" alt="{{ movie.title }} has no Poster">
+          </ng-container>
           <mat-card-content>
             <mat-card-title>{{ movie.title }} ({{ movie.release_date | slice:0:4 }})</mat-card-title>
           </mat-card-content>
