@@ -1,12 +1,15 @@
 <div *ngIf="movies.length > 0" class="search-results">
     <h2>Search Results for "{{ query }}"</h2>
-    <mat-list>
-      <mat-list-item *ngFor="let movie of movies">
-        <mat-card>
-          <mat-card-title><a [routerLink]="['/movie']" [queryParams]="{id: movie.id}" routerLinkActiveOptions="{ exact: true }" ariaCurrentWhenActive="page" routerLink="movie">{{ movie.title }} ({{ movie.release_date | slice:0:4}})</a></mat-card-title>
+    <div class="movie-grid">
+      <div *ngFor="let movie of movies" class="movie-item">
+        <mat-card [routerLink]="['/movie']" [queryParams]="{id: movie.id}" routerLinkActiveOptions="{ exact: true }" ariaCurrentWhenActive="page" routerLink="movie">
+          <img mat-card-image src="https://image.tmdb.org/t/p/w1280{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+          <mat-card-content>
+            <mat-card-title>{{ movie.title }} ({{ movie.release_date | slice:0:4 }})</mat-card-title>
+          </mat-card-content>
         </mat-card>
-      </mat-list-item>
-    </mat-list>
+      </div>
+    </div>
   </div>
   
   <div *ngIf="movies.length === 0" class="no-results">

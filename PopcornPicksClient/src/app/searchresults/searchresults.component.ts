@@ -10,6 +10,7 @@ interface Movie {
   overview: string;
   release_date: string;
   id: number;
+  poster_path: string;
 }
 
 interface TMDbResponse {
