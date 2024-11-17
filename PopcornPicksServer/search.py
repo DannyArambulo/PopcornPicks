@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import os
 import requests
+import sys
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,8 +20,9 @@ def search_movies():
 
 @search.route('/movie', methods=['GET'])
 def getMovie():
-    movieId = request.args.get('id')
-    response = requests.get(f'https://api.themoviedb.org/3/movie/?api_key={TMDB_API_KEY}&movie_id={movieId}')
+    movie_id = request.args.get('id')
+    response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}')
+    print(response.text)
     return jsonify(response.json())
 
 if __name__ == '__main__':

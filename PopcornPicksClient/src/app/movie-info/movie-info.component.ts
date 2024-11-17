@@ -17,7 +17,10 @@ interface Movie {
 }
 
 interface TMDbResponse {
-  result: Movie[];
+  title: string;
+  overview: string;
+  release_date: string;
+  poster_path: string;
 }
 
 @Component({
@@ -31,8 +34,11 @@ export class MovieInfoComponent {
 
   numStars: number[] = [1,2,3,4,5,6,7,8,9,10];
   rating: number = 0;
-  movieId: string = '';
-  movies: Movie[] = [];
+  movieId: number = 0;
+  movieTitle: string = "";
+  movieDate: string = "";
+  movieOverview: string = "";
+  posterPath: string = "";
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
@@ -46,8 +52,15 @@ export class MovieInfoComponent {
 
   getMovie() {
     this.http.get<TMDbResponse>(`http://127.0.0.1:5000/movie?id=${this.movieId}`)
-      .subscribe(response => {
-        this.movies = response.result;
+    .subscribe(response => {
+       console.log("Title is: " + response.title);
+       console.log("Date is: " + response.release_date);
+       console.log("Overview is: " + response.overview);
+       console.log("Poster is: " + response.poster_path);
+       this.movieTitle = response.title;
+       this.movieDate = response.release_date;
+       this.movieOverview = response.overview;
+       this.posterPath = response.poster_path;
       });
   }
 
