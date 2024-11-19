@@ -1,6 +1,6 @@
 h2 {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: white;
 }
 
@@ -15,12 +15,6 @@ mat-card-title {
     text-decoration: none;
     font-weight: bold;
 }
-
-mat-card-title a:hover {
-    text-decoration: underline;
-}
-
-
 
 .search-results {
     margin: 20px;
