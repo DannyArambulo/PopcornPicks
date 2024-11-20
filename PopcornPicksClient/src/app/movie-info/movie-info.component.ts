@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
@@ -33,11 +34,11 @@ interface Genre {
 @Component({
   selector: 'app-movie-info',
   standalone: true,
-  imports: [MatCardModule, MatFormField, MatButtonModule, MatIconModule, CommonModule, MatInputModule],
+  imports: [MatCardModule, MatFormField, MatButtonModule, MatIconModule, CommonModule, MatInputModule, FormsModule],
   templateUrl: './movie-info.component.html',
   styleUrl: './movie-info.component.css'
 })
-export class MovieInfoComponent {
+export class MovieInfoComponent implements OnInit{
 
   numStars: number[] = [1,2,3,4,5,6,7,8,9,10];
   rating: number = 0;
@@ -46,7 +47,14 @@ export class MovieInfoComponent {
   movieDate: string = "";
   movieOverview: string = "";
   posterPath: string = "";
+  movieReview: string = "";
+  movieReviewTemp: string = "";
   movieGenres: string[] = [];
+  disableEdit: boolean = false;
+  disableSave: boolean = true;
+  disableCancel: boolean = true;
+  disableText: boolean = true;
+
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit() {
@@ -87,5 +95,25 @@ export class MovieInfoComponent {
     else {
       return 'star_border';
     }
+  }
+
+  activateRevEdit(){
+    this.movieReviewTemp = this.movieReview;
+    this.disableEdit = true;
+    this.disableSave = false;
+    this.disableCancel = false;
+    this.disableText = false;
+  }
+
+  subReview(){
+    
+  }
+
+  revertReview(){
+    this.movieReview = this.movieReviewTemp;
+    this.disableEdit = false;
+    this.disableSave = true;
+    this.disableCancel = true;
+    this.disableText = true;
   }
 }
