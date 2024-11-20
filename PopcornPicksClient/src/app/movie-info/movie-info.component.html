@@ -30,12 +30,12 @@
       <h2>Your Movie Review</h2>
       <form class="reviewForm">
       <mat-form-field class="inputReview">
-        <textarea matInput placeholder="Write a Review here!"></textarea><br>
+        <textarea matInput id="reviewText" [disabled]=disableText placeholder="Write a Review here!" [(ngModel)]="movieReview" name="movieReview"></textarea><br>
       </mat-form-field>
       <br>
-      <button mat-raised-button>Edit</button>
-        <button mat-raised-button disabled>Save</button>
-        <button mat-raised-button disabled>Cancel</button>
+      <button mat-raised-button type="button" id="startRev" (click)="activateRevEdit()" [disabled]=disableEdit>Edit</button>
+        <button mat-raised-button type="button" id="saveReview" (click)="subReview()" [disabled]=disableSave>Save</button>
+        <button mat-raised-button type="button" id="revertReview" (click)="revertReview()" [disabled]=disableCancel>Cancel</button>
     </form>
 
     </div>
