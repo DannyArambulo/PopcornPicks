@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, request
 from flask_cors import CORS, cross_origin
 import os
 import requests
 import sys
+import sqlalchemy
 from dotenv import load_dotenv
-from flaskext.mysql import MySQL
+from flask_mysqldb import MySQL
 
 load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
@@ -13,11 +14,7 @@ search = Flask(__name__)
 CORS(search, resources={r"/search/*": {"origins": "http://localhost:4200"}}) 
 CORS(search, resources={r"/movie/*": {"origins": "http://localhost:4200"}})
 
-search.config['MYSQL_HOST'] = 'localhost'
-search.config['MYSQL_USER'] = 'root'
-search.config['MYSQL_PASSWORD'] = '1234'
-search.config['MYSQL_DB'] = 'popcornpicks'   
-
+search.app_context()
 @search.route('/search', methods=['GET'])
 def search_movies():
     query = request.args.get('query')
@@ -31,9 +28,6 @@ def getMovie():
     print(response.text)
     return jsonify(response.json())
 
-def test_sql():
-    msg = ""
-    cursor = MySQL.con
 
 if __name__ == '__main__':
     search.run(debug=True)

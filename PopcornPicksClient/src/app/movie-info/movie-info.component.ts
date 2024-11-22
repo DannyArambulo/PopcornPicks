@@ -106,7 +106,11 @@ export class MovieInfoComponent implements OnInit{
   }
 
   subReview(){
-    
+    this.movieReview = this.movieReview
+    this.disableEdit = false;
+    this.disableSave = true;
+    this.disableCancel = true;
+    this.disableText = true;
   }
 
   revertReview(){
