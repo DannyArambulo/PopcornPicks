@@ -36,7 +36,7 @@ class User_Reviews(db.Model):
     movie_review = db.Column(db.String(10000))
 
 @dataclass
-class User_Watch_History(db.model):
+class User_Watch_History(db.Model):
     user_id = db.Column(db.String(45), ForeignKey(Users.user_id), primary_key=True, nullable=False)
     movie_id = db.Column(db.Integer, primary_key=True)
     watch_date = db.Column(db.Date)
