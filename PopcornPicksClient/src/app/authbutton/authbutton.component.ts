@@ -44,9 +44,9 @@ export class AuthbuttonComponent implements OnInit {
   }
 
   getUserId(userId: string): void {
-    const apiUrl = 'http://localhost:5000';
-
-    this.http.post(apiUrl, { userId }).subscribe(
+    const apiUrl = 'http://localhost:5000/addUser';
+    const headers = { 'content-type': 'text/plain'}; 
+    this.http.post<String>(apiUrl, userId , {'headers': headers}).subscribe(
       response => {
         console.log('User ID successfully sent to backend:', response);
       },

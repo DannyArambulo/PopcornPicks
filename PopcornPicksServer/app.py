@@ -44,10 +44,12 @@ class User_Watch_History(db.Model):
     favorite = db.Column(db.Boolean)
 
 
-@app.route('/add-user', methods=['POST'])
+@app.route('/add-user', methods=['POST', 'OPTIONS'])
 def add_user():
-    data = request.json
-    user_id = data.get('userId')
+    print("Add User DB being accessed.")
+    data = request.data
+    user_id = data.decode("utf-8")
+    print("UserID is: " + user_id)
 
     if not user_id:
         return jsonify({"error": "User ID is required"}), 400
