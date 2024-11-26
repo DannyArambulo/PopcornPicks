@@ -44,7 +44,7 @@ export class AuthbuttonComponent implements OnInit {
   }
 
   getUserId(userId: string): void {
-    const apiUrl = 'http://localhost:5000';
+    const apiUrl = 'http://localhost:5000/add-user';
 
     this.http.post(apiUrl, { userId }).subscribe(
       response => {
