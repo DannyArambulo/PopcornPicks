@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.debug = True
-CORS(app, resources={r"/add_user/*": {"origins": "http://localhost:4200"}})
+CORS(app, resources={r"/add-user": {"origins": "http://localhost:4200"}})
 
 #adds config for using a MySQL DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost:3306/popcornpicksdb'
