@@ -44,21 +44,24 @@ class User_Watch_History(db.Model):
     favorite = db.Column(db.Boolean)
 
 
-@app.route('/add-user', methods=['POST', 'OPTIONS'])
+@app.route('/add-user', methods=['POST'])
 def add_user():
     print("Add User DB being accessed.")
     data = request.data
-    user_id = data.decode("utf-8")
-    print("UserID is: " + user_id)
+    userId = data.decode("utf-8")
+    print("UserID is: " + userId)
 
-    if not user_id:
+    if not userId:
         return jsonify({"error": "User ID is required"}), 400
 
-    new_user = Users(user_id=user_id)
-    db.session.add(new_user)
-    db.session.commit()
-
-    return jsonify({"status": "success", "userId": user_id}), 200
+    with app.app_context():
+        new_user = Users(user_id=userId)
+        db.session.add(new_user)
+        db.session.commit()
     
+    print("Insert has been committed for UserID: " + userId)
+    
+    return jsonify({"status": "success", "userId": userId}), 200
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
