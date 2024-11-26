@@ -3,21 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 from flask.templating import render_template
 from sqlalchemy import ForeignKey, create_engine
 from dataclasses import dataclass
-from flask_migrate import Migrate
 from flask_cors import CORS
 
 app = Flask(__name__)
 app.debug = True
-CORS(app, resources={r"/add_user/*": {"origins": "http://localhost:4200"}})
+CORS(app, resources={r"/add-user": {"origins": "http://localhost:4200"}})
 
 #adds config for using a MySQL DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost:3306/popcornpicksdb'
 
 #Creating an instance of SQLAlchemy
 db = SQLAlchemy(app)
-
-#Initializes flask-migrate
-migrate = Migrate(app,db)
 
 #Models
 @dataclass
@@ -27,7 +23,7 @@ class Users(db.Model):
 @dataclass
 class User_Info(db.Model):
     user_id = db.Column(db.String(45), ForeignKey(Users.user_id), primary_key=True, nullable=False)
-    genre = db.Column(db.String(20), primary_key=True)
+    genre = db.Column(db.String(20))
     
 @dataclass
 class User_Reviews(db.Model):
