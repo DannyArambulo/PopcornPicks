@@ -8,6 +8,7 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 
 
 interface Movie {
@@ -29,6 +30,18 @@ interface TMDbResponse {
 interface Genre {
   id: number;
   name: string;
+}
+
+interface Review {
+  user_id: string;
+  movie_id: number;
+  movie_review: string;
+}
+
+interface Rating {
+  user_id: string;
+  movie_id: number;
+  movie_rating: number;
 }
 
 @Component({
@@ -54,14 +67,22 @@ export class MovieInfoComponent implements OnInit{
   disableSave: boolean = true;
   disableCancel: boolean = true;
   disableText: boolean = true;
+  userId: string = "";
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.movieId = params['id'];
       if (this.movieId) {
         this.getMovie();
+      }
+    });
+
+    this.auth.user$.subscribe(user => {
+      if (user && user.sub) {
+        this.userId = user.sub;
+        console.log('User ID:', this.userId);
       }
     });
   }
@@ -82,9 +103,42 @@ export class MovieInfoComponent implements OnInit{
       });
   }
 
+  setRating(rating: Rating): void {
+    const apiUrl = 'http://localhost:5000/addRating';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
+      response => {
+        console.log('Rating successfully sent to backend:', response);
+      },
+      error => {
+        console.error('Error sending Rating to backend:', error);
+      }
+    );
+  }
+
+  setReview(review: Review): void {
+    const apiUrl = 'http://localhost:5000/addReview';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
+      response => {
+        console.log('Review successfully sent to backend:', response);
+      },
+      error => {
+        console.error('Error sending Review to backend:', error);
+      }
+    );
+  }
+
   starRating(score: number) {
     this.rating = score;
-    console.log("Rating: ", this.rating)
+    console.log("Rating: ", this.rating);
+
+    const MovieRating: Rating = {user_id: this.userId, movie_id: this.movieId, movie_rating: this.rating};
+
+    console.log(MovieRating)
+
+    this.setRating(MovieRating);
+    
   }
 
   showStar(id:number){
@@ -111,6 +165,8 @@ export class MovieInfoComponent implements OnInit{
     this.disableSave = true;
     this.disableCancel = true;
     this.disableText = true;
+    const movieReview: Review = {user_id: this.userId, movie_id: this.movieId, movie_review: this.movieReview};
+    this.setReview(movieReview);
   }
 
   revertReview(){
