@@ -44,6 +44,12 @@ interface Rating {
   movie_rating: number;
 }
 
+interface UserMovieStats {
+  user_id: string;
+  movie_id: number;
+}
+
+
 @Component({
   selector: 'app-movie-info',
   standalone: true,
@@ -68,6 +74,7 @@ export class MovieInfoComponent implements OnInit{
   disableCancel: boolean = true;
   disableText: boolean = true;
   userId: string = "";
+  JSONRating: any = [];
 
   constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService) {}
 
@@ -82,7 +89,11 @@ export class MovieInfoComponent implements OnInit{
     this.auth.user$.subscribe(user => {
       if (user && user.sub) {
         this.userId = user.sub;
-        console.log('User ID:', this.userId);
+        // console.log('User ID:', this.userId);
+        this.getRating();
+        console.log("Rating Finished");
+        this.getReview();
+        console.log("Review Finished");
       }
     });
   }
@@ -90,11 +101,11 @@ export class MovieInfoComponent implements OnInit{
   getMovie() {
     this.http.get<TMDbResponse>(`http://127.0.0.1:5000/movie?id=${this.movieId}`)
     .subscribe(response => {
-       console.log("Title is: " + response.title);
+       /* console.log("Title is: " + response.title);
        console.log("Date is: " + response.release_date);
        console.log("Overview is: " + response.overview);
        console.log("Poster is: " + response.poster_path);
-       console.log("Genres are: " + response.genres);
+       console.log("Genres are: " + response.genres); */
        this.movieTitle = response.title;
        this.movieDate = response.release_date;
        this.movieOverview = response.overview;
@@ -116,6 +127,23 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+  getRating(): void {
+    const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
+    const apiUrl = 'http://localhost:5000/getRating';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(userMovie) , {'headers': headers}).subscribe(
+      (response) => {
+        console.log("This is the response:", response);
+        console.log('Rating successfully sent to backend:', response);
+        const RateResponse: Rating = <Rating><unknown>response;
+        this.rating = RateResponse.movie_rating;
+      },
+      error => {
+        console.error('Error sending Rating to backend:', error);
+      }
+    );
+  }
+
   setReview(review: Review): void {
     const apiUrl = 'http://localhost:5000/addReview';
     const headers = { 'Content-Type': 'application/json'}; 
@@ -125,6 +153,23 @@ export class MovieInfoComponent implements OnInit{
       },
       error => {
         console.error('Error sending Review to backend:', error);
+      }
+    );
+  }
+
+  getReview(): void {
+    const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
+    const apiUrl = 'http://localhost:5000/getReview';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(userMovie) , {'headers': headers}).subscribe(
+      (response) => {
+        console.log("This is the response:", response);
+        console.log('Review successfully sent to backend:', response);
+        const RateResponse: Review = <Review><unknown>response;
+        this.movieReview = RateResponse.movie_review;
+      },
+      error => {
+        console.error('Error sending Rating to backend:', error);
       }
     );
   }
@@ -165,8 +210,17 @@ export class MovieInfoComponent implements OnInit{
     this.disableSave = true;
     this.disableCancel = true;
     this.disableText = true;
-    const movieReview: Review = {user_id: this.userId, movie_id: this.movieId, movie_review: this.movieReview};
-    this.setReview(movieReview);
+    if(this.movieReview == "")
+    {
+      const movieReview: Review = {user_id: this.userId, movie_id: this.movieId, movie_review: ""};
+      this.setReview(movieReview);
+    }
+    else
+    {
+      const movieReview: Review = {user_id: this.userId, movie_id: this.movieId, movie_review: this.movieReview};
+      this.setReview(movieReview);
+    }
+    
   }
 
   revertReview(){

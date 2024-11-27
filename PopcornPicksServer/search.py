@@ -6,7 +6,7 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user,add_rating, add_review
+from app import add_user,add_rating, add_review, get_rating, get_review
 
 load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
@@ -52,6 +52,20 @@ def addRating():
 def addReview():
     print("Add Review being accessed\n")
     response = add_review()
+    print(response)
+    return response
+
+@search.route('/getRating', methods=['POST'])
+def getRating():
+    print("Get Rating being accessed\n")
+    response = get_rating()
+    print(response)
+    return response
+
+@search.route('/getReview', methods=['POST'])
+def getReview():
+    print("Get Review being accessed\n")
+    response = get_review()
     print(response)
     return response
 

@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy, session
 from flask.templating import render_template
-from sqlalchemy import ForeignKey, create_engine
+from sqlalchemy import ForeignKey, create_engine, select
 from dataclasses import dataclass
 from flask_migrate import Migrate
 from flask_cors import CORS
@@ -88,8 +88,6 @@ def add_rating():
             User_Reviews.movie_id==movie_id
             )
 
-        if not user_rating:
-            return jsonify({"error": "Rating is required"}), 400
 
         if(db.session.query(q.exists()).scalar()):
             db.session.query(User_Reviews).filter(
@@ -103,6 +101,19 @@ def add_rating():
             db.session.commit()
     
     return jsonify({"status": "success", "movie_rating": user_rating}), 200
+
+#Gets rating based on user_id and movie_id in User_Reviews table.
+@app.route('/get-rating', methods=['POST'])
+def get_rating():
+    print("Get Rating DB being accessed.")
+    data = request.get_json()
+    user_id = data.get('user_id')
+    movie_id = data.get('movie_id')
+    
+    with app.app_context():
+        q = db.session.get(User_Reviews, (user_id, movie_id)).movie_rating
+    
+    return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_rating": q}), 200
 
 #Adds Review based on user_id and movie_id to db. If a review already exists, then
 #the review gets updated.
@@ -120,8 +131,6 @@ def add_review():
             User_Reviews.movie_id==movie_id
             )
 
-        if not user_review:
-            return jsonify({"error": "Rating is required"}), 400
 
         if(db.session.query(q.exists()).scalar()):
             db.session.query(User_Reviews).filter(
@@ -136,6 +145,18 @@ def add_review():
     
     return jsonify({"status": "success", "movie_review": user_review}), 200
 
+#Gets review based on user_id and movie_id in User_Reviews table.
+@app.route('/get-review', methods=['POST'])
+def get_review():
+    print("Get Review DB being accessed.")
+    data = request.get_json()
+    user_id = data.get('user_id')
+    movie_id = data.get('movie_id')
+    
+    with app.app_context():
+        q = db.session.get(User_Reviews, (user_id, movie_id)).movie_review
+    
+    return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": q}), 200
 
 if __name__ == '__main__':
     app.run(debug=False)
