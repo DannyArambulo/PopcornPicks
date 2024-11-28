@@ -49,6 +49,12 @@ interface UserMovieStats {
   movie_id: number;
 }
 
+interface WatchHistory {
+  user_id: string;
+  movie_id: number;
+  watch_date: string;
+  favorite: boolean;
+}
 
 @Component({
   selector: 'app-movie-info',
@@ -69,6 +75,7 @@ export class MovieInfoComponent implements OnInit{
   movieReview: string = "";
   movieReviewTemp: string = "";
   movieGenres: string[] = [];
+  watchDate: string = "";
   disableEdit: boolean = false;
   disableSave: boolean = true;
   disableCancel: boolean = true;
@@ -170,6 +177,23 @@ export class MovieInfoComponent implements OnInit{
       },
       error => {
         console.error('Error sending Rating to backend:', error);
+      }
+    );
+  }
+
+  addToWatchHistory(): void {
+    const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
+    const apiUrl = 'http://localhost:5000/addWatchHistory';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
+      (response) => {
+        console.log("This is the response:", response);
+        console.log('Watch History successfully sent to backend:', response);
+        const WatchHistoryResponse: WatchHistory = <WatchHistory><unknown>response;
+        this.watchDate = WatchHistoryResponse.watch_date;
+      },
+      error => {
+        console.error('Error sending Watch History to backend:', error);
       }
     );
   }
