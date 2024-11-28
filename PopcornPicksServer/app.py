@@ -5,6 +5,7 @@ from sqlalchemy import ForeignKey, create_engine, select
 from dataclasses import dataclass
 from flask_migrate import Migrate
 from flask_cors import CORS
+import datetime
 
 app = Flask(__name__)
 app.debug = True
@@ -157,6 +158,35 @@ def get_review():
         q = db.session.get(User_Reviews, (user_id, movie_id)).movie_review
     
     return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": q}), 200
+
+#Adds movie to watch history based on user_id and movie_id
+@app.route('/add-watch-history', methods=['POST'])
+def add_watch_history():
+    print("Add Watch History DB being accessed.")
+    data = request.get_json()
+    user_id = data.get('user_id')
+    movie_id = data.get('movie_id')
+    watch_date = data.get('watch_date') or datetime.date.today()
+    favorite = bool(data.get('favorite', False))
+
+    with app.app_context():
+        q = db.session.query(User_Watch_History).filter(
+            User_Watch_History.user_id==user_id,
+            User_Watch_History.movie_id==movie_id
+            )
+
+        if(db.session.query(q.exists()).scalar()):
+            db.session.query(User_Watch_History).filter(
+            User_Watch_History.user_id==user_id,
+            User_Watch_History.movie_id==movie_id
+            ).update({'watch_date': watch_date})
+            db.session.commit()
+        else:
+            new_entry = User_Watch_History(user_id=user_id, movie_id=movie_id, watch_date=watch_date, favorite=False)
+            db.session.add(new_entry)
+            db.session.commit()
+
+        return jsonify({"status": "success", "watch_date": watch_date}), 200
 
 if __name__ == '__main__':
     app.run(debug=False)
