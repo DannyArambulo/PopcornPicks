@@ -1,4 +1,28 @@
+.SetupCard
+{
+  width: 600px;
+  height: 400px;
+  align-content: center;
+  vertical-align: center;
+  margin:auto;
+  padding-top: 100px;
+}
+
+.GenreCheck
+{
+  align-content: center;
+  padding: 20px;
+  margin:auto;
+}
+
 mat-checkbox
 {
+  margin:auto;
+  padding: 10px 0px 10px 10px;
+}
+
+mat-label
+{
+  padding:10px;
   margin:auto;
 }

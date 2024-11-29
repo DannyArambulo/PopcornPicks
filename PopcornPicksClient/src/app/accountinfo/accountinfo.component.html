@@ -4,7 +4,7 @@
         <mat-card-content>
             <mat-form-field class="Name">
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="John Doe" value="{{user.name}}" disabled>
+                <input matInput placeholder="John Doe" value="{{user.name}}" [disabled]=disableCheckbox >
               </mat-form-field>
             
               <br>
@@ -12,7 +12,7 @@
 
               <mat-form-field class="Email">
                 <mat-label>Email</mat-label>
-                <input matInput placeholder="johndoe@example.com" value="{{user.email}}" disabled>
+                <input matInput placeholder="johndoe@example.com" value="{{user.email}}" [disabled]=disableCheckbox >
               </mat-form-field>
 
               <br>
@@ -20,26 +20,39 @@
 
               <!-- <mat-form-field class="Password">
                 <mat-label>Password</mat-label>
-                <input matInput placeholder="****************" value="***************" disabled>
+                <input matInput placeholder="****************" value="***************" [disabled]=disableCheckbox >
               </mat-form-field>
 
               <br>
               <br> -->
 
-                <mat-label>Favorite Movie Genres</mat-label>
+                <mat-label><strong>Favorite Movie Genres</strong></mat-label>
                 <br>
-                <mat-checkbox id="Action" disabled checked>Action</mat-checkbox>
-                <mat-checkbox id="Comedy" disabled checked>Comedy</mat-checkbox> <br>
-                <mat-checkbox id="Romance" disabled>Romance</mat-checkbox>
-                <mat-checkbox id="Horror" disabled>Horror</mat-checkbox> <br>
-                <mat-checkbox id="Sci-Fi" disabled>Sci-Fi</mat-checkbox> 
+                <mat-checkbox id="28" value="28" [disabled]=disableCheckbox checked="false">Action</mat-checkbox>
+                <mat-checkbox id="35" value="35" [disabled]=disableCheckbox checked="false">Comedy</mat-checkbox> 
+                <mat-checkbox id="10749" value="10749" [disabled]=disableCheckbox checked="false">Romance</mat-checkbox><br>
+                <mat-checkbox id="27" value="27" [disabled]=disableCheckbox checked="false">Horror</mat-checkbox> 
+                <mat-checkbox id="878" value="878" [disabled]=disableCheckbox checked="false">Science Fiction</mat-checkbox>
+                <mat-checkbox id="12" value="12" [disabled]=disableCheckbox checked="false">Adventure</mat-checkbox><br>
+                <mat-checkbox id="16" value="16" [disabled]=disableCheckbox  checked="false">Animation</mat-checkbox>
+                <mat-checkbox id="80" value="80" [disabled]=disableCheckbox checked="false">Crime</mat-checkbox>
+                <mat-checkbox id="99" value="99" [disabled]=disableCheckbox checked="false">Documentary</mat-checkbox> <br>
+                <mat-checkbox id="18" value="18" [disabled]=disableCheckbox checked="false">Drama</mat-checkbox> 
+                <mat-checkbox id="10751" value="10751" [disabled]=disableCheckbox checked="false">Family</mat-checkbox>
+                <mat-checkbox id="14" value="14" [disabled]=disableCheckbox checked="false">Fantasy</mat-checkbox> <br>
+                <mat-checkbox id="36" value="36" [disabled]=disableCheckbox checked="false">History</mat-checkbox>
+                <mat-checkbox id="10402" value="10402" [disabled]=disableCheckbox checked="false">Music</mat-checkbox>
+                <mat-checkbox id="9648" value="9648" [disabled]=disableCheckbox checked="false">Mystery</mat-checkbox> <br>
+                <mat-checkbox id="10770" value="10770" [disabled]=disableCheckbox checked="false">TV Movie</mat-checkbox>
+                <mat-checkbox id="53" value="53" [disabled]=disableCheckbox checked="false">Thriller</mat-checkbox> 
+                <mat-checkbox id="10752" value="10752" [disabled]=disableCheckbox checked="false">War</mat-checkbox>
+                <mat-checkbox id="37" value="37" [disabled]=disableCheckbox checked="false">Western</mat-checkbox><br>
 
               <br>
               <br>
 
-              <button mat-raised-button onclick=toggleEdit()>
-                Edit
-              </button>
+              <button mat-raised-button onclick=toggleEdit() [disabled]=disableEdit (click)="editProfile()">Edit</button>
+              <button mat-raised-button type="button" id="saveReview" (click)="subProfile()" [disabled]=disableSave>Save</button>
 
               <a routerLink="/forgotpasswordcomponent"  mat-raised-button class="changePass">
                 Change Password

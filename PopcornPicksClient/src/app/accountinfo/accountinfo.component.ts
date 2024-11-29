@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit  } from '@angular/core';
 import {MatCardModule} from "@angular/material/card";
 import {MatFormField} from '@angular/material/form-field';
 import {MatLabel} from '@angular/material/form-field';
@@ -21,10 +21,35 @@ import { AuthClientConfig } from '@auth0/auth0-angular';
   templateUrl: './accountinfo.component.html',
   styleUrl: './accountinfo.component.css'
 })
-export class AccountinfoComponent {
+export class AccountinfoComponent implements OnInit{
 
   private auth = inject(AuthService);
   user$ = this.auth.user$;
 
+  disableEdit: boolean = false;
+  disableSave: boolean = true;
+  disableCheckbox: boolean = true;
+  userId: string = ""
+
+  ngOnInit() {
+    this.auth.user$.subscribe(user => {
+      if (user && user.sub) {
+        this.userId = user.sub;
+        //console.log('User ID:', this.userId);
+      }
+    });
+  }
+
+  editProfile(){
+    this.disableEdit = true;
+    this.disableSave = false;
+    this.disableCheckbox = false;
+  }
+
+  subProfile(){
+    this.disableEdit = false;
+    this.disableSave = true;
+    this.disableCheckbox = true;
+  }
 
 }
