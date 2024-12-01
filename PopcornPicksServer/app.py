@@ -188,5 +188,25 @@ def add_watch_history():
 
         return jsonify({"status": "success", "watch_date": watch_date}), 200
 
+@app.route('/get-watch-history', methods=['POST'])
+def get_watch_history():
+    print("Fetching watch history from the database.")
+    data = request.get_json()
+    user_id = data.get('user_id')
+
+    with app.app_context():
+        watch_history = db.session.query(User_Watch_History).filter_by(user_id=user_id).all()
+
+        history = [
+            {
+                "movie_id": record.movie_id,
+                "watch_date": record.watch_date,
+                "favorite": record.favorite
+            }
+            for record in watch_history
+        ]
+
+        return jsonify({"user_id": user_id, "watch_history": history}), 200
+        
 if __name__ == '__main__':
     app.run(debug=False)
