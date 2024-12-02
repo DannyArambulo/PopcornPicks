@@ -207,6 +207,6 @@ def get_watch_history():
         ]
 
         return jsonify({"user_id": user_id, "watch_history": history}), 200
-        
+
 if __name__ == '__main__':
     app.run(debug=False)
