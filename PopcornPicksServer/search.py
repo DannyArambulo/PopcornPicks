@@ -6,7 +6,7 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history
+from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite
 
 load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
@@ -80,6 +80,13 @@ def addWatchHistory():
 def getWatchHistory():
     print("Get Watch History being accessed\n")
     response = get_watch_history()
+    print(response)
+    return response
+
+@search.route('/updateFavorite', methods=['POST'])
+def updateFavorite():
+    print("Updating favorite status\n")
+    response = update_favorite()
     print(response)
     return response
 

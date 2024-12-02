@@ -52,26 +52,40 @@ export class HistoryComponent implements OnInit {
             this.watchHistory = response.watch_history;
             
             this.watchHistory.forEach(item => {
-              this.fetchMovieDetails(item.movie_id, item);
+              this.getMovieDetails(item.movie_id, item);
             });
           });
       }
     });
   }
 
-  fetchMovieDetails(movieId: number, item: WatchHistoryItem) {
-    console.log(`Fetching details for movie ID: ${movieId}`); 
-    const tmdbApiUrl = `https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}`;
+  getMovieDetails(movieId: number, item: WatchHistoryItem) {
+    const apiUrl = `http://127.0.0.1:5000/movie?id=${movieId}`;
 
-    this.http.get<any>(tmdbApiUrl).subscribe(movieDetails => {
-      console.log('Movie details fetched:', movieDetails);
-
+    this.http.get<any>(apiUrl).subscribe(movieDetails => {
       item.title = movieDetails.title;
-      item.poster_path = movieDetails.poster_path;
+      item.poster_path = `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`;
       item.overview = movieDetails.overview;
       item.release_date = movieDetails.release_date;
-    }, error => {
-      console.error('Error fetching movie details:', error);
+    });
+  }
+  
+
+  toggleFavorite(item: WatchHistoryItem) {
+    item.favorite = !item.favorite;
+    
+    const apiUrl = 'http://127.0.0.1:5000/updateFavorite';
+    this.auth.user$.subscribe(user => {
+      if (user && user.sub) {
+        const userId = user.sub;
+        this.http.post(apiUrl, {
+          user_id: userId,
+          movie_id: item.movie_id,
+          favorite: item.favorite
+        }).subscribe(response => {
+          console.log('Favorite status updated', response);
+        });
+      }
     });
   }
 
