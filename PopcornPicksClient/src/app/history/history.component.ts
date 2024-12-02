@@ -50,7 +50,12 @@ export class HistoryComponent implements OnInit {
         this.http.post<{ user_id: string; watch_history: WatchHistoryItem[] }>(apiUrl, { user_id: userId })
           .subscribe(response => {
             this.watchHistory = response.watch_history;
-            
+            // Sorts watch history by watch date (descending)
+            this.watchHistory.sort((a, b) => {
+              const dateA = new Date(a.watch_date);
+              const dateB = new Date(b.watch_date);
+              return dateB.getTime() - dateA.getTime();
+            });
             this.watchHistory.forEach(item => {
               this.getMovieDetails(item.movie_id, item);
             });

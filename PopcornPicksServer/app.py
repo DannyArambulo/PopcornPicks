@@ -205,8 +205,24 @@ def get_watch_history():
             }
             for record in watch_history
         ]
-
         return jsonify({"user_id": user_id, "watch_history": history}), 200
+
+
+@app.route('/updateFavorite', methods=['POST'])
+def update_favorite():
+    data = request.get_json()
+    user_id = data.get('user_id')
+    movie_id = data.get('movie_id')
+    favorite = data.get('favorite')
+
+    with app.app_context():
+        record = db.session.query(User_Watch_History).filter_by(user_id=user_id, movie_id=movie_id).first()
+        if record:
+            record.favorite = favorite
+            db.session.commit()
+            return jsonify({"message": "Favorite status updated"}), 200
+        else:
+            return jsonify({"message": "Record not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=False)
