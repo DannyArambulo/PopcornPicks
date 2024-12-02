@@ -1,66 +1,48 @@
-.history {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
+h2 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: white;
 }
-
-h1 {
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: rgb(217, 194, 20); 
-}
-
 p {
   color: black;
 }
 
-.mat-form-field {
+mat-card {
   width: 100%;
-  margin-bottom: 20px;
-}
-
-.movie-card {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
-  transition: transform 0.2s ease-in-out;
-}
-
-.movie-card:hover {
-  transform: scale(1.02); 
-}
-
-.movie-card img {
-  height: 150px;
-  width: auto;
-  border-radius: 8px;
-  margin-right: 15px;
-}
-
-.movie-card mat-card-content {
-  flex-grow: 1;
-}
-
-.movie-card p {
-  margin: 5px 0;
-  font-size: 1.1rem;
-}
-
-.mat-icon-button {
-  color: #f44336; 
-  transition: color 0.2s ease-in-out;
-}
-
-.mat-icon-button:hover {
-  color: #d32f2f; 
-}
-
-.empty-history {
+  max-width: 200px;
   text-align: center;
-  font-size: 1.2rem;
-  color: #999; 
+}
+
+mat-card-title {
+  color: #1976d2;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.watch-history {
+  margin: 20px;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 50px;
+  color: #757575;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.movie-item {
+  display: flex;
+  justify-content: center;
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.movie-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
 }
