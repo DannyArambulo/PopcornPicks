@@ -1,103 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { AuthService } from '@auth0/auth0-angular';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-interface WatchHistoryItem {
-  movie_id: number;
-  watch_date: string;
-  favorite: boolean;
-  title: string;
-  poster_path: string;
-  overview: string;
-  release_date: string;
-}
+import { WatchHistoryService, WatchHistoryItem } from '../watch-history/watch-history.service';
 
 @Component({
   selector: 'app-history',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, MatCheckboxModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './history.component.html',
-  styleUrl: './history.component.css'
+  styleUrls: ['./history.component.css'],
+  standalone: true,
+  imports: [ CommonModule, MatCardModule, MatFormField, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, RouterLink]
 })
 export class HistoryComponent implements OnInit {
   watchHistory: WatchHistoryItem[] = [];
   filter: string = 'all';
 
+  constructor(private route: ActivatedRoute, private watchHistoryService: WatchHistoryService) {}
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, private auth: AuthService) {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.filter = params['filter'] || 'all';
+    });
 
-  ngOnInit() {
-    this.loadWatchHistory();
-  }
-
-  loadWatchHistory() {
-    this.auth.user$.subscribe(user => {
-      if (user && user.sub) {
-        const userId = user.sub;
-        const apiUrl = 'http://127.0.0.1:5000/getWatchHistory';
-
-        this.http.post<{ user_id: string; watch_history: WatchHistoryItem[] }>(apiUrl, { user_id: userId })
-          .subscribe(response => {
-            this.watchHistory = response.watch_history;
-            // Sorts watch history by watch date (descending)
-            this.watchHistory.sort((a, b) => {
-              const dateA = new Date(a.watch_date);
-              const dateB = new Date(b.watch_date);
-              return dateB.getTime() - dateA.getTime();
-            });
-            this.watchHistory.forEach(item => {
-              this.getMovieDetails(item.movie_id, item);
-            });
-          });
-      }
+    this.watchHistoryService.loadWatchHistory();
+    this.watchHistoryService.getWatchHistory().subscribe((history) => {
+      this.watchHistory = history;
     });
   }
 
-  getMovieDetails(movieId: number, item: WatchHistoryItem) {
-    const apiUrl = `http://127.0.0.1:5000/movie?id=${movieId}`;
-
-    this.http.get<any>(apiUrl).subscribe(movieDetails => {
-      item.title = movieDetails.title;
-      item.poster_path = `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`;
-      item.overview = movieDetails.overview;
-      item.release_date = movieDetails.release_date;
-    });
-  }
-  
-
-  toggleFavorite(item: WatchHistoryItem) {
-    item.favorite = !item.favorite;
-    
-    const apiUrl = 'http://127.0.0.1:5000/updateFavorite';
-    this.auth.user$.subscribe(user => {
-      if (user && user.sub) {
-        const userId = user.sub;
-        this.http.post(apiUrl, {
-          user_id: userId,
-          movie_id: item.movie_id,
-          favorite: item.favorite
-        }).subscribe(response => {
-          console.log('Favorite status updated', response);
-        });
-      }
-    });
-  }
-
-  filteredWatchHistory() {
+  filteredWatchHistory(): WatchHistoryItem[] {
     if (this.filter === 'favorites') {
-      return this.watchHistory.filter(item => item.favorite);
+      return this.watchHistory.filter((item) => item.favorite);
     }
     return this.watchHistory;
+  }
+
+  toggleFavorite(item: WatchHistoryItem): void {
+    this.watchHistoryService.toggleFavorite(item);
   }
 }
