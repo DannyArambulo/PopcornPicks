@@ -155,10 +155,11 @@ def get_review():
     movie_id = data.get('movie_id')
     
     with app.app_context():
-        q = db.session.get(User_Reviews, (user_id, movie_id)).movie_review
-    
-    return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": q}), 200
-
+        if(db.session.get(User_Reviews, (user_id, movie_id)).movie_review is None):
+            return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": ""}), 200
+        else:
+            q = db.session.get(User_Reviews, (user_id, movie_id)).movie_review
+            return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": q}), 200
 def add_genres():
     print("Add Genre DB being accessed.")
     data = request.get_json()

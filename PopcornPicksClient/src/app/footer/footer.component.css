@@ -8,6 +8,7 @@ mat-toolbar
 .tmdb
 {
   text-decoration: none;
+  vertical-align: middle;
 }
 
 .flexExpand {
@@ -28,6 +29,7 @@ mat-toolbar
 
 p
 {
+  vertical-align: left;
     color:black;
 }
 
