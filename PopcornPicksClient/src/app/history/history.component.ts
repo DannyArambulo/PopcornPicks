@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -26,7 +26,7 @@ interface WatchHistoryItem {
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, MatCheckboxModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './history.component.html',
   styleUrl: './history.component.css'
 })
@@ -35,7 +35,7 @@ export class HistoryComponent implements OnInit {
   filter: string = 'all';
 
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, private auth: AuthService) {}
 
   ngOnInit() {
     this.loadWatchHistory();
