@@ -40,7 +40,8 @@ export class HistoryComponent implements OnInit {
     return this.watchHistory;
   }
 
-  toggleFavorite(item: WatchHistoryItem): void {
+  toggleFavorite(event: MouseEvent, item: WatchHistoryItem): void {
+    event.stopPropagation();
     this.watchHistoryService.toggleFavorite(item);
   }
 }
