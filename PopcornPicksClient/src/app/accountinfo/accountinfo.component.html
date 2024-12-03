@@ -1,14 +1,7 @@
 <div class = "infoArea" *ngIf="user$ | async as user">
-    <mat-card appearance="outlined">
-        <mat-card-header><mat-label><h1>Account Information</h1></mat-label></mat-card-header>
+    <mat-card class="accInfo" appearance="outlined">
+        <mat-card-header><mat-label><h3>Account Information</h3></mat-label></mat-card-header>
         <mat-card-content>
-            <mat-form-field class="Name">
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="John Doe" value="{{user.name}}" [disabled]=disableCheckbox >
-              </mat-form-field>
-            
-              <br>
-              <br>
 
               <mat-form-field class="Email">
                 <mat-label>Email</mat-label>
