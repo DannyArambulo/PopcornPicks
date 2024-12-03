@@ -1,40 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common'
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { RouterModule, Router } from '@angular/router';
+import { WatchHistoryService, WatchHistoryItem } from '../watch-history/watch-history.service';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  welcomeMessage = 'Welcome to PopcornPicks!';
-  // Replace with real user data later
-  username = '';
+export class HomeComponent implements OnInit {
+  mostRecentFavorites: WatchHistoryItem[] = [];
+  mostRecentWatched: WatchHistoryItem[] = [];
 
-  // Placeholder data for favorites (replace with real data later)
-  favorites = [
-    { title: 'Interstellar' },
-    { title: 'The Dark Knight' },
-    { title: 'Inception' },
-    { title: 'Parasite' },
-    { title: 'The Matrix' },
-    { title: 'The Lord of the Rings' },
-    { title: 'Shrek' },
-  ];
+  constructor(private watchHistoryService: WatchHistoryService, private router: Router) {}
 
-  // Placeholder data for last watched movie (also replaced with real data later)
-  lastWatched = {
-    title: 'Interstellar',
-    rating: 5,
-    date: '2024-10-13',
-  };
-
-  constructor(private router: Router) {}
+  ngOnInit(): void {
+    this.watchHistoryService.loadWatchHistory();
+    this.watchHistoryService.getWatchHistory().subscribe((history) => {
+      this.mostRecentWatched = history.slice(0, 5);
+      this.mostRecentFavorites = history.filter((item) => item.favorite).slice(0, 5);
+    });
+  }
 
   // Navigation for 'See All' buttons
   viewFavorites() {
