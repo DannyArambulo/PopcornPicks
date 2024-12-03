@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.watchHistoryService.loadWatchHistory();
     this.watchHistoryService.getWatchHistory().subscribe((history) => {
-      this.mostRecentWatched = history.slice(0, 5);
+      this.mostRecentWatched = history.slice(0, 10);
       this.mostRecentFavorites = history.filter((item) => item.favorite).slice(0, 5);
     });
   }
