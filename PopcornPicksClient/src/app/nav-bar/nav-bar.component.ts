@@ -49,4 +49,11 @@ export class NavBarComponent {
         return false;
     }
 
+    registerAccount(){
+      this.auth.loginWithRedirect({ 
+        authorizationParams: {
+            screen_hint: 'signup',
+          }});
+    }
+
 }
