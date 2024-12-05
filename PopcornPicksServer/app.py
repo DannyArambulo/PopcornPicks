@@ -9,7 +9,7 @@ import datetime
 
 app = Flask(__name__)
 app.debug = True
-CORS(app, resources={r"/add_user/*": {"origins": "http://localhost:4200"}})
+CORS(app)
 
 #adds config for using a MySQL DB
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost:3306/popcornpicksdb'
@@ -24,6 +24,7 @@ migrate = Migrate(app,db)
 @dataclass
 class Users(db.Model):
     user_id = db.Column(db.String(45), primary_key=True, unique=True, autoincrement=False)
+    firsttimesetup = db.Column(db.Boolean, unique=False, default=False)
     
 @dataclass
 class User_Info(db.Model):
@@ -71,6 +72,35 @@ def add_user():
             print("Insert has been committed for UserID: " + userId)
     
             return jsonify({"status": "success", "userId": userId}), 200
+        
+@app.route('/get-user', methods=['POST'])
+def get_user():
+    print("Get User DB being accessed.")
+    data = request.get_data()
+    user_id = data.decode("utf-8")
+    
+    with app.app_context():
+        q = db.session.get(Users, (user_id)).firsttimesetup
+    
+    return jsonify({"user_id": user_id, "firsttimesetup": q}), 200
+
+@app.route('/set-user', methods=['POST'])
+def set_user():
+    print("Set User DB being accessed.")
+    data = request.get_json()
+    print(data)
+    user_id = data.get('user_id')
+    firsttimesetup = data.get('firsttimesetup')
+    print("GOT DATA")
+    
+    with app.app_context():
+        db.session.query(Users).filter(
+        Users.user_id==user_id,
+        ).update({'firsttimesetup': firsttimesetup})
+        db.session.commit()
+
+    
+    return jsonify({"status": "success", "firsttimesetup": firsttimesetup}), 200
 
 #Adds rating for movie based on user_id and movie_id to db. If a rating already exists, then
 #the rating gets updated.

@@ -8,6 +8,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+interface User{
+  user_id: string | null;
+  firsttimesetup: Number;
+}
+
 @Component({
   selector: 'app-auth-button',
   imports: [CommonModule, MatButtonModule, MatMenuModule],
@@ -28,6 +33,8 @@ import { Router } from '@angular/router';
 export class AuthbuttonComponent implements OnInit {
 
   userId: string | null = null;
+  resUser: User | null = null;
+  firsttimesetup: Number = 0;
 
   constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService, private http: HttpClient, private router: Router) {}
 
@@ -38,14 +45,16 @@ export class AuthbuttonComponent implements OnInit {
           console.log('User ID:', this.userId);
 
           if (this.userId && this.auth.isAuthenticated$) {
+            this.addUserId(this.userId);
+
             this.getUserId(this.userId);
-            this.router.navigate(['/homecomponent']);
+
           }
         }
       });
   }
 
-  getUserId(userId: string): void {
+  addUserId(userId: string): void {
     const apiUrl = 'http://localhost:5000/addUser';
     const headers = { 'content-type': 'text/plain'}; 
     this.http.post<String>(apiUrl, userId , {'headers': headers}).subscribe(
@@ -57,4 +66,50 @@ export class AuthbuttonComponent implements OnInit {
       }
     );
   }
+
+  getUserId(userID: string): void {
+    const apiUrl = 'http://localhost:5000/getUser';
+    const headers = { 'Content-Type': 'text/plain'}; 
+    this.http.post<JSON>(apiUrl, this.userId , {'headers': headers}).subscribe(
+      (response) => {
+        console.log("This is the response:", response);
+        console.log('Users successfully sent to backend:', response);
+        this.resUser = <User><unknown>response;
+        this.firsttimesetup = this.resUser.firsttimesetup
+
+        if(this.firsttimesetup == 0){
+          console.log("User has not performed first time setup");
+          this.firsttimesetup = 1;
+          const userSet: User = {user_id: this.userId, firsttimesetup: this.firsttimesetup};
+          console.log(JSON.stringify(userSet));
+          this.setUser(userSet);
+          this.router.navigate(['/firsttimesetupcomponent']);
+        }
+
+        else
+        {
+          this.router.navigate(['/homecomponent']);
+        }
+
+      },
+      error => {
+        console.error('Error sending Genres to backend:', error);
+      }
+    );
+  }
+
+  setUser(user: User): void {
+    const apiUrl = 'http://localhost:5000/setUser';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(user) , {'headers': headers}).subscribe(
+      response => {
+        console.log('firsttimesetup successfully sent to backend:', response);
+      },
+      error => {
+        console.error('Error sending firsttimesetup to backend:', error);
+      }
+    );
+  }
+
+
 }
