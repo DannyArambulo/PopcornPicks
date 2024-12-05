@@ -6,7 +6,7 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres
+from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user
 
 load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
@@ -38,6 +38,20 @@ def getMovie():
 def addUser():
     print("Add user being accessed\n")
     response = add_user()
+    print(response)
+    return response
+
+@search.route('/getUser', methods=['POST', 'OPTIONS'])
+def getUser():
+    print("Add user being accessed\n")
+    response = get_user()
+    print(response)
+    return response
+
+@search.route('/setUser', methods=['POST'])
+def setUser():
+    print("Set user being accessed\n")
+    response = set_user()
     print(response)
     return response
 
