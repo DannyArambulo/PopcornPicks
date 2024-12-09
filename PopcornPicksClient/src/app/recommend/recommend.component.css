@@ -1,0 +1,18 @@
+p {
+    color: black;
+}
+
+.RecommendCard
+{
+    display: flex;
+    max-width: 1200px; 
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.instruct 
+{
+    padding: 10px;
+}

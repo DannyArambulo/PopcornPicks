@@ -11,6 +11,7 @@ import { SearchComponent } from './search/search.component';
 import { AccountinfoComponent } from './accountinfo/accountinfo.component';
 import { SearchResultsComponent } from './searchresults/searchresults.component';
 import { MovieInfoComponent } from './movie-info/movie-info.component';
+import { RecommendComponent } from './recommend/recommend.component';
 
 
 export const routes: Routes = [
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {path: 'accountinfocomponent', component: AccountinfoComponent }, 
   {path: 'searchresults', component: SearchResultsComponent },
   {path: 'movie', component: MovieInfoComponent}, 
+  {path: 'recommendcomponent', component: RecommendComponent},
   {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
 ];
 

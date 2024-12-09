@@ -6,7 +6,11 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user
+from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId
+
+import pandas as pd
+import pickle
+import random
 
 load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
@@ -117,6 +121,49 @@ def updateFavorite():
     response = update_favorite()
     print(response)
     return response
+
+def get_recommendations(imdb_id, count=5):
+    MovieReviewDatasetTMDB = pd.read_csv("../PopcornPicks Movie Recommender/tmdb_movies_data.csv")
+
+    with open('../PopcornPicks Movie Recommender/SimilarityTMDB.pickle', 'rb') as handle:
+        SimilarityTMDB = pickle.load(handle)
+
+    index = MovieReviewDatasetTMDB.index[MovieReviewDatasetTMDB['imdb_id'].str.lower() == imdb_id]
+    
+    if (len(index) == 0):
+        return []
+
+    similarities = list(enumerate(SimilarityTMDB[index[0]]))
+    
+    recommendations = sorted(similarities, key=lambda x: x[1], reverse=True)
+    
+    top_recs = recommendations[1:count + 1]
+
+    imdb_ids = []
+
+    for i in range(len(top_recs)):
+        imdb_id = MovieReviewDatasetTMDB.iloc[top_recs[i][0]]['imdb_id']
+        imdb_ids.append(imdb_id)
+
+    return imdb_ids[random.randint(0,count-1)]
+
+@search.route('/recMovie', methods=['POST'])
+def findRecMovie():
+    
+    
+    tmdb_id = getFavMovId() #this is also shrek; get a favorite movie from sql database
+
+    response = requests.get(f'https://api.themoviedb.org/3/movie/{tmdb_id}/external_ids?api_key={TMDB_API_KEY}')
+    print(response.text)
+    r = response.json()
+    user_imdb_id = r["imdb_id"]
+
+    reccomend = get_recommendations(user_imdb_id)
+    response = requests.get(f'https://api.themoviedb.org/3/find/{reccomend}?api_key={TMDB_API_KEY}&external_source=imdb_id')
+    print(response.text)
+    print("\n\n\nhello")
+
+    return jsonify(response.json())
 
 if __name__ == '__main__':
     search.run(debug=False)
