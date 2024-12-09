@@ -26,3 +26,13 @@ mat-label
   padding:10px;
   margin:auto;
 }
+
+p {
+  color: black;
+  align-content: center;
+}
+
+.recText{
+  align-content: center;
+  padding: 10px;
+}

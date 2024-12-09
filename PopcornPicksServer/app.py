@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from flask_migrate import Migrate
 from flask_cors import CORS
 import datetime
+from sqlalchemy.sql.expression import func
 
 app = Flask(__name__)
 app.debug = True
@@ -296,6 +297,15 @@ def update_favorite():
             return jsonify({"message": "Favorite status updated"}), 200
         else:
             return jsonify({"message": "Record not found"}), 404
+        
+def getFavMovId():
+    data = request.get_data()
+    user_id = data.decode("utf-8")
+    
+    with app.app_context():
+        favMovie = db.session.query(User_Watch_History).filter_by(user_id = user_id, favorite = 1).order_by(func.rand()).first()
+        
+        return favMovie.movie_id
 
 if __name__ == '__main__':
     app.run(debug=False)
