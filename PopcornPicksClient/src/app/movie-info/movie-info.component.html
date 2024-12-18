@@ -38,9 +38,11 @@
         <textarea matInput id="reviewText" [disabled]=disableText placeholder="Write a Review here!" [(ngModel)]="movieReview" name="movieReview"></textarea><br>
       </mat-form-field>
       <br>
+      <div class="reviewButtons">
       <button mat-raised-button type="button" id="startRev" (click)="activateRevEdit()" [disabled]=disableEdit>Edit</button>
         <button mat-raised-button type="button" id="saveReview" (click)="subReview()" [disabled]=disableSave>Save</button>
         <button mat-raised-button type="button" id="revertReview" (click)="revertReview()" [disabled]=disableCancel>Cancel</button>
+      </div>
     </form>
 
     </div>

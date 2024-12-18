@@ -1,6 +1,7 @@
 .movieInfoCard {
   display: flex;
     max-width: 1200px; 
+    max-height: fit-content;
     margin: auto;
     align-items: center;
     justify-content: center;
@@ -66,5 +67,17 @@
   
   .watch-history-button:hover {
     background-color: #e0e0e0;
+  }
+
+  .reviewButtons {
+    padding-bottom:30px;
+  }
+
+  #saveReview{
+    margin-left:20px;
+  }
+
+  #revertReview{
+    margin-left:20px;
   }
   
