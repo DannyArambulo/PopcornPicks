@@ -143,9 +143,16 @@ def get_rating():
     movie_id = data.get('movie_id')
     
     with app.app_context():
-        q = db.session.get(User_Reviews, (user_id, movie_id)).movie_rating
-    
-    return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_rating": q}), 200
+        q = db.session.query(User_Reviews.movie_rating).filter(
+            User_Reviews.user_id==user_id,
+            User_Reviews.movie_id==movie_id
+            )
+        if(db.session.query(q.exists()).scalar()):
+            q = db.session.get(User_Reviews, (user_id, movie_id)).movie_rating
+            return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_rating": q}), 200
+        else:
+            return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_rating": 0}), 200
+            
 
 #Adds Review based on user_id and movie_id to db. If a review already exists, then
 #the review gets updated.
@@ -186,11 +193,16 @@ def get_review():
     movie_id = data.get('movie_id')
     
     with app.app_context():
-        if(db.session.get(User_Reviews, (user_id, movie_id)).movie_review is None):
-            return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": ""}), 200
-        else:
+        q = db.session.query(User_Reviews.movie_review).filter(
+            User_Reviews.user_id==user_id,
+            User_Reviews.movie_id==movie_id
+            )
+        if(db.session.query(q.exists()).scalar()):
             q = db.session.get(User_Reviews, (user_id, movie_id)).movie_review
             return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": q}), 200
+        else:
+            return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": ""}), 200
+            
 def add_genres():
     print("Add Genre DB being accessed.")
     data = request.get_json()
@@ -280,6 +292,31 @@ def get_watch_history():
             for record in watch_history
         ]
         return jsonify({"user_id": user_id, "watch_history": history}), 200
+    
+#Checks if a Watch History entry exists based on a specific user and movie. If it does,
+#return a 1 (True) or 0 (False). This will be used to change the icon on the Movie Info page depending if the user
+#has seen the movie or not.
+@app.route('/watchHistoryExists', methods=['POST'])
+def watchHistoryExists():
+    print("Watch History DB being accessed to see if History.")
+    data = request.get_json()
+    user_id = data.get('user_id')
+    movie_id = data.get('movie_id')
+    
+    print("user_id: " + user_id)
+    print("Movie_ID: " + movie_id)
+    
+    with app.app_context():
+        q = db.session.query(User_Watch_History).filter(
+            User_Watch_History.user_id==user_id,
+            User_Watch_History.movie_id==movie_id
+            )
+
+
+        if(db.session.query(q.exists()).scalar()):
+            return "1"
+        else:
+            return "0"
 
 
 @app.route('/updateFavorite', methods=['POST'])
