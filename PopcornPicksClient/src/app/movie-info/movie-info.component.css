@@ -64,6 +64,26 @@
     background-color: #f5f5f5;
     border-radius: 50%;
   }
+
+  .check-watch-history-button
+  {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background-color: green;
+    border-radius: 50%;
+  }
+  .checkedWatchHistory{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    color: green;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    transform: scale(2);
+  }
   
   .watch-history-button:hover {
     background-color: #e0e0e0;
@@ -79,5 +99,13 @@
 
   #revertReview{
     margin-left:20px;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 40
   }
   

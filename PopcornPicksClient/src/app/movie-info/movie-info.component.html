@@ -1,9 +1,16 @@
 <div class="movieInfoCard">
 <mat-card appearance="outlined">
     <mat-card-header>
-      <button mat-icon-button (click)="addToWatchHistory()" class="watch-history-button" aria-label="Add to watch history">
-        <mat-icon>add</mat-icon>
-      </button>
+      <div *ngIf="wasWatched === 0">
+        <button mat-icon-button (click)="addToWatchHistory()" class="watch-history-button" aria-label="Add to watch history">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="wasWatched === 1">
+        <button mat-icon-button (click)="addToWatchHistory()" class="check-watch-history-button" aria-label="Add to watch history" [disabled]="true">
+          <mat-icon class="checkedWatchHistory">check_circle</mat-icon>
+        </button>
+      </div>
     </mat-card-header>
     <mat-card-content>
       

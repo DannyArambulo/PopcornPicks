@@ -6,7 +6,7 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId
+from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId, watchHistoryExists
 
 import pandas as pd
 import pickle
@@ -122,6 +122,13 @@ def updateFavorite():
     print(response)
     return response
 
+@search.route('/hasWatchHistory', methods=['POST'])
+def hasWatchHistory():
+    print("Entering Watch History Exists function")
+    response = watchHistoryExists()
+    print(response)
+    return response
+
 def get_recommendations(imdb_id, count=5):
     MovieReviewDatasetTMDB = pd.read_csv("../PopcornPicks Movie Recommender/tmdb_movies_data.csv")
 
@@ -151,7 +158,7 @@ def get_recommendations(imdb_id, count=5):
 def findRecMovie():
     
     
-    tmdb_id = getFavMovId() #this is also shrek; get a favorite movie from sql database
+    tmdb_id = getFavMovId() #Get a favorite movie from sql database
 
     response = requests.get(f'https://api.themoviedb.org/3/movie/{tmdb_id}/external_ids?api_key={TMDB_API_KEY}')
     print(response.text)

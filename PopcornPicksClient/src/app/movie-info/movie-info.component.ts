@@ -80,6 +80,7 @@ export class MovieInfoComponent implements OnInit{
   disableSave: boolean = true;
   disableCancel: boolean = true;
   disableText: boolean = true;
+  wasWatched: Number = 0;
   userId: string = "";
   JSONRating: any = [];
 
@@ -101,6 +102,8 @@ export class MovieInfoComponent implements OnInit{
         console.log("Rating Finished");
         this.getReview();
         console.log("Review Finished");
+        this.checkWatchHistory();
+        console.log("Watch History checked");
       }
     });
   }
@@ -191,12 +194,30 @@ export class MovieInfoComponent implements OnInit{
         console.log('Watch History successfully sent to backend:', response);
         const WatchHistoryResponse: WatchHistory = <WatchHistory><unknown>response;
         this.watchDate = WatchHistoryResponse.watch_date;
+        this.checkWatchHistory();
       },
       error => {
         console.error('Error sending Watch History to backend:', error);
       }
     );
   }
+
+  checkWatchHistory(): void {
+    const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
+    const apiUrl = 'http://localhost:5000/hasWatchHistory';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
+      (response) => {
+        console.log("This is the response:", response);
+        console.log('Watch History status sent to backend:', response);
+        this.wasWatched = <Number><unknown>response;
+      },
+      error => {
+        console.error('Error sending Watch History to backend:', error);
+      }
+    );
+  }
+
 
   starRating(score: number) {
     this.rating = score;
