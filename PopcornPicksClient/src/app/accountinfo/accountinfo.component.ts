@@ -3,19 +3,13 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormField} from '@angular/material/form-field';
 import {MatLabel} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {merge} from 'rxjs';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import { MatCardActions } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterOutlet, RouterLink } from '@angular/router';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { AppState, AuthService, User } from '@auth0/auth0-angular';
+import { AuthService} from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { AuthClientConfig } from '@auth0/auth0-angular';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface ResGenre{
   userGenres: string[];
@@ -29,12 +23,17 @@ interface UserGenre{
 @Component({
   selector: 'app-accountinfo',
   standalone: true,
-  imports: [MatCardModule, MatFormField,MatLabel,MatInputModule,MatCardActions,MatButtonModule,MatCheckbox,RouterLink,RouterOutlet,CommonModule],
+  imports: [MatCardModule, MatFormField,MatLabel,MatInputModule,MatButtonModule,MatCheckbox,CommonModule],
   templateUrl: './accountinfo.component.html',
   styleUrl: './accountinfo.component.css'
 })
 export class AccountinfoComponent implements OnInit{
-  constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient, 
+    private authConfig: AuthClientConfig,
+    private snackBar: MatSnackBar
+  ) {}
+
   auth = inject(AuthService);
   user$ = this.auth.user$;
 
@@ -57,6 +56,44 @@ export class AccountinfoComponent implements OnInit{
       this.getGenres();
     });
   }
+
+  changePassword(): void {
+    this.user$.subscribe(user => {
+      if (user && user.email) {
+        const domain = this.authConfig.get().domain;
+        const clientId = this.authConfig.get().clientId;
+        const resetPasswordUrl = `https://${domain}/dbconnections/change_password`;
+  
+        const payload = {
+          client_id: clientId,
+          email: user.email,
+          connection: 'Username-Password-Authentication'
+        };
+  
+        this.http.post(resetPasswordUrl, payload, { 
+          headers: { 'Content-Type': 'application/json' },
+          responseType: 'text' 
+        })
+          .subscribe(
+            (response) => {
+              console.log('Password reset email sent successfully:', response);
+              this.snackBar.open('A password reset email has been sent to your email.', 'Close', {
+                duration: 5000,
+              });
+            },
+            (error) => {
+              console.error('Error sending password reset email:', error);
+              this.snackBar.open('Failed to send password reset email. Please try again.', 'Close', {
+                duration: 5000,
+              });
+            }
+          );
+      } else {
+        console.error('User email not found');
+      }
+    });
+  }
+  
 
   getGenres(): void {
     this.genres = []
