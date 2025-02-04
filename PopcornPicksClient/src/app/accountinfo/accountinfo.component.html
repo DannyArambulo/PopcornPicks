@@ -47,7 +47,7 @@
               <button mat-raised-button onclick=toggleEdit() [disabled]=disableEdit (click)="editProfile()">Edit</button>
               <button mat-raised-button type="button" id="saveReview" (click)="subProfile()" [disabled]=disableSave>Save</button>
 
-              <a routerLink="/forgotpasswordcomponent"  mat-raised-button class="changePass">
+              <a mat-raised-button class="changePass" (click)="changePassword()">
                 Change Password
               </a>
         </mat-card-content>
