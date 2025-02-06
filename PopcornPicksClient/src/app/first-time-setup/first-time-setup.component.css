@@ -36,3 +36,7 @@ p {
   align-content: center;
   padding: 10px;
 }
+
+mat-raised-button {
+  width: 20px
+}

@@ -64,7 +64,7 @@ def add_user():
             return jsonify({"error": "User ID is required"}), 400
 
         if(db.session.query(q.exists()).scalar()):
-            return jsonify({"error": "User ID already exists"}), 400
+            return jsonify({"note": "User ID already exists"}), 200
         else:
             new_user = Users(user_id=userId)
             db.session.add(new_user)

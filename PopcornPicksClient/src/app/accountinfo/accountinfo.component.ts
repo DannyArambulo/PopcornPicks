@@ -40,6 +40,7 @@ export class AccountinfoComponent implements OnInit{
   disableEdit: boolean = false;
   disableSave: boolean = true;
   disableCheckbox: boolean = true;
+  disableResetPassword: boolean = true;
   userId: string = "";
   genres: string[] = [];
   genResponse: ResGenre = {userGenres: []};
@@ -51,9 +52,9 @@ export class AccountinfoComponent implements OnInit{
       if (user && user.sub) {
         this.userId = user.sub;
         //console.log('User ID:', this.userId);
+        this.enablePassChange();
       }
 
-      this.getGenres();
     });
   }
 
@@ -95,7 +96,7 @@ export class AccountinfoComponent implements OnInit{
   }
   
 
-  getGenres(): void {
+/*   getGenres(): void {
     this.genres = []
     const apiUrl = 'http://localhost:5000/getGenre';
     const headers = { 'Content-Type': 'text/plain'}; 
@@ -111,7 +112,7 @@ export class AccountinfoComponent implements OnInit{
         console.error('Error sending Genres to backend:', error);
       }
     );
-  }
+  } */
 
   setChecks(inputGenres: string[]): void {
     console.log("The input Genres are:")
@@ -159,6 +160,19 @@ export class AccountinfoComponent implements OnInit{
     this.disableEdit = true;
     this.disableSave = false;
     this.disableCheckbox = false;
+  }
+
+  enablePassChange()
+  {
+    if (this.userId.startsWith("auth0"))
+    {
+      this.disableResetPassword = false;
+    }
+
+    else
+    {
+      this.disableResetPassword = true;
+    }
   }
 
   subProfile(){
