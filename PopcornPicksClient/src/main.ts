@@ -2,6 +2,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { LoadingInterceptor } from './app/interceptors/loader.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [appConfig.providers,
@@ -12,6 +14,12 @@ bootstrapApplication(AppComponent, {
         redirect_uri: window.location.origin
       }
     }),
-  ]
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
+  ],
 });
 

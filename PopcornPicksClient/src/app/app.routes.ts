@@ -10,6 +10,7 @@ import { AccountinfoComponent } from './accountinfo/accountinfo.component';
 import { SearchResultsComponent } from './searchresults/searchresults.component';
 import { MovieInfoComponent } from './movie-info/movie-info.component';
 import { RecommendComponent } from './recommend/recommend.component';
+import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component';
 
 
 export const routes: Routes = [
@@ -27,7 +28,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes), WelcomeComponent],
+  imports: [RouterModule.forRoot(routes), WelcomeComponent, LoadingscreenComponent],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

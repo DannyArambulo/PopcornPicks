@@ -19,7 +19,7 @@
               <br>
               <br> -->
 
-                <mat-label><strong>Favorite Movie Genres</strong></mat-label>
+<!--                 <mat-label><strong>Favorite Movie Genres</strong></mat-label>
                 <br>
                 <mat-checkbox id="28" value="28" [disabled]=disableCheckbox checked="false">Action</mat-checkbox>
                 <mat-checkbox id="35" value="35" [disabled]=disableCheckbox checked="false">Comedy</mat-checkbox> 
@@ -45,9 +45,9 @@
               <br>
 
               <button mat-raised-button onclick=toggleEdit() [disabled]=disableEdit (click)="editProfile()">Edit</button>
-              <button mat-raised-button type="button" id="saveReview" (click)="subProfile()" [disabled]=disableSave>Save</button>
+              <button mat-raised-button type="button" id="saveReview" (click)="subProfile()" [disabled]=disableSave>Save</button> -->
 
-              <a mat-raised-button class="changePass" (click)="changePassword()">
+              <a mat-raised-button class="changePass" (click)="changePassword()" [disabled]= disableResetPassword>
                 Change Password
               </a>
         </mat-card-content>
