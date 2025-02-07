@@ -7,6 +7,7 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
 
 interface User{
   user_id: string | null;
@@ -15,16 +16,16 @@ interface User{
 
 @Component({
   selector: 'app-auth-button',
-  imports: [CommonModule, MatButtonModule, MatMenuModule],
+  imports: [CommonModule, MatButtonModule, MatMenuModule, MatIcon],
   template: `
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
       <button mat-menu-item color="warn" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
-        Log out
+      <mat-icon>logout</mat-icon>Log out
       </button>
     </ng-container>
 
     <ng-template #loggedOut>
-      <button mat-raised-button color="primary" (click)="auth.loginWithRedirect()">Log in</button>
+      <button mat-raised-button color="primary" (click)="auth.loginWithRedirect()"><mat-icon>login</mat-icon>Log in</button>
     </ng-template>
   `,
   standalone: true

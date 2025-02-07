@@ -1,11 +1,27 @@
+#navbar 
+{
+  padding: 20px;
+}
+
+.home
+{
+  transform: scale(1, 1);
+
+}
+
+mat-icon
+{
+  color:black;
+}
+
 mat-toolbar
 {
-  background-color:rgb(217, 194, 20);
+  background-color:transparent;
 }
 
 .example-spacer 
 {
-    flex: 1 1 auto;
+    flex: .65 1 auto;
 }
 
 .searchBar 
@@ -14,7 +30,7 @@ mat-toolbar
   visibility: hidden;
   width: 0;
   height: 0;
-  flex: auto;
+  flex: auto;  
 }
 
 .searchArea
@@ -39,4 +55,5 @@ mat-toolbar
 a
 {
   text-decoration: none;
+  color:white;
 }
