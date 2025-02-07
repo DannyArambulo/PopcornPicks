@@ -1,8 +1,8 @@
-<div *ngIf="userLoggedIn(); else notLoggedIn">
+<div id="navbar" *ngIf="userLoggedIn(); else notLoggedIn">
   <mat-toolbar>
     <span class="home">
       <a routerLink="/homecomponent" routerLinkActive="active" ariaCurrentWhenActive="page" routerLink="homecomponent">
-      PopcornPicks<img src="assets/popcornpicks-logo-small.png" alt="PopcornPicks" maxwidth="500" height="50" style="vertical-align:middle; transform: scale(1, 1)">
+      PopcornPicks<img src="assets/popcornpicks-logo-small.png" alt="PopcornPicks Logo" maxwidth="500" height="50" style="vertical-align:middle; transform: scale(1, 1)">
       </a>
     </span>
 
@@ -44,7 +44,7 @@
     </span>
 
     <button mat-raised-button (click)="registerAccount()" class="register">
-      Register Now
+     <mat-icon>note_alt</mat-icon> Register Now
     </button>
 
    <app-auth-button></app-auth-button>
