@@ -15,7 +15,7 @@ import { SearchComponent } from '../search/search.component';
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, RouterOutlet, RouterModule, AuthbuttonComponent, NavmenuComponent, CommonModule, SearchComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, RouterModule, AuthbuttonComponent, NavmenuComponent, CommonModule, SearchComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })

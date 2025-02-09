@@ -9,10 +9,16 @@ p {
     margin: auto;
     align-items: center;
     justify-content: center;
-    padding: 50px;
+    padding: 100px;
 }
 
 .instruct 
 {
     padding: 10px;
+}
+
+button
+{
+    margin:auto;
+    margin-bottom: 20px;
 }
