@@ -30,7 +30,7 @@ mat-toolbar
   visibility: hidden;
   width: 0;
   height: 0;
-  flex: auto;  
+  flex: auto;
 }
 
 .searchArea
