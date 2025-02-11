@@ -138,6 +138,7 @@ def get_recommendations(imdb_id, count=5):
     index = MovieReviewDatasetTMDB.index[MovieReviewDatasetTMDB['imdb_id'].str.lower() == imdb_id]
     
     if (len(index) == 0):
+        print("\n\nNothing Found\n\n")
         return []
 
     similarities = list(enumerate(SimilarityTMDB[index[0]]))
@@ -156,20 +157,26 @@ def get_recommendations(imdb_id, count=5):
 
 @search.route('/recMovie', methods=['POST'])
 def findRecMovie():
-    
+    print("Finding Recommended Movie\n\n")
     
     tmdb_id = getFavMovId() #Get a favorite movie from sql database
 
     response = requests.get(f'https://api.themoviedb.org/3/movie/{tmdb_id}/external_ids?api_key={TMDB_API_KEY}')
+    print("Chosen Source Movie: \n")
     print(response.text)
+    print("\n\n")
     r = response.json()
     user_imdb_id = r["imdb_id"]
 
     reccomend = get_recommendations(user_imdb_id)
+    
     response = requests.get(f'https://api.themoviedb.org/3/find/{reccomend}?api_key={TMDB_API_KEY}&external_source=imdb_id')
+    print("Recommended Movie: \n")
     print(response.text)
-    print("\n\n\nhello")
-
+    print("\n\n")
+    
+    print(response.json())
+    print("\n\n")
     return jsonify(response.json())
 
 if __name__ == '__main__':

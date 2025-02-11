@@ -48,9 +48,19 @@ recommendMovie(){
         console.log("This is the response:", response);
         console.log('recMovieInfo successfully sent to backend:', response);
         this.recMovieInfo = <Movie><unknown>response;
-        this.movie = <MovieInfo><unknown>this.recMovieInfo.movie_results[0];
-        this.movieId = this.movie.id;
-        this.router.navigate([ '/movie' ], { queryParams: { id:this.movieId } })
+
+        if(this.recMovieInfo.movie_results.length === 0)
+        {
+          console.log("No recommendations, trying again.")
+          this.recommendMovie();
+        }
+        
+        else
+        {
+          this.movie = <MovieInfo><unknown>this.recMovieInfo.movie_results[0];
+          this.movieId = this.movie.id;
+          this.router.navigate([ '/movie' ], { queryParams: { id:this.movieId } })
+        }
       },
       error => {
         console.error('Error getting RecMovieInfo to backend:', error);

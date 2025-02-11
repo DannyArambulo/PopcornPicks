@@ -304,7 +304,7 @@ def watchHistoryExists():
     movie_id = data.get('movie_id')
     
     print("user_id: " + user_id)
-    print("Movie_ID: " + movie_id)
+    print("Movie_ID: " + str(movie_id))
     
     with app.app_context():
         q = db.session.query(User_Watch_History).filter(
