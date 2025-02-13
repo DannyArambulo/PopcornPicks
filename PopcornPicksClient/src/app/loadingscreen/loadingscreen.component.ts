@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { afterNextRender, afterRender, Component, Input } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { Observable, tap } from 'rxjs';
 import { LoaderService } from './loader.service';
