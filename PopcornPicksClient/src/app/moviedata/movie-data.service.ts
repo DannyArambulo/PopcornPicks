@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Movie } from './movie';
+import { environment } from '../../environments/environment';
 
 interface Genre {
   id: number;
@@ -34,7 +35,7 @@ export class MovieDataService {
   constructor(private http: HttpClient) { }
 
   getMovie() {
-    this.http.get<TMDbResponse>(`http://127.0.0.1:5000/movie?id=${this.getMovieId()}`)
+    this.http.get<TMDbResponse>(environment.baseUrl + `movie?id=${this.getMovieId()}`)
     .subscribe(response => {
        this.setTitle(response.title);
        this.setDate(response.release_date);

@@ -7,13 +7,14 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 import datetime
 from sqlalchemy.sql.expression import func
+import os
 
 app = Flask(__name__)
 app.debug = True
 CORS(app)
 
 #adds config for using a MySQL DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost:3306/popcornpicksdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('LOCALHOST_API')
 
 #Creating an instance of SQLAlchemy
 db = SQLAlchemy(app)

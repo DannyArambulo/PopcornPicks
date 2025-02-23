@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, request
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS, cross_origin
 import os
 import requests
@@ -179,5 +179,9 @@ def findRecMovie():
     print("\n\n")
     return jsonify(response.json())
 
+@search.route('/')
+def testServer():
+    return "Hello World!"
+
 if __name__ == '__main__':
-    search.run(debug=False)
+    search.run()

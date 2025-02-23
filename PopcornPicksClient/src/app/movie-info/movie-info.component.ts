@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { MovieDataService } from '../moviedata/movie-data.service';
 import { Movie } from '../moviedata/movie';
+import { environment } from '../../environments/environment';
 
 
 interface Review {
@@ -102,7 +103,7 @@ export class MovieInfoComponent implements OnInit{
   }
 
   setRating(rating: Rating): void {
-    const apiUrl = 'http://localhost:5000/addRating';
+    const apiUrl = environment.baseUrl + 'addRating';
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
       response => {
@@ -116,7 +117,7 @@ export class MovieInfoComponent implements OnInit{
 
   getRating(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
-    const apiUrl = 'http://localhost:5000/getRating';
+    const apiUrl = environment.baseUrl + 'getRating';
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie) , {'headers': headers}).subscribe(
       (response) => {
@@ -132,7 +133,7 @@ export class MovieInfoComponent implements OnInit{
   }
 
   setReview(review: Review): void {
-    const apiUrl = 'http://localhost:5000/addReview';
+    const apiUrl = environment.baseUrl + 'addReview';
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
       response => {
@@ -146,7 +147,7 @@ export class MovieInfoComponent implements OnInit{
 
   getReview(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
-    const apiUrl = 'http://localhost:5000/getReview';
+    const apiUrl = environment.baseUrl + 'getReview';
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie) , {'headers': headers}).subscribe(
       (response) => {
@@ -163,7 +164,7 @@ export class MovieInfoComponent implements OnInit{
 
   addToWatchHistory(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
-    const apiUrl = 'http://localhost:5000/addWatchHistory';
+    const apiUrl = environment.baseUrl + 'addWatchHistory';
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
       (response) => {
@@ -181,7 +182,7 @@ export class MovieInfoComponent implements OnInit{
 
   checkWatchHistory(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
-    const apiUrl = 'http://localhost:5000/hasWatchHistory';
+    const apiUrl = environment.baseUrl + 'hasWatchHistory';
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
       (response) => {

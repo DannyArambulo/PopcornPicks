@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatListModule } from '@angular/material/list';
+import { environment } from '../../environments/environment';
 
 interface Movie {
   title: string;
@@ -45,7 +46,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   searchMovies() {
-    this.http.get<TMDbResponse>(`http://127.0.0.1:5000/search?query=${this.query}`)
+    this.http.get<TMDbResponse>(environment.baseUrl + `search?query=${this.query}`)
       .subscribe(response => {
         this.movies = response.results;
       });
