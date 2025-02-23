@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { AuthClientConfig } from '@auth0/auth0-angular';
 import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from '../../environments/environment';
 
 interface ResGenre{
   userGenres: string[];
@@ -98,7 +99,7 @@ export class AccountinfoComponent implements OnInit{
 
 /*   getGenres(): void {
     this.genres = []
-    const apiUrl = 'http://localhost:5000/getGenre';
+    const apiUrl = environment.baseUrl + 'getGenre';
     const headers = { 'Content-Type': 'text/plain'}; 
     this.http.post<JSON>(apiUrl, this.userId , {'headers': headers}).subscribe(
       (response) => {
@@ -144,7 +145,7 @@ export class AccountinfoComponent implements OnInit{
   }
 
   sendGenres(userInfo: UserGenre){
-    const apiUrl = 'http://localhost:5000/setGenre';
+    const apiUrl = environment.baseUrl + 'setGenre';
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userInfo), {'headers': headers}).subscribe(
     response => {

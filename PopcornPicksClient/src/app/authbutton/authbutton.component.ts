@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { environment } from '../../environments/environment';
 
 interface User{
   user_id: string | null;
@@ -56,9 +57,9 @@ export class AuthbuttonComponent implements OnInit {
   }
 
   addUserId(userId: string): void {
-    const apiUrl = 'http://localhost:5000/addUser';
+    const apiUrl = environment.baseUrl + 'addUser';
     const headers = { 'content-type': 'text/plain'}; 
-    this.http.post<String>(apiUrl, userId , {'headers': headers}).subscribe(
+    this.http.post<String>(apiUrl, userId, {'headers': headers}).subscribe(
       response => {
         console.log('User ID successfully sent to backend:', response);
       },
@@ -69,7 +70,7 @@ export class AuthbuttonComponent implements OnInit {
   }
 
   getUserId(userID: string): void {
-    const apiUrl = 'http://localhost:5000/getUser';
+    const apiUrl = environment.baseUrl + 'getUser';
     const headers = { 'Content-Type': 'text/plain'}; 
     this.http.post<JSON>(apiUrl, this.userId , {'headers': headers}).subscribe(
       (response) => {
@@ -100,9 +101,9 @@ export class AuthbuttonComponent implements OnInit {
   }
 
   setUser(user: User): void {
-    const apiUrl = 'http://localhost:5000/setUser';
+    const apiUrl = environment.baseUrl + 'setUser';
     const headers = { 'Content-Type': 'application/json'}; 
-    this.http.post<JSON>(apiUrl, JSON.stringify(user) , {'headers': headers}).subscribe(
+    this.http.post<JSON>(apiUrl, JSON.stringify(user) , {'headers': headers, withCredentials: true}).subscribe(
       response => {
         console.log('firsttimesetup successfully sent to backend:', response);
       },

@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 interface UserGenre{
   user_id: string;
@@ -66,7 +67,7 @@ export class FirstTimeSetupComponent implements OnInit{
     }
 
     sendGenres(userInfo: UserGenre){
-      const apiUrl = 'http://localhost:5000/setGenre';
+      const apiUrl = environment.baseUrl + 'setGenre';
       const headers = { 'Content-Type': 'application/json'}; 
       this.http.post<JSON>(apiUrl, JSON.stringify(userInfo), {'headers': headers}).subscribe(
       response => {

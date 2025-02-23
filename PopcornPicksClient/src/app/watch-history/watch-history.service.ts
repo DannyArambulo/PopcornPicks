@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 export interface WatchHistoryItem {
   movie_id: number;
@@ -26,7 +27,7 @@ export class WatchHistoryService {
     this.auth.user$.subscribe((user) => {
       if (user && user.sub) {
         const userId = user.sub;
-        const apiUrl = 'http://127.0.0.1:5000/getWatchHistory';
+        const apiUrl = environment.baseUrl + 'getWatchHistory';
         this.http
           .post<{ user_id: string; watch_history: WatchHistoryItem[] }>(apiUrl, { user_id: userId })
           .subscribe((response) => {
@@ -41,7 +42,7 @@ export class WatchHistoryService {
   }
 
   private loadMovieDetails(item: WatchHistoryItem): void {
-    const apiUrl = `http://127.0.0.1:5000/movie?id=${item.movie_id}`;
+    const apiUrl = environment.baseUrl + `movie?id=${item.movie_id}`;
     this.http.get<any>(apiUrl).subscribe((movieDetails) => {
       item.title = movieDetails.title;
       item.poster_path = `https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`;
@@ -57,7 +58,7 @@ export class WatchHistoryService {
 
   toggleFavorite(movie: WatchHistoryItem): void {
     movie.favorite = !movie.favorite;
-    const apiUrl = 'http://127.0.0.1:5000/updateFavorite';
+    const apiUrl = environment.baseUrl + 'updateFavorite';
     this.auth.user$.subscribe((user) => {
       if (user && user.sub) {
         const userId = user.sub;

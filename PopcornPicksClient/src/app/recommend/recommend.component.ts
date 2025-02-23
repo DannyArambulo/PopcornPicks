@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 interface Movie
 {
@@ -41,7 +42,7 @@ export class RecommendComponent implements OnInit{
 }
 
 recommendMovie(){
-    const apiUrl = 'http://localhost:5000/recMovie';
+    const apiUrl = environment.baseUrl + 'recMovie';
     const headers = { 'Content-Type': 'text/plain'}; 
     this.http.post<JSON>(apiUrl, this.userId , {'headers': headers}).subscribe(
       (response) => {
