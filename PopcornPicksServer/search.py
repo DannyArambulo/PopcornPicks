@@ -7,6 +7,7 @@ import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
 from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId, watchHistoryExists
+import joblib
 
 import pandas as pd
 import pickle
@@ -132,8 +133,8 @@ def hasWatchHistory():
 def get_recommendations(imdb_id, count=5):
     MovieReviewDatasetTMDB = pd.read_csv("../PopcornPicks Movie Recommender/tmdb_movies_data.csv")
 
-    with open('../PopcornPicks Movie Recommender/SimilarityTMDB.pickle', 'rb') as handle:
-        SimilarityTMDB = pickle.load(handle)
+    # with open('../PopcornPicks Movie Recommender/SimilarityTMDB.pickle', 'rb') as handle:
+    SimilarityTMDB = joblib.load("../PopcornPicks Movie Recommender/SimilarityTMDB.joblib")
 
     index = MovieReviewDatasetTMDB.index[MovieReviewDatasetTMDB['imdb_id'].str.lower() == imdb_id]
     

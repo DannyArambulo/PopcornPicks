@@ -23,7 +23,7 @@ interface UserGenre{
   selector: 'app-first-time-setup',
   standalone: true,
   imports: [MatButtonModule, MatStepperModule, FormsModule,
-    ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatCheckbox, MatCard],
+    ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatCard],
   templateUrl: './first-time-setup.component.html',
   styleUrl: './first-time-setup.component.css'
 })
@@ -49,7 +49,7 @@ export class FirstTimeSetupComponent implements OnInit{
     }
   
     setGenres(): void{
-      this.genres = [];
+      /* this.genres = [];
       for (var x of this.genIdArray){
         var curCheckbox = (<HTMLInputElement>document.getElementById(x+"-input"));
         if (curCheckbox.checked){
@@ -61,22 +61,9 @@ export class FirstTimeSetupComponent implements OnInit{
 
       const genreRes: UserGenre = {user_id: this.userId, userGenres: this.genres};
 
-      this.sendGenres(genreRes);
+      this.sendGenres(genreRes); */
 
       this.router.navigate(['/homecomponent']);
-    }
-
-    sendGenres(userInfo: UserGenre){
-      const apiUrl = environment.baseUrl + 'setGenre';
-      const headers = { 'Content-Type': 'application/json'}; 
-      this.http.post<JSON>(apiUrl, JSON.stringify(userInfo), {'headers': headers}).subscribe(
-      response => {
-        console.log('Genres successfully sent to backend:', response);
-      },
-      error => {
-        console.error('Error sending Genres to backend:', error);
-      }
-    );
     }
 
 }

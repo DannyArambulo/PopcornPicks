@@ -95,7 +95,7 @@ export class AuthbuttonComponent implements OnInit {
 
       },
       error => {
-        console.error('Error sending Genres to backend:', error);
+        console.error('Error getting User to backend:', error);
       }
     );
   }
