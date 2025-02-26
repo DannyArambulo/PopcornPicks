@@ -1,6 +1,39 @@
 <div class="RecommendCard">
-    <mat-card appearance="outlined">
-        <h1 class="instruct">Press the button below to get a movie based on your favorites</h1>
-        <button mat-raised-button type="button" (click)="recommendMovie()">Give me a Movie!</button>
+  <mat-card appearance="outlined">
+    <h1 class="instruct">Press the button below to get a movie based on your favorites. If the movie interests you, click on the poster to get more info.</h1>
+    <button mat-raised-button type="button" (click)="recommendMovie()">Give me a Movie!</button>
+  </mat-card>
+</div>
+
+<div class="Result" *ngIf="ShowMovieCard == 1;">
+  <mat-card appearance="outlined" class="MovieCard">
+    <div class="RecMovieCard" *ngIf="currMovie$ | async as currMovie;">
+      <mat-card class="movieInfo" [routerLink]="['/movie']" [queryParams]="{id: movieId}" routerLinkActiveOptions="{ exact: true }" ariaCurrentWhenActive="page" routerLink="movie">
+        <ng-container *ngIf="posterPath != null">
+          <img mat-card-image src="https://image.tmdb.org/t/p/w1280{{ currMovie.poster_path }}" alt="{{ currMovie.title }} Poster">
+        </ng-container>
+        <ng-container *ngIf="posterPath === null">
+          <img class="noMoviePoster" mat-card-image height=300px src="assets/filmreel.svg" alt="{{ currMovie.title }} has no Poster">
+        </ng-container>
+        <mat-card-content>
+          <mat-card-title><strong>{{ currMovie.title }} ({{ currMovie.release_date.slice(0,4)}})</strong></mat-card-title>
+        </mat-card-content>
       </mat-card>
+      <iframe 
+        width="600" 
+        height="400"
+        *ngIf="safeTrailerUrl$ | async as safeTrailerUrl; else noVideo"
+        [src]="safeTrailerUrl"
+        title="YouTube video player" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen>        
+      </iframe>
+
+      <ng-template #noVideo>
+        <p style="margin: 25px;"><strong>A trailer does not exist for this movie.</strong></p>
+      </ng-template>
     </div>
+  </mat-card>
+</div>

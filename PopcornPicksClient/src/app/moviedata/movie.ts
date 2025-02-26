@@ -1,9 +1,22 @@
+export interface Genre
+{
+    id: number;
+    name: string;
+}
+
+export interface Video
+{
+    type: string;
+    key: string;
+}
+
 export interface Movie 
 {
-    movieId: number;
-    movieTitle: string;
-    movieDate: string;
-    movieOverview: string;
-    moviePoster: string;
-    movieGenres: string[];
+    id: number;
+    title: string;
+    release_date: string;
+    overview: string;
+    poster_path: string;
+    genres: Genre[];
+    videos: {results: Video[]};
 }

@@ -26,6 +26,7 @@ CORS(search, resources={r"/addReview": {"origins": "http://localhost:4200"}})  "
 
 
 search.app_context()
+SimilarityTMDB = joblib.load("../PopcornPicks Movie Recommender/SimilarityTMDB.joblib")
 @search.route('/search', methods=['GET'])
 def search_movies():
     query = request.args.get('query')
@@ -34,10 +35,11 @@ def search_movies():
 
 @search.route('/movie', methods=['GET'])
 def getMovie():
+    print("I am getting a movie!")
     movie_id = request.args.get('id')
-    response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={TMDB_API_KEY}')
-    # print(response.text)
-    return jsonify(response.json())
+    response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}?append_to_response=videos&language=en-US&api_key={TMDB_API_KEY}')
+    print(response.text)
+    return response.json()
 
 @search.route('/addUser', methods=['POST', 'OPTIONS'])
 def addUser():
@@ -134,7 +136,7 @@ def get_recommendations(imdb_id, count=5):
     MovieReviewDatasetTMDB = pd.read_csv("../PopcornPicks Movie Recommender/tmdb_movies_data.csv")
 
     # with open('../PopcornPicks Movie Recommender/SimilarityTMDB.pickle', 'rb') as handle:
-    SimilarityTMDB = joblib.load("../PopcornPicks Movie Recommender/SimilarityTMDB.joblib")
+    
 
     index = MovieReviewDatasetTMDB.index[MovieReviewDatasetTMDB['imdb_id'].str.lower() == imdb_id]
     
@@ -169,9 +171,9 @@ def findRecMovie():
     r = response.json()
     user_imdb_id = r["imdb_id"]
 
-    reccomend = get_recommendations(user_imdb_id)
+    recommend = get_recommendations(user_imdb_id)
     
-    response = requests.get(f'https://api.themoviedb.org/3/find/{reccomend}?api_key={TMDB_API_KEY}&external_source=imdb_id')
+    response = requests.get(f'https://api.themoviedb.org/3/find/{recommend}?api_key={TMDB_API_KEY}&external_source=imdb_id')
     print("Recommended Movie: \n")
     print(response.text)
     print("\n\n")
