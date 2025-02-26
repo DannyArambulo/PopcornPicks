@@ -12,6 +12,7 @@ import { AuthService } from '@auth0/auth0-angular';
 import { MovieDataService } from '../moviedata/movie-data.service';
 import { Movie } from '../moviedata/movie';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 
 interface Review {
@@ -65,20 +66,23 @@ export class MovieInfoComponent implements OnInit{
   wasWatched: Number = 0;
   userId: string = "";
   JSONRating: any = [];
+  currMovie$!: Observable<Movie>;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService) {};
-  movieService = inject(MovieDataService);
-  currMovie!: Movie;
+  constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService, public movieService: MovieDataService) {};
 
-  async ngOnInit() {
+ ngOnInit() {
     this.posterPath = "";
     this.route.queryParams.subscribe(params => {
       this.movieId = params['id'];
       if (this.movieId) {
+        console.log("Movie ID is: " + this.movieId)
         this.movieService.setMovieId(this.movieId);
-        this.currMovie = this.movieService.getMovie();
+        console.log("Got MOVIE ID!")
       }
     });
+
+    console.log("Getting the movie!!!")
+    this.currMovie$ = this.movieService.getMovie();
 
     this.auth.user$.subscribe(user => {
       if (user && user.sub) {
@@ -94,13 +98,13 @@ export class MovieInfoComponent implements OnInit{
     });
   }
 
-  getMovie() {
+  /* getMovie() {
     this.movieTitle = this.movieService.getTitle();
     this.movieDate = this.movieService.getDate();
     this.movieGenres = this.movieService.getGenres();
     this.movieOverview = this.movieService.getOverview();
     this.posterPath = this.movieService.getPoster();
-  }
+  } */
 
   setRating(rating: Rating): void {
     const apiUrl = environment.baseUrl + 'addRating';
