@@ -8,8 +8,9 @@ import { environment } from '../../environments/environment';
 import { CommonModule, NgIf } from '@angular/common';
 import { MovieDataService } from '../moviedata/movie-data.service';
 import { Movie, Video } from '../moviedata/movie';
-import { map, Observable, of } from 'rxjs';
+import { delay, map, Observable, of, tap } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {YouTubePlayer} from '@angular/youtube-player';
 
 interface MovieArray
 {
@@ -24,7 +25,7 @@ interface MovieInfo
 @Component({
   selector: 'app-recommend',
   standalone: true,
-  imports: [MatButtonModule, MatCardModule, NgIf, RouterLink,CommonModule],
+  imports: [MatButtonModule, MatCardModule, RouterLink, CommonModule, YouTubePlayer],
   templateUrl: './recommend.component.html',
   styleUrl: './recommend.component.css'
 })
@@ -39,9 +40,10 @@ export class RecommendComponent implements OnInit{
   movieTitle: string = "";
   posterPath: string = "";
   movieDate: string = "";
-  trailerKey: string = "";
+  trailerKey$: Observable<string | null> | undefined;
   trailerLink: string = "https://www.youtube.com/embed/";
   safeTrailerUrl$: Observable<SafeResourceUrl | null> | undefined = of(null);
+  videoLoad = true;
 
   constructor(private http: HttpClient, public auth: AuthService, private router: Router, private movieData: MovieDataService, private sanit: DomSanitizer) {}
 
@@ -75,7 +77,6 @@ recommendMovie(){
           this.movieId = this.movie.id;
           this.movieData.setMovieId(this.movieId);
           this.movieRec();
-          // this.router.navigate([ '/movie' ], { queryParams: { id:this.movieId } })
         }
       },
       error => {
@@ -86,6 +87,7 @@ recommendMovie(){
 
 movieRec()
 {
+  this.videoLoad = false;
   this.currMovie$ = this.movieData.getMovie();
   this.getTrailer();
   this.ShowMovieCard = 1;
@@ -93,23 +95,25 @@ movieRec()
 
 getTrailer()
 {
-  this.safeTrailerUrl$ = this.currMovie$?.pipe(
+  
+  this.trailerKey$ = this.currMovie$?.pipe
+  (
     map((movie: Movie) => {
+      console.log("Removed previous video");
       let videoArray = movie.videos.results;
       for(let i = videoArray.length - 1; i >= 0; i--)
       {
         if(videoArray[i].type == "Trailer")
         {
-          this.trailerKey = videoArray[i].key
-          this.trailerLink = this.trailerLink + this.trailerKey;
-          return this.sanit.bypassSecurityTrustResourceUrl(this.trailerLink);
+          console.log('Found the trailer!!');
+          return videoArray[i].key;
         }
 
         else;
       }
 
       return null;
-})
+    }),
   )
 }
 

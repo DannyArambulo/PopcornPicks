@@ -53,13 +53,18 @@ button
     margin-bottom: 20px;
 }
 
+.videoPlayer
+{
+    margin: 10px;
+}
+
 .movieInfo {
     max-width: 200px;
     height: 400px;
     text-align: center;
     flex: 1;
     transition: transform .3s ease, box-shadow .3s ease;
-    margin: 25px;
+    margin: 10px;
 }
 
 .movieInfo:hover {
