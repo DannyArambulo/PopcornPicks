@@ -19,18 +19,12 @@
           <mat-card-title><strong>{{ currMovie.title }} ({{ currMovie.release_date.slice(0,4)}})</strong></mat-card-title>
         </mat-card-content>
       </mat-card>
-      <iframe 
-        width="600" 
-        height="400"
-        *ngIf="safeTrailerUrl$ | async as safeTrailerUrl; else noVideo"
-        [src]="safeTrailerUrl"
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-        referrerpolicy="strict-origin-when-cross-origin" 
-        allowfullscreen>        
-      </iframe>
 
+      <div class="videoPlayer">
+        <ng-container *ngIf="trailerKey$ | async as trailerKey; else noVideo">
+          <youtube-player width="600" height="400" [videoId]="trailerKey" loadApi="true" disablePlaceholder/>
+        </ng-container>
+      </div>
       <ng-template #noVideo>
         <p style="margin: 25px;"><strong>A trailer does not exist for this movie.</strong></p>
       </ng-template>
