@@ -8,12 +8,14 @@ from flask_cors import CORS
 import datetime
 from sqlalchemy.sql.expression import func
 import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.debug = True
 CORS(app)
 
 #adds config for using a MySQL DB
+load_dotenv()
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('LOCALHOST_API')
 
 #Creating an instance of SQLAlchemy
