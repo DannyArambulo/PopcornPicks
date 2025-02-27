@@ -10,7 +10,7 @@ import { MovieDataService } from '../moviedata/movie-data.service';
 import { Movie, Video } from '../moviedata/movie';
 import { delay, map, Observable, of, tap } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import {YouTubePlayer} from '@angular/youtube-player';
+import { YouTubePlayer } from '@angular/youtube-player';
 
 interface MovieArray
 {
