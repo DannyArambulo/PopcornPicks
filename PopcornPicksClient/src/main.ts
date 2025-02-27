@@ -6,12 +6,13 @@ import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors, withInterceptor
 import { LoadingInterceptor } from './app/interceptors/loader.interceptor';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [appConfig.providers,
     provideAuth0({
-      domain: 'dev-qk32cwgnciwik2to.us.auth0.com',
-      clientId: 'N7Eazf21KpCFCM0y4Cuk8xvLotiqEf7P',
+      domain: environment.DOMAIN,
+      clientId: environment.CLIENT_ID,
       authorizationParams: {
         redirect_uri: window.location.origin
       }
