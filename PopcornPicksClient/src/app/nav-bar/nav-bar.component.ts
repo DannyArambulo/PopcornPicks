@@ -10,11 +10,12 @@ import { AuthbuttonComponent } from "../authbutton/authbutton.component";
 import { AuthService } from '@auth0/auth0-angular';
 import { NavmenuComponent } from '../navmenu/navmenu.component';
 import { CommonModule } from '@angular/common';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, RouterOutlet, RouterModule, AuthbuttonComponent, NavmenuComponent, CommonModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, RouterModule, AuthbuttonComponent, NavmenuComponent, CommonModule, SearchComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
@@ -46,6 +47,13 @@ export class NavBarComponent {
       else
       console.log("User is logged out");
         return false;
+    }
+
+    registerAccount(){
+      this.auth.loginWithRedirect({ 
+        authorizationParams: {
+            screen_hint: 'signup',
+          }});
     }
 
 }

@@ -1,3 +1,13 @@
+<div id="container">
+<div id="header">
 <app-nav-bar></app-nav-bar>
+</div>
+<div id="content">
 <router-outlet></router-outlet>
+
+<app-loadingscreen [detectRouteTransition]="true" />
+</div>
+<div id="footer">
 <app-footer></app-footer>
+</div>
+</div>

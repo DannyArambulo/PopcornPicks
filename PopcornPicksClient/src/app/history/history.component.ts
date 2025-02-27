@@ -1,71 +1,47 @@
-import { Component} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { WatchHistoryService, WatchHistoryItem } from '../watch-history/watch-history.service';
 
 @Component({
   selector: 'app-history',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, MatCheckboxModule, FormsModule, ReactiveFormsModule],
   templateUrl: './history.component.html',
-  styleUrl: './history.component.css'
+  styleUrls: ['./history.component.css'],
+  standalone: true,
+  imports: [ CommonModule, MatCardModule, MatFormField, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, RouterLink]
 })
-export class HistoryComponent {
-  filter = 'all';
+export class HistoryComponent implements OnInit {
+  watchHistory: WatchHistoryItem[] = [];
+  filter: string = 'all';
 
-  // Temporary list of watched movies (placeholder data)
-  history = [
-    {
-      title: 'Inception',
-      rating: 5,
-      dateWatched: '2024-10-01',
-      poster: '',
-      favorite: false
-    },
-    {
-      title: 'Interstellar',
-      rating: 4,
-      dateWatched: '2024-10-05',
-      poster: '',
-      favorite: true
-    },
-    {
-      title: 'The Matrix',
-      rating: 5,
-      dateWatched: '2024-09-29',
-      poster: '',
-      favorite: false
-    }
-  ];
+  constructor(private route: ActivatedRoute, private watchHistoryService: WatchHistoryService) {}
 
-  constructor(private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-      if (params['filter']) {
-        this.filter = params['filter']; // Set the filter from query params
-      }
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.filter = params['filter'] || 'all';
+    });
+
+    this.watchHistoryService.loadWatchHistory();
+    this.watchHistoryService.getWatchHistory().subscribe((history) => {
+      this.watchHistory = history;
     });
   }
-  
-  // Filter movies based on the selected filter
-  watchedMovies() {
+
+  filteredWatchHistory(): WatchHistoryItem[] {
     if (this.filter === 'favorites') {
-      return this.history.filter((movie) => movie.favorite);
+      return this.watchHistory.filter((item) => item.favorite);
     }
-    // Show all movies if filter is set to 'all'
-    return this.history; 
+    return this.watchHistory;
   }
 
-  // Toggle the favorite status of a movie
-  toggleFavorite(index: number) {
-    this.history[index].favorite = !this.history[index].favorite;
+  toggleFavorite(event: MouseEvent, item: WatchHistoryItem): void {
+    event.stopPropagation();
+    this.watchHistoryService.toggleFavorite(item);
   }
 }

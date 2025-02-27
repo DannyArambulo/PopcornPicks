@@ -1,31 +1,42 @@
-<div class="history">
-    <h1>Watch History</h1>
+<div *ngIf="watchHistory.length > 0" class="watch-history">
+  <h2>Watch History</h2>
 
-    <!-- Filter -->
-    <mat-form-field>
-        <mat-select placeholder="Filter by" [(value)]="filter">
-            <mat-option value="all">All Movies</mat-option>
-            <mat-option value="favorites">Favorites</mat-option>
-        </mat-select>
-     </mat-form-field>
+  <!-- Filter Section -->
+  <mat-form-field>
+    <mat-select placeholder="Filter by" [(value)]="filter">
+      <mat-option value="all">All Movies</mat-option>
+      <mat-option value="favorites">Favorites</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-     <!-- Movie List -->
-    <div *ngFor="let movie of watchedMovies(); let i = index">
-        <mat-card class="movie-card">
-            <img mat-card-image [src]="movie.poster" alt="{{movie.title}} poster">
-            <mat-card-content>
-                <p><b>{{ movie.title }}</b></p>
-                <p>Rating: {{ movie.rating }}</p>
-                <p>Date Watched: {{ movie.dateWatched }}</p>
+  <div class="movie-list">
+    <!-- Movie Items -->
+    <div *ngFor="let movie of filteredWatchHistory()" class="movie-item">
+      <mat-card class="movie-card" [routerLink]="['/movie']" [queryParams]="{id: movie.movie_id}" routerLinkActiveOptions="{ exact: true }" ariaCurrentWhenActive="page" routerLink="movie">
+        <div class="card-content">
+          <!-- Poster Image -->
+          <ng-container *ngIf="movie.poster_path != null">
+            <img class="movie-poster" src="https://image.tmdb.org/t/p/w1280{{ movie.poster_path }}" alt="{{ movie.title }} Poster">
+          </ng-container>
+          <ng-container *ngIf="movie.poster_path === null">
+            <img class="movie-poster" src="assets/filmreel.svg" alt="{{ movie.title }} has no Poster">
+          </ng-container>
 
-                <!-- Favorite Icon (Filled or Empty Heart) -->
-                <button mat-icon-button (click)="toggleFavorite(i)">
-                    <mat-icon> {{ movie.favorite ? 'favorite' : 'favorite_border' }}</mat-icon>
-                </button>
-            </mat-card-content>
-        </mat-card>
+          <!-- Movie Info -->
+          <div class="movie-info">
+            <h3>{{ movie.title }} ({{ movie.release_date | slice:0:4 }})</h3>
+            <p><b>Watched on:</b> {{ movie.watch_date | date: 'MMMM d, yyyy' }}</p>
+            <button mat-icon-button (click)="toggleFavorite($event, movie)">
+              <mat-icon>{{ movie.favorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card>
     </div>
+  </div>
+</div>
 
-    <!-- If no movies watched yet -->
-    <p *ngIf="watchedMovies().length === 0">No movies watched yet.</p>
+<!-- No Watch History Message -->
+<div *ngIf="watchHistory.length === 0" class="no-results">
+  <p>No movies watched yet.</p>
 </div>

@@ -1,0 +1,111 @@
+.movieInfoCard {
+  display: flex;
+    max-width: 1200px; 
+    max-height: fit-content;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+  }
+
+  mat-card-content{
+    align-content: center;
+  }
+
+  .movieInfo {
+    padding-left: 300px;
+  }
+
+  .movieInfo p{
+    color:black;
+    align-items: center;
+  }
+
+  img{
+    width: 250px;
+    height: 400px;
+    float: left;
+  }
+
+  .starRating {
+    padding-left: 50px;
+  }
+
+  .reviewText {
+    padding-left: 50px;
+    width: 100%;
+  }
+  
+  .inputReview {
+    width: 90%;
+  }
+
+  textarea{
+    width: 100%;
+    height: 100px;
+  }
+
+  .rating {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  .yellow-icon {
+    color: rgb(217, 194, 20);
+  }
+
+  .watch-history-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+  }
+
+  .check-watch-history-button
+  {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    background-color: green;
+    border-radius: 50%;
+  }
+  .checkedWatchHistory{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    color: green;
+    background-color: #f5f5f5;
+    border-radius: 50%;
+    transform: scale(2);
+  }
+  
+  .watch-history-button:hover {
+    background-color: #e0e0e0;
+  }
+
+  .reviewButtons {
+    padding-bottom:30px;
+  }
+
+  #saveReview{
+    margin-left:20px;
+  }
+
+  #revertReview{
+    margin-left:20px;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 40
+  }
+  

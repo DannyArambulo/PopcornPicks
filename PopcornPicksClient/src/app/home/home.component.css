@@ -1,25 +1,65 @@
+/* Home Component Styles */
 .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  .favoritesSection, .lastWatchedSection {
-    width: 80%;
-    margin: 10px 0;
-  }
-  
-  mat-card-header h2 {
-    margin: 0;
-  }
-  
-  mat-card-content {
-    padding: 10px;
-  }
-  
-  mat-card-actions {
-    text-align: right;
-  }
-  
+  padding: 20px;
+}
+
+.favorites-section, .last-watched-section {
+  margin-bottom: 20px;
+}
+
+.movie-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  overflow-x: auto;
+}
+
+::-webkit-scrollbar
+{
+  width: 5px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+::-webkit-scrollbar-track
+{
+  background: #eeeeeece;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b22720;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #be5959;
+}
+
+.movie-item {
+  flex: 0 0 auto;
+  text-align: center;
+  max-width: 120px;
+}
+
+.movie-poster {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+
+.movie-poster:hover {
+  transform: scale(1.1);
+}
+
+.movie-title {
+  font-size: 14px;
+  margin-top: 5px;
+  color: black;
+  text-decoration: none;
+}
+
+.movie-item a {
+  text-decoration: none;
+  color: inherit;
+}

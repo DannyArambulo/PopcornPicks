@@ -1,11 +1,16 @@
 .infoArea
 {
-    width: 500px;
-    height: 400px;
-    align-content: center;
-    vertical-align: center;
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    padding-top: 20px;
     margin:auto;
-    padding-top: 100px;
+    margin-bottom: 20px;
+}
+
+.accInfo
+{
+    align-content: center;
 }
 
 mat-label
@@ -15,5 +20,5 @@ mat-label
 
 .changePass
 {
-    margin-left: 225px;
+    text-align: center;
 }

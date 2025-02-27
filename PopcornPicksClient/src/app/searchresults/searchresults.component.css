@@ -1,0 +1,47 @@
+h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: white;
+}
+
+mat-card {
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+}
+
+mat-card-title {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.search-results {
+    margin: 20px;
+}
+
+.no-results {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 50px;
+    color: #757575;
+}
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.movie-item {
+    display: flex;
+    justify-content: center;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.movie-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+}
+
+
+

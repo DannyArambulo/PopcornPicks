@@ -1,23 +1,35 @@
 <div class="SetupCard">
-    <mat-stepper orientation="vertical" linear=true>
-        <mat-step label="Select your favorite Movie Genres">
-            <mat-checkbox id="Action">Action</mat-checkbox> <br>
-            <mat-checkbox id="Comedy">Comedy</mat-checkbox> <br>
-            <mat-checkbox id="Romance">Romance</mat-checkbox> <br>
-            <mat-checkbox id="Horror">Horror</mat-checkbox> <br>
-            <mat-checkbox id="Sci-Fi">Sci-Fi</mat-checkbox> <br>
-            <button mat-raised-button matStepperNext>Next</button>
-        </mat-step>
+    <mat-card appearance="outlined">
+        <!-- <mat-label><h1><strong>Select your favorite movie genres</strong></h1></mat-label>
+        <div class="GenreCheck">
+                <mat-checkbox id="28" value="28" [disabled]=disableCheckbox checked="false">Action</mat-checkbox>
+                <mat-checkbox id="35" value="35" [disabled]=disableCheckbox checked="false">Comedy</mat-checkbox> 
+                <mat-checkbox id="10749" value="10749" [disabled]=disableCheckbox checked="false">Romance</mat-checkbox><br>
+                <mat-checkbox id="27" value="27" [disabled]=disableCheckbox checked="false">Horror</mat-checkbox> 
+                <mat-checkbox id="878" value="878" [disabled]=disableCheckbox checked="false">Science Fiction</mat-checkbox>
+                <mat-checkbox id="12" value="12" [disabled]=disableCheckbox checked="false">Adventure</mat-checkbox><br>
+                <mat-checkbox id="16" value="16" [disabled]=disableCheckbox  checked="false">Animation</mat-checkbox>
+                <mat-checkbox id="80" value="80" [disabled]=disableCheckbox checked="false">Crime</mat-checkbox>
+                <mat-checkbox id="99" value="99" [disabled]=disableCheckbox checked="false">Documentary</mat-checkbox> <br>
+                <mat-checkbox id="18" value="18" [disabled]=disableCheckbox checked="false">Drama</mat-checkbox> 
+                <mat-checkbox id="10751" value="10751" [disabled]=disableCheckbox checked="false">Family</mat-checkbox>
+                <mat-checkbox id="14" value="14" [disabled]=disableCheckbox checked="false">Fantasy</mat-checkbox> <br>
+                <mat-checkbox id="36" value="36" [disabled]=disableCheckbox checked="false">History</mat-checkbox>
+                <mat-checkbox id="10402" value="10402" [disabled]=disableCheckbox checked="false">Music</mat-checkbox>
+                <mat-checkbox id="9648" value="9648" [disabled]=disableCheckbox checked="false">Mystery</mat-checkbox> <br>
+                <mat-checkbox id="10770" value="10770" [disabled]=disableCheckbox checked="false">TV Movie</mat-checkbox>
+                <mat-checkbox id="53" value="53" [disabled]=disableCheckbox checked="false">Thriller</mat-checkbox> 
+                <mat-checkbox id="10752" value="10752" [disabled]=disableCheckbox checked="false">War</mat-checkbox><br>
+                <mat-checkbox id="37" value="37" [disabled]=disableCheckbox checked="false">Western</mat-checkbox><br>
+        </div>
+        <br> -->
+        <div class="recText">
+            <h3><strong>Note:</strong> The Movie Recommender requires you to favorite some movies first. Find some movies on our site and add them to the 
+            Watch List, then favorite them on the History Page.</h3>
+            <br>
+            <button mat-raised-button (click)="setGenres()">Continue</button>
+        </div>
 
-        <mat-step label="Write down your favorite 3 movies">
-            <input matInput id="movie1">
-            <br>
-            <br>
-            <input matInput id="movie2">
-            <br>
-            <br>
-            <input matInput id="movie3">
-        </mat-step>
-    </mat-stepper>
+    </mat-card>
 </div>
   

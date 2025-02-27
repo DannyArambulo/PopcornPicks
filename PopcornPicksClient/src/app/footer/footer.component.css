@@ -1,21 +1,41 @@
 mat-toolbar
 {
-  background-color:rgb(217, 194, 20);
-  position: fixed;
-  bottom:0%;
+  background-color:transparent;
+  width: 100%;
+  min-height:min-content;
+  padding: 20px;
 }
 
 .tmdb
 {
   text-decoration: none;
-  position: fixed;
-  right:2.5%
-  
+  vertical-align: middle;
+}
+
+.flexExpand {
+  flex: 1 1 auto;
+}
+
+.container
+{
+  display: flex;
+  margin:auto;
+  width:100%;
+}
+
+.authors
+{
+ text-align: left;
 }
 
 p
 {
-    position:fixed;
-    color:black;
+  vertical-align: left;
+    color:white;
+}
+
+a
+{
+  color: white;
 }
 

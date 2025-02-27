@@ -170,3 +170,15 @@
     vertical-align: center;
     
   }
+
+  #container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("/assets/11014.jpg") ;
+  }
+
+  #content {
+    flex: 1;
+  }

@@ -2,6 +2,7 @@
 {
   text-align: center;
   color:white;
+  margin-bottom: 20px;
 }
 
 img
@@ -17,4 +18,9 @@ img
   height: 50px;
   text-size-adjust: 250;
   font-size: 30px;
+}
+
+h1
+{
+  font-size: 40px;
 }

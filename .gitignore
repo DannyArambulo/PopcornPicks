@@ -1,48 +1,18 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
-
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
-
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
-
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
-# System files
-.DS_Store
-Thumbs.db
-
-# Local Website Folders
-PopcornPicksServer/*
-PopcornPicksClient/node_modules/
-PopcornPicksClient/.angular/cache/18.2.7/PopcornPicksClient/
-PopcornPicksClient/.angular/cache/18.2.7/PopcornPicksClient/.tsbuildinfo
+PopcornPicksServer/__pycache__/app.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicks Movie Recommender/SimilarityTMDB.pickle
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/migrations/__pycache__/env.cpython-313.pyc
+PopcornPicksServer/migrations/versions/__pycache__/bfb76b64a54b_initial_migration.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/migrations/__pycache__/env.cpython-313.pyc
+PopcornPicksServer/migrations/versions/__pycache__/bfb76b64a54b_initial_migration.cpython-313.pyc
+PopcornPicks Movie Recommender/SimilarityTMDB.joblib
+PopcornPicksClient/src/environments/environment.development.ts
+PopcornPicksClient/src/environments/environment.ts
+PopcornPicksServer/.env
