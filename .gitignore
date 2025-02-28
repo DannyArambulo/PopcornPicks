@@ -16,3 +16,7 @@ PopcornPicks Movie Recommender/SimilarityTMDB.joblib
 PopcornPicksClient/src/environments/environment.development.ts
 PopcornPicksClient/src/environments/environment.ts
 PopcornPicksServer/.env
+node_modules/
+.vite/
+.angular/
+dist/
