@@ -26,7 +26,7 @@ CORS(search, resources={r"/addReview": {"origins": "http://localhost:4200"}})  "
 
 
 search.app_context()
-SimilarityTMDB = joblib.load("../PopcornPicks Movie Recommender/SimilarityTMDB.joblib")
+SimilarityTMDB = joblib.load("../PopcornPicks Movie Recommender/SimilarityTMDB.joblib", mmap_mode='r')
 @search.route('/search', methods=['GET'])
 def search_movies():
     query = request.args.get('query')
