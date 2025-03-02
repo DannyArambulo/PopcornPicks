@@ -19,4 +19,4 @@ PopcornPicksServer/.env
 node_modules/
 .vite/
 .angular/
-dist/
+PopcornPicksClient/dist/
