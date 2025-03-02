@@ -26,7 +26,7 @@ interface User{
     </ng-container>
 
     <ng-template #loggedOut>
-      <button mat-raised-button color="primary" (click)="auth.loginWithRedirect()"><mat-icon>login</mat-icon>Log in</button>
+      <button mat-raised-button color="primary" (click)="auth.loginWithRedirect({authorizationParams: {prompt: 'select_account'}})"><mat-icon>login</mat-icon>Log in</button>
     </ng-template>
   `,
   standalone: true
