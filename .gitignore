@@ -20,3 +20,4 @@ node_modules/
 .vite/
 .angular/
 PopcornPicksClient/dist/
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
