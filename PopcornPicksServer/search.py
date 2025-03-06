@@ -125,6 +125,13 @@ def updateFavorite():
     print(response)
     return response
 
+@search.route('/checkFavorite', methods=['POST'])
+def checkFavorite():
+    print("Checking favorite status\n")
+    response = check_favorite()
+    print(response)
+    return response
+
 @search.route('/hasWatchHistory', methods=['POST'])
 def hasWatchHistory():
     print("Entering Watch History Exists function")

@@ -10,6 +10,9 @@
         <button mat-icon-button (click)="addToWatchHistory()" class="check-watch-history-button" aria-label="Add to watch history" [disabled]="true">
           <mat-icon class="checkedWatchHistory">check_circle</mat-icon>
         </button>
+        <button mat-icon-button (click)="toggleFavorite()" class="favorite-button" aria-label="Toggle Favorite">
+          <mat-icon class="favorite-icon">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+        </button>
       </div>
     </mat-card-header>
     <mat-card-content *ngIf="currMovie$ | async as currMovie;">

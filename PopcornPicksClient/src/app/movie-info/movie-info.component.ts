@@ -64,13 +64,14 @@ export class MovieInfoComponent implements OnInit{
   disableCancel: boolean = true;
   disableText: boolean = true;
   wasWatched: Number = 0;
+  isFavorite: boolean = false;
   userId: string = "";
   JSONRating: any = [];
   currMovie$!: Observable<Movie>;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService, public movieService: MovieDataService) {};
 
- ngOnInit() {
+  ngOnInit() {
     this.posterPath = "";
     this.route.queryParams.subscribe(params => {
       this.movieId = params['id'];
@@ -94,6 +95,8 @@ export class MovieInfoComponent implements OnInit{
         console.log("Review Finished");
         this.checkWatchHistory();
         console.log("Watch History checked");
+        this.checkFavoriteStatus();
+        console.log("Favorite Status checked");
       }
     });
   }
@@ -200,6 +203,47 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+  toggleFavorite(): void {
+    const userMovie: WatchHistory = {
+      user_id: this.userId,
+      movie_id: this.movieId,
+      watch_date: this.watchDate,
+      favorite: !this.isFavorite
+    };
+    
+    const apiUrl = environment.baseUrl + 'updateFavorite';
+    const headers = { 'Content-Type': 'application/json' };
+    
+    this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), { 'headers': headers }).subscribe(
+      (response) => {
+        console.log('Favorite status successfully updated:', response);
+        this.isFavorite = !this.isFavorite;
+      },
+      error => {
+        console.error('Error updating favorite status:', error);
+      }
+    );
+  }
+
+  checkFavoriteStatus(): void {
+    const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId};
+    const apiUrl = environment.baseUrl + 'checkFavorite';
+    const headers = { 'Content-Type': 'application/json' };
+  
+    this.http.post<any>(apiUrl, JSON.stringify(userMovie), { 'headers': headers }).subscribe(
+      (response) => {
+        console.log('Checking favorite status', response);
+        if (response && response.favorite !== undefined) {
+          this.isFavorite = response.favorite;
+        } else {
+          console.error('Invalid response format');
+        }
+      },
+      error => {
+        console.error('Error checking favorite status', error);
+      }
+    );
+  }  
 
   starRating(score: number) {
     this.rating = score;
