@@ -75,3 +75,8 @@ h2 {
 button {
   align-self: flex-start;
 }
+
+.favoriteIcon
+{
+  color: #9a090e;
+}
