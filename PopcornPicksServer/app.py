@@ -356,7 +356,8 @@ def getFavMovId():
     user_id = data.decode("utf-8")
     
     with app.app_context():
-        favMovie = db.session.query(User_Watch_History).filter_by(user_id = user_id, favorite = 1).order_by(func.rand()).first()
+        favMovie = db.session.query(User_Watch_History).filter_by(user_id = user_id, favorite = 1)
+        #.order_by(func.rand()).first()
         
         return favMovie.movie_id
 
