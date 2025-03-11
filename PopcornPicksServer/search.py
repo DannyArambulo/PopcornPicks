@@ -139,11 +139,13 @@ def hasWatchHistory():
     print(response)
     return response
 
-def get_recommendations(imdb_id, count=5):
+def get_recommendations(fav_imdb_ids):
+    count=len(fav_imdb_ids)+5
+
     MovieReviewDatasetTMDB = pd.read_csv("../PopcornPicks Movie Recommender/tmdb_movies_data.csv")
 
     # with open('../PopcornPicks Movie Recommender/SimilarityTMDB.pickle', 'rb') as handle:
-    
+    imdb_id = random.choice(fav_imdb_ids)
 
     index = MovieReviewDatasetTMDB.index[MovieReviewDatasetTMDB['imdb_id'].str.lower() == imdb_id]
     
@@ -161,14 +163,16 @@ def get_recommendations(imdb_id, count=5):
 
     for i in range(len(top_recs)):
         imdb_id = MovieReviewDatasetTMDB.iloc[top_recs[i][0]]['imdb_id']
-        imdb_ids.append(imdb_id)
+        if  imdb_id not in fav_imdb_ids:
+            imdb_ids.append(imdb_id)
 
-    return imdb_ids[random.randint(0,count-1)]
+    return random.choice(imdb_ids)
 
 @search.route('/recMovie', methods=['POST'])
 def findRecMovie():
     print("Finding Recommended Movie\n\n")
     
+    ##Needs a list of favorite movies## 
     tmdb_id = getFavMovId() #Get a favorite movie from sql database
 
     response = requests.get(f'https://api.themoviedb.org/3/movie/{tmdb_id}/external_ids?api_key={TMDB_API_KEY}')
