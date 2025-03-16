@@ -320,6 +320,30 @@ def watchHistoryExists():
             return "1"
         else:
             return "0"
+        
+@app.route('/remove_Watch_History', methods=['POST'])
+def remove_Watch_History():
+    print("Attempting to remove from Watch History.")
+    data = request.get_json()
+    user_id = data.get('user_id')
+    movie_id = data.get('movie_id')
+    
+    print("user_id: " + user_id)
+    print("Movie_ID: " + str(movie_id))
+    
+    with app.app_context():
+        q = db.session.query(User_Watch_History).filter(
+            User_Watch_History.user_id==user_id,
+            User_Watch_History.movie_id==movie_id
+            )
+
+
+        if(db.session.query(q.exists()).scalar()):
+            q.delete()
+            db.session.commit()
+            return "0"
+        else:
+            return "1"
 
 
 @app.route('/updateFavorite', methods=['POST'])
@@ -354,12 +378,15 @@ def check_favorite():
 def getFavMovId():
     data = request.get_data()
     user_id = data.decode("utf-8")
-    
+    fav_movie_ids = []
+
     with app.app_context():
-        favMovie = db.session.query(User_Watch_History).filter_by(user_id = user_id, favorite = 1)
-        #.order_by(func.rand()).first()
-        
-        return favMovie.movie_id
+        favMovies = db.session.query(User_Watch_History).filter_by(user_id = user_id, favorite = 1).all()
+        for i in favMovies:
+            fav_movie_ids.append(i.movie_id)
+
+        print(fav_movie_ids)
+        return fav_movie_ids
 
 if __name__ == '__main__':
     app.run(debug=False)

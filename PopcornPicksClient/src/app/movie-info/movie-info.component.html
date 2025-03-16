@@ -2,15 +2,15 @@
 <mat-card appearance="outlined">
     <mat-card-header>
       <div *ngIf="wasWatched === 0">
-        <button mat-icon-button (click)="addToWatchHistory()" class="watch-history-button" aria-label="Add to watch history">
+        <button mat-icon-button (click)="addToWatchHistory()" matTooltip="Add Movie to Watch History" matTooltipPosition=above matTooltipShowDelay="700" matTooltipHideDelay="0" class="watch-history-button" aria-label="Add to watch history">
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <div *ngIf="wasWatched === 1">
-        <button mat-icon-button (click)="addToWatchHistory()" class="check-watch-history-button" aria-label="Add to watch history" [disabled]="true">
+        <button mat-icon-button (click)="removeWatchHistory()" class="check-watch-history-button" matTooltip="Remove From Watch History" matTooltipPosition=above matTooltipShowDelay="700" matTooltipHideDelay="0" aria-label="Remove from watch history">
           <mat-icon class="checkedWatchHistory">check_circle</mat-icon>
         </button>
-        <button mat-icon-button (click)="toggleFavorite()" class="favorite-button" aria-label="Toggle Favorite">
+        <button mat-icon-button (click)="toggleFavorite()" class="favorite-button" matTooltip="Toggle Movie as Favorite" matTooltipPosition=above matTooltipShowDelay="700" matTooltipHideDelay="0" aria-label="Toggle Favorite">
           <mat-icon class="favorite-icon">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
         </button>
       </div>
@@ -37,12 +37,11 @@
     </mat-card-content>
     <br>
     <div class="starRating">
-      <h2>Rating:</h2> 
-      
-    <button mat-icon-button *ngFor="let numStar of numStars; index as i" [id] = "'rate_' + i"><mat-icon class="yellow-icon" (click)="starRating(i+1)">{{showStar(i)}}</mat-icon></button>
+      <h2>Rating: {{rating}}/10</h2> 
+    <button class="rating-button" disableRipple="true" mat-icon-button *ngFor="let numStar of numStars; index as i" [id] = "'rate_' + i" matTooltip="{{numStar}}" matTooltipPosition=below><mat-icon class="yellow-icon" (click)="starRating(i+1)">{{showStar(i)}}</mat-icon></button>
       
     </div>
-
+    <br>
     <div class="reviewText">
       <h2>Your Movie Review</h2>
       <form class="reviewForm">

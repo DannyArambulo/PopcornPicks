@@ -54,6 +54,13 @@
 
   .yellow-icon {
     color: rgb(217, 194, 20);
+    background-color: transparent;
+  }
+
+  .yellow-icon:hover
+  {
+    color: rgb(217, 194, 20);
+    background-color: transparent;
   }
 
   .watch-history-button {
@@ -118,6 +125,14 @@
     right: 100px;
   }
 
-  .mat-mdc-button-persistent-ripple::before {
-    background-color: transparent;
-}
+  :host ::ng-deep .rating-button:hover {
+    background-color: transparent !important;
+  }
+
+  :host ::ng-deep .favorite-button:hover {
+    background-color: transparent !important;
+  }
+  
+  :host ::ng-deep .rating-button .mdc-icon-button__ripple {
+    display: none !important;
+  }

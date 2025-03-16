@@ -21,12 +21,12 @@ interface User{
   template: `
     <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
       <button mat-menu-item color="warn" (click)="auth.logout({ logoutParams: { returnTo: document.location.origin } })">
-      <mat-icon>logout</mat-icon>Log out
+      <mat-icon>logout</mat-icon>Sign Out
       </button>
     </ng-container>
 
     <ng-template #loggedOut>
-      <button mat-raised-button color="primary" (click)="auth.loginWithRedirect({authorizationParams: {prompt: 'select_account'}})"><mat-icon>login</mat-icon>Log in</button>
+      <button mat-raised-button color="primary" (click)="auth.loginWithRedirect({authorizationParams: {prompt: 'select_account'}})"><mat-icon>login</mat-icon>Sign In</button>
     </ng-template>
   `,
   standalone: true
@@ -103,7 +103,7 @@ export class AuthbuttonComponent implements OnInit {
   setUser(user: User): void {
     const apiUrl = environment.baseUrl + 'setUser';
     const headers = { 'Content-Type': 'application/json'}; 
-    this.http.post<JSON>(apiUrl, JSON.stringify(user) , {'headers': headers, withCredentials: true}).subscribe(
+    this.http.post<JSON>(apiUrl, JSON.stringify(user) , {'headers': headers}).subscribe(
       response => {
         console.log('firsttimesetup successfully sent to backend:', response);
       },

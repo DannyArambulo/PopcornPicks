@@ -6,7 +6,7 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId, watchHistoryExists, check_favorite
+from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId, watchHistoryExists, check_favorite, remove_Watch_History
 import joblib
 
 import pandas as pd
@@ -50,7 +50,7 @@ def addUser():
 
 @search.route('/getUser', methods=['POST', 'OPTIONS'])
 def getUser():
-    print("Add user being accessed\n")
+    print("Get User being accessed\n")
     response = get_user()
     print(response)
     return response
@@ -108,6 +108,13 @@ def setGenre():
 def addWatchHistory():
     print("Add Watch History being accessed\n")
     response = add_watch_history()
+    print(response)
+    return response
+
+@search.route('/removeWatchHistory', methods=['POST'])
+def removeWatchHistory():
+    print("Remove Watch History being accessed\n")
+    response = remove_Watch_History()
     print(response)
     return response
 
@@ -171,18 +178,22 @@ def get_recommendations(fav_imdb_ids):
 @search.route('/recMovie', methods=['POST'])
 def findRecMovie():
     print("Finding Recommended Movie\n\n")
-    
+
     ##Needs a list of favorite movies## 
     tmdb_id = getFavMovId() #Get a favorite movie from sql database
+    print("favorite movies: ")
+    print(tmdb_id)
+    user_imdb_id_list = []
+    for i in tmdb_id:
+        response = requests.get(f'https://api.themoviedb.org/3/movie/{i}/external_ids?api_key={TMDB_API_KEY}')
+        print("Chosen Source Movie: \n")
+        print(response.text)
+        print("\n\n")
+        r = response.json()
+        user_imdb_id_list.append(r["imdb_id"])
+        #user_imdb_id = r["imdb_id"]
 
-    response = requests.get(f'https://api.themoviedb.org/3/movie/{tmdb_id}/external_ids?api_key={TMDB_API_KEY}')
-    print("Chosen Source Movie: \n")
-    print(response.text)
-    print("\n\n")
-    r = response.json()
-    user_imdb_id = r["imdb_id"]
-
-    recommend = get_recommendations(user_imdb_id)
+    recommend = get_recommendations(user_imdb_id_list)
     
     response = requests.get(f'https://api.themoviedb.org/3/find/{recommend}?api_key={TMDB_API_KEY}&external_source=imdb_id')
     print("Recommended Movie: \n")

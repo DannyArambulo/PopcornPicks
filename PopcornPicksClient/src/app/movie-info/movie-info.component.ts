@@ -13,6 +13,7 @@ import { MovieDataService } from '../moviedata/movie-data.service';
 import { Movie } from '../moviedata/movie';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 interface Review {
@@ -42,7 +43,7 @@ interface WatchHistory {
 @Component({
   selector: 'app-movie-info',
   standalone: true,
-  imports: [MatCardModule, MatFormField, MatButtonModule, MatIconModule, CommonModule, MatInputModule, FormsModule],
+  imports: [MatCardModule, MatFormField, MatButtonModule, MatIconModule, CommonModule, MatInputModule, FormsModule, MatTooltipModule],
   templateUrl: './movie-info.component.html',
   styleUrl: './movie-info.component.css'
 })
@@ -195,6 +196,22 @@ export class MovieInfoComponent implements OnInit{
       (response) => {
         console.log("This is the response:", response);
         console.log('Watch History status sent to backend:', response);
+        this.wasWatched = <Number><unknown>response;
+      },
+      error => {
+        console.error('Error sending Watch History to backend:', error);
+      }
+    );
+  }
+
+  removeWatchHistory(): void {
+    const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
+    const apiUrl = environment.baseUrl + 'removeWatchHistory';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
+      (response) => {
+        console.log("This is the response:", response);
+        console.log('Watch History has been removed. ', response);
         this.wasWatched = <Number><unknown>response;
       },
       error => {

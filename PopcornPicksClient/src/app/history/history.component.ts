@@ -8,13 +8,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { WatchHistoryService, WatchHistoryItem } from '../watch-history/watch-history.service';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css'],
   standalone: true,
-  imports: [ CommonModule, MatCardModule, MatFormField, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, RouterLink]
+  imports: [ CommonModule, MatCardModule, MatFormField, MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule, MatListModule, RouterLink, MatTooltipModule]
 })
 export class HistoryComponent implements OnInit {
   watchHistory: WatchHistoryItem[] = [];
