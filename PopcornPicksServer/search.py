@@ -147,7 +147,7 @@ def hasWatchHistory():
     return response
 
 def get_recommendations(fav_imdb_ids):
-    count=len(fav_imdb_ids)+5
+    count=len(fav_imdb_ids)+30
 
     MovieReviewDatasetTMDB = pd.read_csv("../PopcornPicks Movie Recommender/tmdb_movies_data.csv")
 

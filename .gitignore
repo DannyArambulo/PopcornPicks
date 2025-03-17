@@ -22,3 +22,4 @@ node_modules/
 PopcornPicksClient/dist/
 PopcornPicksServer/__pycache__/search.cpython-313.pyc
 PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksClient/dist/popcorn-picks-client/browser/index.html
