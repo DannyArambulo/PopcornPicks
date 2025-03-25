@@ -41,6 +41,11 @@ export class AuthbuttonComponent implements OnInit {
   constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService, private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
+    this.auth.getAccessTokenSilently().subscribe(token => {
+      console.log("Access Token:", token);
+    }, err => {
+      console.error("Failed to retrieve token:", err);
+    });
       this.auth.user$.subscribe(user => {
         if (user && user.sub) {
           this.userId = user.sub;
