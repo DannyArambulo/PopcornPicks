@@ -17,10 +17,13 @@
   }
 
   .movieInfo p{
-    color:black;
+    color:white;
     align-items: center;
   }
 
+  h1, h2 {
+    color: white;
+  }
   img{
     width: 250px;
     height: 400px;

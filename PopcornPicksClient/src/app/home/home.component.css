@@ -45,21 +45,30 @@
   height: 150px;
   object-fit: cover;
   border-radius: 5px;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .movie-poster:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
 }
 
 .movie-title {
   font-size: 14px;
   margin-top: 5px;
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
 .movie-item a {
   text-decoration: none;
   color: inherit;
+}
+
+.button {
+  background-color: #990000;
+}
+
+h2 {
+  color: white;
 }

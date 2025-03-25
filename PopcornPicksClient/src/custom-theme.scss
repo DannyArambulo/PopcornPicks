@@ -12,9 +12,9 @@
 // Define the theme object.
 $PopcornPicksClient-theme: mat.define-theme((
   color: (
-    theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$azure-palette,
+    theme-type: dark,
+    primary: mat.$red-palette,
+    tertiary: mat.$red-palette,
   ),
   density: (
     scale: 0,

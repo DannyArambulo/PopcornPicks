@@ -1,5 +1,9 @@
-p {
-    color: black;
+p, h1 {
+    color: white;
+}
+
+mat-card-title {
+    color: white;
 }
 
 .RecommendCard

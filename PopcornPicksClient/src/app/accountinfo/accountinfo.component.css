@@ -13,12 +13,24 @@
     align-content: center;
 }
 
+h3 {
+    color: white;
+}
+
 mat-label
 {
-    color:black;
+    color: white;
+}
+
+mat-form-field {
+    color: white;
 }
 
 .changePass
 {
     text-align: center;
+}
+
+::ng-deep .Email input {
+    color: white !important;
 }
