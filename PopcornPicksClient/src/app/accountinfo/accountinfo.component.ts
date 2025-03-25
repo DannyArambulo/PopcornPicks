@@ -4,7 +4,6 @@ import {MatFormField} from '@angular/material/form-field';
 import {MatLabel} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { AuthService} from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
 import { AuthClientConfig } from '@auth0/auth0-angular';
@@ -24,7 +23,7 @@ interface UserGenre{
 @Component({
   selector: 'app-accountinfo',
   standalone: true,
-  imports: [MatCardModule, MatFormField,MatLabel,MatInputModule,MatButtonModule,MatCheckbox,CommonModule],
+  imports: [MatCardModule, MatFormField,MatLabel,MatInputModule,MatButtonModule,CommonModule],
   templateUrl: './accountinfo.component.html',
   styleUrl: './accountinfo.component.css'
 })

@@ -5,10 +5,10 @@ import {MatCardModule} from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MovieDataService } from '../moviedata/movie-data.service';
-import { Movie, Video } from '../moviedata/movie';
-import { delay, map, Observable, of, tap } from 'rxjs';
+import { Movie } from '../moviedata/movie';
+import { map, Observable, of } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { YouTubePlayer } from '@angular/youtube-player';
 

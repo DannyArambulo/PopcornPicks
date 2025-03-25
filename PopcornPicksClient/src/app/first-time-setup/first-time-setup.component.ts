@@ -1,18 +1,14 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatButtonModule} from '@angular/material/button';
-import {MatCheckbox} from '@angular/material/checkbox';
 import { MatCard } from '@angular/material/card';
-import { User } from '@auth0/auth0-angular';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-import { environment } from '../../environments/environment';
 
 interface UserGenre{
   user_id: string;
