@@ -3,7 +3,6 @@ import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button'
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';

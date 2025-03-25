@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, RouterOutlet, RouterModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatFormFieldModule, MatInputModule, RouterModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '@auth0/auth0-angular';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 export interface WatchHistoryItem {
