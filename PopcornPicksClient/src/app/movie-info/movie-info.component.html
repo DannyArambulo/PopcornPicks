@@ -45,9 +45,11 @@
     <div class="reviewText">
       <h2>Your Movie Review</h2>
       <form class="reviewForm">
-      <mat-form-field class="inputReview">
-        <textarea matInput id="reviewText" [disabled]=disableText placeholder="Write a Review here!" [(ngModel)]="movieReview" name="movieReview"></textarea><br>
+      <mat-form-field class="inputReview" hintLabel="Max 10000 characters">
+        <textarea matInput #review maxLength="9000" id="reviewText" [disabled]=disableText placeholder="Write a Review here!" [(ngModel)]="movieReview" name="movieReview"></textarea><br>
+        <mat-hint align="end">{{review.value.length}} / 9000</mat-hint>
       </mat-form-field>
+      <br>
       <br>
       <div class="reviewButtons">
       <button mat-raised-button type="button" id="startRev" (click)="activateRevEdit()" [disabled]=disableEdit>Edit</button>
