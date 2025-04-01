@@ -43,5 +43,10 @@ mat-card-title {
     box-shadow: 0 12px 24px rgba(255, 255, 255, 0.2);
 }
 
+.noMoviePoster
+{
+    background-color: white;
+}
+
 
 

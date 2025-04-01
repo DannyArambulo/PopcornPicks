@@ -43,6 +43,7 @@ export class SearchComponent {
   searchMovies() {
     if (this.query) {
       this.router.navigate(['/searchresults'], { queryParams: { query: this.query } });
+      this.query = "";
     }
   }
 }

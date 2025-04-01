@@ -55,7 +55,6 @@ export class MovieInfoComponent implements OnInit{
   movieTitle: string = "";
   movieDate: string = "";
   movieOverview: string = "";
-  posterPath: string = "";
   movieReview: string = "";
   movieReviewTemp: string = "";
   movieGenres: string[] = [];
@@ -73,7 +72,6 @@ export class MovieInfoComponent implements OnInit{
   constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService, public movieService: MovieDataService) {};
 
   ngOnInit() {
-    this.posterPath = "";
     this.route.queryParams.subscribe(params => {
       this.movieId = params['id'];
       if (this.movieId) {
@@ -96,8 +94,6 @@ export class MovieInfoComponent implements OnInit{
         console.log("Review Finished");
         this.checkWatchHistory();
         console.log("Watch History checked");
-        this.checkFavoriteStatus();
-        console.log("Favorite Status checked");
       }
     });
   }
@@ -197,6 +193,11 @@ export class MovieInfoComponent implements OnInit{
         console.log("This is the response:", response);
         console.log('Watch History status sent to backend:', response);
         this.wasWatched = <Number><unknown>response;
+        if(this.wasWatched)
+        {
+          this.checkFavoriteStatus();
+          console.log("Favorite Status checked");
+        }
       },
       error => {
         console.error('Error sending Watch History to backend:', error);

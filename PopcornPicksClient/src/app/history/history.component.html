@@ -25,7 +25,7 @@
           <!-- Movie Info -->
           <div class="movie-info">
             <h3>{{ movie.title }} ({{ movie.release_date | slice:0:4 }})</h3>
-            <p><b>Watched on:</b> {{ movie.watch_date | date: 'MMMM d, yyyy' }}</p>
+            <p><b>Watched on:</b> {{ movie.watch_date | date: 'MMMM d, yyyy':'UTC' }}</p>
             <button mat-icon-button (click)="toggleFavorite($event, movie)" matTooltip="Toggle Movie as Favorite" matTooltipPosition=below matTooltipShowDelay="700" matTooltipHideDelay="0">
               <mat-icon class="favoriteIcon">{{ movie.favorite ? 'favorite' : 'favorite_border' }}</mat-icon>
             </button>

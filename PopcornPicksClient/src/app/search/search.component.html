@@ -1,10 +1,10 @@
 <div class="search">
-    <mat-form-field appearance="fill" class="search-bar" hintLabel="Max 200 characters">
+    <mat-form-field appearance="fill" class="search-bar" hintLabel="Max 207 characters(including spaces)">
         <mat-label>Search for movies...</mat-label>
-        <input matInput #search  maxLength="250" [(ngModel)]="query" (keydown.enter)="searchMovies()" >
+        <input matInput #search  maxLength="207" [(ngModel)]="query" (keydown.enter)="searchMovies()" >
         <button mat-icon-button matSuffix (click)="searchMovies()" routerLink="/searchresults">
             <mat-icon>search</mat-icon>
         </button>
-        <mat-hint align="end">{{search.value.length}} / 250</mat-hint>
+        <mat-hint align="end">{{search.value.length}} / 207</mat-hint>
     </mat-form-field>
 </div>
