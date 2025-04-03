@@ -19,5 +19,5 @@ p
 
 input:disabled,select:disabled,textarea:disabled 
 {
-    color: black !important;
+    color: white !important;
 }

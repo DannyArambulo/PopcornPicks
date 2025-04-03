@@ -10,6 +10,7 @@
 
   mat-card-content{
     align-content: center;
+    color: white;
   }
   
   .posterImg
@@ -48,6 +49,11 @@
   .inputReview {
     width: 90%;
     color:white;
+  }
+
+  textarea:disabled
+  {
+    color: white;
   }
 
   .reviewInput:disabled
@@ -116,12 +122,19 @@
     padding-bottom:30px;
   }
 
+  #startRev
+  {
+    background-color: #990000;
+  }
+
   #saveReview{
     margin-left:20px;
+    background-color: #990000;
   }
 
   #revertReview{
     margin-left:20px;
+    background-color: #990000;
   }
 
   .material-symbols-outlined {

@@ -51,10 +51,11 @@ iframe
     padding: 10px;
 }
 
-button
+.recButton
 {
     margin:auto;
     margin-bottom: 20px;
+    background-color: #990000;
 }
 
 .videoPlayer

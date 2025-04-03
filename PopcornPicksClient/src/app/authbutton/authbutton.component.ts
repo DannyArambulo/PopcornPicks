@@ -25,10 +25,11 @@ interface User{
     </ng-container>
 
     <ng-template #loggedOut>
-      <button mat-raised-button color="primary" (click)="auth.loginWithRedirect({authorizationParams: {prompt: 'select_account'}})"><mat-icon>login</mat-icon>Sign In</button>
+      <button mat-raised-button class="signIn" (click)="auth.loginWithRedirect({authorizationParams: {prompt: 'select_account'}})"><mat-icon>login</mat-icon>Sign In</button>
     </ng-template>
   `,
-  standalone: true
+  standalone: true,
+  styleUrl: './authbutton.component.css'
 })
 
 export class AuthbuttonComponent implements OnInit {

@@ -17,7 +17,7 @@
     </mat-card-header>
     <mat-card-content>
       
-      <img mat-card-image class = posterImg [src]="currMovie.poster_path ? 'https://image.tmdb.org/t/p/w1280/' + currMovie.poster_path : 'assets/filmreel.svg'" [alt]="currMovie.poster_path ? 'currMovie.title Poster' : currMovie.title + ' does not have a poster'">
+      <img mat-card-image class = posterImg [src]="currMovie.poster_path ? 'https://image.tmdb.org/t/p/w1280' + currMovie.poster_path : 'assets/filmreel.svg'" [alt]="currMovie.poster_path ? 'currMovie.title Poster' : currMovie.title + ' does not have a poster'">
       <br>
       <div class="movieInfo">
       <h1>{{currMovie.title}}</h1>
@@ -44,7 +44,7 @@
     <div class="reviewText">
       <h2>Your Movie Review</h2>
       <form class="reviewForm">
-      <mat-form-field class="inputReview" hintLabel="Max 10000 characters">
+      <mat-form-field class="inputReview" hintLabel="Max 10,000 characters">
         <textarea matInput #review class="reviewInput" maxLength="10000" id="reviewText" [disabled]=disableText placeholder="Write a Review here!" [(ngModel)]="movieReview" name="movieReview"></textarea><br>
         <mat-hint align="end">{{review.value.length}} / 10000</mat-hint>
       </mat-form-field>
