@@ -30,7 +30,7 @@ export class NavBarComponent {
         this.isAuthenticated = isAuthenticated
       },
       error: (msg) => {
-        console.log('error')
+        // console.log('error')
       }
     })
 
@@ -40,12 +40,12 @@ export class NavBarComponent {
     userLoggedIn(){
       if(this.isAuthenticated)
       {
-        console.log("User is logged in");
+        // console.log("User is logged in");
         return true;
       }
         
       else
-      console.log("User is logged out");
+      // console.log("User is logged out");
         return false;
     }
 

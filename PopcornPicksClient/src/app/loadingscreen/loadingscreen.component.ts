@@ -26,10 +26,10 @@ export class LoadingscreenComponent {
 
   ngOnInit()
   {
-    console.log("LoadingScreenComponent REACHED!!!");
+    // console.log("LoadingScreenComponent REACHED!!!");
     if(this.detectRouteTransition)
     {
-      console.log("Detected RouteTransition!!!");
+      // console.log("Detected RouteTransition!!!");
       this.router.events.pipe
       (
         tap
@@ -38,13 +38,13 @@ export class LoadingscreenComponent {
           {
             if(event instanceof RouteConfigLoadStart)
             {
-              console.log("RouteConfigLoadStart!!!");
+              // console.log("RouteConfigLoadStart!!!");
               this.loadingService.loadingStart();
             }
 
             else if (event instanceof RouteConfigLoadEnd)
             {
-              console.log("RouteConfigLoadStop!!!");
+              // console.log("RouteConfigLoadStop!!!");
               this.loadingService.loadingStop();
             }
           }

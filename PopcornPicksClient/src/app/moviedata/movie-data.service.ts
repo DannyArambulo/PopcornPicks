@@ -33,9 +33,9 @@ export class MovieDataService {
       return this.movieIdSub.asObservable().pipe(
         filter(inputId => inputId !== null),
         switchMap(inputId => {
-          console.log("getting movie data");
+          // console.log("getting movie data");
           return this.http.get<Movie>(`${this.apiUrl}${inputId}`).pipe(
-            tap(response => console.log('API Response:', response.poster_path)),
+            // tap(response => console.log('API Response:', response.poster_path)),
           );
         })
       );

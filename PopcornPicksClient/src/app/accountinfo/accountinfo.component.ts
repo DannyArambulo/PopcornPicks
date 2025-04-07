@@ -115,13 +115,13 @@ export class AccountinfoComponent implements OnInit{
   } */
 
   setChecks(inputGenres: string[]): void {
-    console.log("The input Genres are:")
+    /* console.log("The input Genres are:")
     console.log(inputGenres);
     console.log("Total number of elements: ", 
-      inputGenres.length);
+      inputGenres.length); */
     for (let x of inputGenres){
       let checkbox = (<HTMLInputElement>document.getElementById(x+"-input"));
-      console.log(checkbox)
+      // console.log(checkbox)
       checkbox.checked=true;
     }
   }
@@ -131,7 +131,7 @@ export class AccountinfoComponent implements OnInit{
     for (var x of this.genIdArray){
       var curCheckbox = (<HTMLInputElement>document.getElementById(x+"-input"));
       if (curCheckbox.checked){
-        console.log(curCheckbox.value)
+        // console.log(curCheckbox.value)
         this.genres.push(curCheckbox.value)
       }
 
@@ -148,10 +148,10 @@ export class AccountinfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userInfo), {'headers': headers}).subscribe(
     response => {
-      console.log('Genres successfully sent to backend:', response);
+      // console.log('Genres successfully sent to backend:', response);
     },
     error => {
-      console.error('Error sending Genres to backend:', error);
+      // console.error('Error sending Genres to backend:', error);
     }
   );
   }

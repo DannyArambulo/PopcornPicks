@@ -42,14 +42,14 @@ export class AuthbuttonComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.getAccessTokenSilently().subscribe(token => {
-      console.log("Access Token:", token);
+      // console.log("Access Token:", token);
     }, err => {
-      console.error("Failed to retrieve token:", err);
+      // console.error("Failed to retrieve token:", err);
     });
       this.auth.user$.subscribe(user => {
         if (user && user.sub) {
           this.userId = user.sub;
-          console.log('User ID:', this.userId);
+          // console.log('User ID:', this.userId);
 
           if (this.userId && this.auth.isAuthenticated$) {
             this.addUserId(this.userId);
@@ -66,10 +66,10 @@ export class AuthbuttonComponent implements OnInit {
     const headers = { 'content-type': 'text/plain'}; 
     this.http.post<String>(apiUrl, userId, {'headers': headers}).subscribe(
       response => {
-        console.log('User ID successfully sent to backend:', response);
+        // console.log('User ID successfully sent to backend:', response);
       },
       error => {
-        console.error('Error sending User ID to backend:', error);
+        // console.error('Error sending User ID to backend:', error);
       }
     );
   }
@@ -79,16 +79,16 @@ export class AuthbuttonComponent implements OnInit {
     const headers = { 'Content-Type': 'text/plain'}; 
     this.http.post<JSON>(apiUrl, this.userId , {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('Users successfully sent to backend:', response);
+        /* console.log("This is the response:", response);
+        console.log('Users successfully sent to backend:', response); */
         this.resUser = <User><unknown>response;
         this.firsttimesetup = this.resUser.firsttimesetup
 
         if(this.firsttimesetup == 0){
-          console.log("User has not performed first time setup");
+          // console.log("User has not performed first time setup");
           this.firsttimesetup = 1;
           const userSet: User = {user_id: this.userId, firsttimesetup: this.firsttimesetup};
-          console.log(JSON.stringify(userSet));
+          // console.log(JSON.stringify(userSet));
           this.setUser(userSet);
           this.router.navigate(['/firsttimesetupcomponent']);
         }
@@ -100,7 +100,7 @@ export class AuthbuttonComponent implements OnInit {
 
       },
       error => {
-        console.error('Error getting User to backend:', error);
+        // console.error('Error getting User to backend:', error);
       }
     );
   }
@@ -110,10 +110,10 @@ export class AuthbuttonComponent implements OnInit {
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(user) , {'headers': headers}).subscribe(
       response => {
-        console.log('firsttimesetup successfully sent to backend:', response);
+        // console.log('firsttimesetup successfully sent to backend:', response);
       },
       error => {
-        console.error('Error sending firsttimesetup to backend:', error);
+        // console.error('Error sending firsttimesetup to backend:', error);
       }
     );
   }

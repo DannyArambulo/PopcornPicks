@@ -20,10 +20,10 @@ export class LoadingInterceptor
     next: HttpHandler
   ): Observable<HttpEvent<any>> 
   {
-    console.log("Intercepting!!!");
+    // console.log("Intercepting!!!");
     if(req.context.get(SkipLoading))
     {
-      console.log("Skiploading!!!")
+      // console.log("Skiploading!!!")
       return next.handle(req);
     }
 

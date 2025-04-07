@@ -51,7 +51,7 @@ export class RecommendComponent implements OnInit{
     this.auth.user$.subscribe(user => {
       if (user && user.sub) {
         this.userId = user.sub;
-        console.log('User ID:', this.userId);
+        // console.log('User ID:', this.userId);
       }
     });
 }
@@ -61,13 +61,13 @@ recommendMovie(){
     const headers = { 'Content-Type': 'text/plain'}; 
     this.http.post<JSON>(apiUrl, this.userId , {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('recMovieInfo successfully sent to backend:', response);
+        /* console.log("This is the response:", response);
+        console.log('recMovieInfo successfully sent to backend:', response); */
         this.recMovieInfo = <MovieArray><unknown>response;
 
         if(this.recMovieInfo.movie_results.length === 0)
         {
-          console.log("No recommendations, trying again.")
+          // console.log("No recommendations, trying again.")
           this.recommendMovie();
         }
         
@@ -80,7 +80,7 @@ recommendMovie(){
         }
       },
       error => {
-        console.error('Error getting RecMovieInfo to backend:', error);
+        // console.error('Error getting RecMovieInfo to backend:', error);
       }
     );
 }
@@ -99,13 +99,13 @@ getTrailer()
   this.trailerKey$ = this.currMovie$?.pipe
   (
     map((movie: Movie) => {
-      console.log("Removed previous video");
+      // console.log("Removed previous video");
       let videoArray = movie.videos.results;
       for(let i = videoArray.length - 1; i >= 0; i--)
       {
         if(videoArray[i].type == "Trailer")
         {
-          console.log('Found the trailer!!');
+          // console.log('Found the trailer!!');
           return videoArray[i].key;
         }
 

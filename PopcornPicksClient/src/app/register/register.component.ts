@@ -59,10 +59,10 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
-      console.log('Registration Successful:', this.registerForm.value);
+      // console.log('Registration Successful:', this.registerForm.value);
       // Handle registration logic here
     } else {
-      console.log('Registration form is invalid');
+      // console.log('Registration form is invalid');
     }
   }
 }

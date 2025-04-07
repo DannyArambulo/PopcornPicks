@@ -75,13 +75,13 @@ export class MovieInfoComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.movieId = params['id'];
       if (this.movieId) {
-        console.log("Movie ID is: " + this.movieId)
+        // console.log("Movie ID is: " + this.movieId)
         this.movieService.setMovieId(this.movieId);
-        console.log("Got MOVIE ID!")
+        // console.log("Got MOVIE ID!")
       }
     });
 
-    console.log("Getting the movie!!!")
+    // console.log("Getting the movie!!!")
     this.currMovie$ = this.movieService.getMovie();
 
     this.auth.user$.subscribe(user => {
@@ -89,11 +89,11 @@ export class MovieInfoComponent implements OnInit{
         this.userId = user.sub;
         // console.log('User ID:', this.userId);
         this.getRating();
-        console.log("Rating Finished");
+        // console.log("Rating Finished");
         this.getReview();
-        console.log("Review Finished");
+        // console.log("Review Finished");
         this.checkWatchHistory();
-        console.log("Watch History checked");
+        // console.log("Watch History checked");
       }
     });
   }
@@ -111,10 +111,10 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
       response => {
-        console.log('Rating successfully sent to backend:', response);
+        // console.log('Rating successfully sent to backend:', response);
       },
       error => {
-        console.error('Error sending Rating to backend:', error);
+        // console.error('Error sending Rating to backend:', error);
       }
     );
   }
@@ -125,13 +125,13 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie) , {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('Rating successfully sent to backend:', response);
+        /* console.log("This is the response:", response);
+        console.log('Rating successfully sent to backend:', response); */
         const RateResponse: Rating = <Rating><unknown>response;
         this.rating = RateResponse.movie_rating;
       },
       error => {
-        console.error('Error sending Rating to backend:', error);
+        // console.error('Error sending Rating to backend:', error);
       }
     );
   }
@@ -141,10 +141,10 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
       response => {
-        console.log('Review successfully sent to backend:', response);
+        // console.log('Review successfully sent to backend:', response);
       },
       error => {
-        console.error('Error sending Review to backend:', error);
+        // console.error('Error sending Review to backend:', error);
       }
     );
   }
@@ -155,13 +155,13 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie) , {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('Review successfully sent to backend:', response);
+        /* console.log("This is the response:", response);
+        console.log('Review successfully sent to backend:', response); */
         const RateResponse: Review = <Review><unknown>response;
         this.movieReview = RateResponse.movie_review;
       },
       error => {
-        console.error('Error sending Rating to backend:', error);
+        // console.error('Error sending Rating to backend:', error);
       }
     );
   }
@@ -172,14 +172,14 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('Watch History successfully sent to backend:', response);
+        /* console.log("This is the response:", response);
+        console.log('Watch History successfully sent to backend:', response); */
         const WatchHistoryResponse: WatchHistory = <WatchHistory><unknown>response;
         this.watchDate = WatchHistoryResponse.watch_date;
         this.checkWatchHistory();
       },
       error => {
-        console.error('Error sending Watch History to backend:', error);
+        // console.error('Error sending Watch History to backend:', error);
       }
     );
   }
@@ -190,17 +190,17 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('Watch History status sent to backend:', response);
+        /* console.log("This is the response:", response);
+        console.log('Watch History status sent to backend:', response); */
         this.wasWatched = <Number><unknown>response;
         if(this.wasWatched)
         {
           this.checkFavoriteStatus();
-          console.log("Favorite Status checked");
+          // console.log("Favorite Status checked");
         }
       },
       error => {
-        console.error('Error sending Watch History to backend:', error);
+        // console.error('Error sending Watch History to backend:', error);
       }
     );
   }
@@ -211,12 +211,12 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('Watch History has been removed. ', response);
+        /* console.log("This is the response:", response);
+        console.log('Watch History has been removed. ', response); */
         this.wasWatched = <Number><unknown>response;
       },
       error => {
-        console.error('Error sending Watch History to backend:', error);
+        // console.error('Error sending Watch History to backend:', error);
       }
     );
   }
@@ -234,11 +234,11 @@ export class MovieInfoComponent implements OnInit{
     
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), { 'headers': headers }).subscribe(
       (response) => {
-        console.log('Favorite status successfully updated:', response);
+        // console.log('Favorite status successfully updated:', response);
         this.isFavorite = !this.isFavorite;
       },
       error => {
-        console.error('Error updating favorite status:', error);
+        // console.error('Error updating favorite status:', error);
       }
     );
   }
@@ -250,26 +250,26 @@ export class MovieInfoComponent implements OnInit{
   
     this.http.post<any>(apiUrl, JSON.stringify(userMovie), { 'headers': headers }).subscribe(
       (response) => {
-        console.log('Checking favorite status', response);
+        // console.log('Checking favorite status', response);
         if (response && response.favorite !== undefined) {
           this.isFavorite = response.favorite;
         } else {
-          console.error('Invalid response format');
+          // console.error('Invalid response format');
         }
       },
       error => {
-        console.error('Error checking favorite status', error);
+        // console.error('Error checking favorite status', error);
       }
     );
   }  
 
   starRating(score: number) {
     this.rating = score;
-    console.log("Rating: ", this.rating);
+    // console.log("Rating: ", this.rating);
 
     const MovieRating: Rating = {user_id: this.userId, movie_id: this.movieId, movie_rating: this.rating};
 
-    console.log(MovieRating)
+    // console.log(MovieRating);
 
     this.setRating(MovieRating);
     
