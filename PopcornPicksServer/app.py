@@ -17,7 +17,7 @@ CORS(app)
 
 #adds config for using a MySQL DB
 load_dotenv()
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SERVER_API')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('LOCALHOST_API')
 
 #Creating an instance of SQLAlchemy
 db = SQLAlchemy(app)

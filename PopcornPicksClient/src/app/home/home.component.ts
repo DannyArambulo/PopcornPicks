@@ -30,11 +30,11 @@ export class HomeComponent implements OnInit {
   // Navigation for 'See All' buttons
   viewFavorites() {
     // Navigate to "Favorites" page
-    this.router.navigate(['/historycomponent'], {queryParams: { filter: 'favorites'} });
+    this.router.navigate(['/history'], {queryParams: { filter: 'favorites'} });
   }
 
   viewHistory() {
     // Navigate to "Watch History" page
-    this.router.navigate(['/historycomponent']);
+    this.router.navigate(['/history']);
   }
 }

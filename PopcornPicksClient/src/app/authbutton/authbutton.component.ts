@@ -90,12 +90,12 @@ export class AuthbuttonComponent implements OnInit {
           const userSet: User = {user_id: this.userId, firsttimesetup: this.firsttimesetup};
           // console.log(JSON.stringify(userSet));
           this.setUser(userSet);
-          this.router.navigate(['/firsttimesetupcomponent']);
+          this.router.navigate(['/firsttimesetup']);
         }
 
         else
         {
-          this.router.navigate(['/homecomponent']);
+          this.router.navigate(['/home']);
         }
 
       },

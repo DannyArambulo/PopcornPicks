@@ -59,7 +59,7 @@ export class FirstTimeSetupComponent implements OnInit{
 
       this.sendGenres(genreRes); */
 
-      this.router.navigate(['/homecomponent']);
+      this.router.navigate(['/home']);
     }
 
 }

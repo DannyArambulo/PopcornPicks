@@ -397,6 +397,6 @@ export class MovieInfoComponent implements OnInit{
 export class WarningRemoveHistory extends MovieInfoComponent {
   acceptWatchRemoval(){
     this.removeWatchHistory();
-    this.router.navigate(['/homecomponent']);
+    this.router.navigate(['/home']);
   }
 }
