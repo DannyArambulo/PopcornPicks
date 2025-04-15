@@ -18,7 +18,7 @@ img
   height: 50px;
   text-size-adjust: 250;
   font-size: 30px;
-  background-color: #990000;
+  background-color: #990000 !important;
 }
 
 h1

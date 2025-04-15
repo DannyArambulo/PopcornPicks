@@ -42,6 +42,7 @@ export class AccountinfoComponent implements OnInit{
   disableCheckbox: boolean = true;
   disableResetPassword: boolean = true;
   userId: string = "";
+  passMessage: string = "";
   genres: string[] = [];
   genResponse: ResGenre = {userGenres: []};
   genIdArray: string[] = ["28","35","10749","27","878","12","16","80","99","18","10751","14","36","10402","9648","10770","53","10752","37"];
@@ -167,11 +168,13 @@ export class AccountinfoComponent implements OnInit{
     if (this.userId.startsWith("auth0"))
     {
       this.disableResetPassword = false;
+      this.passMessage = ""
     }
 
     else
     {
       this.disableResetPassword = true;
+      this.passMessage = "Password change unnecessary with SSO account."
     }
   }
 

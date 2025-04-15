@@ -55,7 +55,7 @@ iframe
 {
     margin:auto;
     margin-bottom: 20px;
-    background-color: #990000;
+    background-color: #990000 !important;
 }
 
 .videoPlayer

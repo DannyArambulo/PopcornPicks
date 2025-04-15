@@ -1,19 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { MatFormField } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { MovieDataService } from '../moviedata/movie-data.service';
 import { Movie } from '../moviedata/movie';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle} from '@angular/material/dialog'
 
 
 interface Review {
@@ -36,7 +37,7 @@ interface UserMovieStats {
 interface WatchHistory {
   user_id: string;
   movie_id: number;
-  watch_date: string;
+  watch_datetime: string;
   favorite: boolean;
 }
 
@@ -68,8 +69,11 @@ export class MovieInfoComponent implements OnInit{
   userId: string = "";
   JSONRating: any = [];
   currMovie$!: Observable<Movie>;
+  movieLoc: string = window.location.href;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService, public movieService: MovieDataService) {};
+  readonly dialog = inject(MatDialog);
+
+  constructor(private route: ActivatedRoute, private http: HttpClient, public auth: AuthService, public movieService: MovieDataService, public router: Router) {};
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -109,14 +113,32 @@ export class MovieInfoComponent implements OnInit{
   setRating(rating: Rating): void {
     const apiUrl = environment.baseUrl + 'addRating';
     const headers = { 'Content-Type': 'application/json'}; 
-    this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
-      response => {
-        // console.log('Rating successfully sent to backend:', response);
-      },
-      error => {
-        // console.error('Error sending Rating to backend:', error);
-      }
-    );
+    
+    if(this.rating != 0)
+    {
+      this.addToWatchHistory();
+      this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
+        response => {
+          // console.log('Rating successfully sent to backend:', response);
+        },
+        error => {
+          // console.error('Error sending Rating to backend:', error);
+        }
+      );
+    }
+
+    else
+    {
+      this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
+        response => {
+          // console.log('Rating successfully sent to backend:', response);
+        },
+        error => {
+          // console.error('Error sending Rating to backend:', error);
+        }
+      );
+    }
+    
   }
 
   getRating(): void {
@@ -139,14 +161,33 @@ export class MovieInfoComponent implements OnInit{
   setReview(review: Review): void {
     const apiUrl = environment.baseUrl + 'addReview';
     const headers = { 'Content-Type': 'application/json'}; 
-    this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
-      response => {
-        // console.log('Review successfully sent to backend:', response);
-      },
-      error => {
-        // console.error('Error sending Review to backend:', error);
-      }
-    );
+
+    if(this.movieReview != "")
+    {
+      console.log("Will add to watch history")
+      this.addToWatchHistory();
+
+      this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
+        response => {
+          // console.log('Review successfully sent to backend:', response);
+        },
+        error => {
+          // console.error('Error sending Review to backend:', error);
+        }
+      );
+    }
+
+    else
+    {
+      this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
+        response => {
+          // console.log('Review successfully sent to backend:', response);
+        },
+        error => {
+          // console.error('Error sending Review to backend:', error);
+        }
+      );
+    }
   }
 
   getReview(): void {
@@ -175,7 +216,7 @@ export class MovieInfoComponent implements OnInit{
         /* console.log("This is the response:", response);
         console.log('Watch History successfully sent to backend:', response); */
         const WatchHistoryResponse: WatchHistory = <WatchHistory><unknown>response;
-        this.watchDate = WatchHistoryResponse.watch_date;
+        this.watchDate = WatchHistoryResponse.watch_datetime;
         this.checkWatchHistory();
       },
       error => {
@@ -205,10 +246,18 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+  openWarningDialog(): void
+  {
+    this.dialog.open(WarningRemoveHistory).afterClosed().subscribe(result => {
+      // console.log("Dialog closed");
+    })
+  }
+
   removeWatchHistory(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
     const apiUrl = environment.baseUrl + 'removeWatchHistory';
     const headers = { 'Content-Type': 'application/json'}; 
+    this.removeReviewRating();
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
       (response) => {
         /* console.log("This is the response:", response);
@@ -221,11 +270,28 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+  removeReviewRating(): void {
+    const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
+    const apiUrl = environment.baseUrl + 'removeReviewRating';
+    const headers = { 'Content-Type': 'application/json'}; 
+    this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
+      (response) => {
+        /* console.log("This is the response:", response);
+        console.log('Watch History has been removed. ', response); */
+        this.rating = 0;
+        this.movieReview = "";
+      },
+      error => {
+        // console.error('Error sending Watch History to backend:', error);
+      }
+    );
+  }
+
   toggleFavorite(): void {
     const userMovie: WatchHistory = {
       user_id: this.userId,
       movie_id: this.movieId,
-      watch_date: this.watchDate,
+      watch_datetime: this.watchDate,
       favorite: !this.isFavorite
     };
     
@@ -318,5 +384,19 @@ export class MovieInfoComponent implements OnInit{
     this.disableSave = true;
     this.disableCancel = true;
     this.disableText = true;
+  }
+}
+
+@Component({
+  selector: 'warning-remove-history',
+  templateUrl: 'warning-remove-history.html',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
+  styleUrl: './movie-info.component.css',
+})
+export class WarningRemoveHistory extends MovieInfoComponent {
+  acceptWatchRemoval(){
+    this.removeWatchHistory();
+    this.router.navigate(['/homecomponent']);
   }
 }

@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from flask_cors import CORS
 import datetime
 from sqlalchemy.sql.expression import func
+from sqlalchemy.sql import func
 import os
 from dotenv import load_dotenv
 
@@ -16,7 +17,7 @@ CORS(app)
 
 #adds config for using a MySQL DB
 load_dotenv()
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('LOCALHOST_API')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SERVER_API')
 
 #Creating an instance of SQLAlchemy
 db = SQLAlchemy(app)
@@ -46,7 +47,7 @@ class User_Reviews(db.Model):
 class User_Watch_History(db.Model):
     user_id = db.Column(db.String(45), ForeignKey(Users.user_id), primary_key=True, nullable=False)
     movie_id = db.Column(db.Integer, primary_key=True)
-    watch_date = db.Column(db.Date)
+    watch_date = db.Column(db.DateTime(timezone=True), server_default=func.now())
     favorite = db.Column(db.Boolean)
 
 #Adds user based on the logged in user_id to db. If a user already exists, then
@@ -255,7 +256,7 @@ def add_watch_history():
     data = request.get_json()
     user_id = data.get('user_id')
     movie_id = data.get('movie_id')
-    watch_date = data.get('watch_date') or datetime.date.today()
+    watch_date = data.get('watch_date') or datetime.datetime.now(datetime.timezone.utc)
     favorite = bool(data.get('favorite', False))
 
     with app.app_context():
@@ -335,6 +336,30 @@ def remove_Watch_History():
         q = db.session.query(User_Watch_History).filter(
             User_Watch_History.user_id==user_id,
             User_Watch_History.movie_id==movie_id
+            )
+
+
+        if(db.session.query(q.exists()).scalar()):
+            q.delete()
+            db.session.commit()
+            return "0"
+        else:
+            return "1"
+        
+@app.route('/remove_Review_Rating', methods=['POST'])
+def remove_Review_Rating():
+    print("Attempting to remove Rating and Review from User Reivews.")
+    data = request.get_json()
+    user_id = data.get('user_id')
+    movie_id = data.get('movie_id')
+    
+    print("user_id: " + user_id)
+    print("Movie_ID: " + str(movie_id))
+    
+    with app.app_context():
+        q = db.session.query(User_Reviews).filter(
+            User_Reviews.user_id==user_id,
+            User_Reviews.movie_id==movie_id
             )
 
 

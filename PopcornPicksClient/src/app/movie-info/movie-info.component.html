@@ -7,10 +7,11 @@
         </button>
       </div>
       <div *ngIf="wasWatched === 1">
-        <button mat-icon-button (click)="removeWatchHistory()" class="check-watch-history-button" matTooltip="Remove From Watch History" matTooltipPosition=above matTooltipShowDelay="700" matTooltipHideDelay="0" aria-label="Remove from watch history">
+        <button mat-icon-button (click)="openWarningDialog()" class="check-watch-history-button" matTooltip="Remove From Watch History" matTooltipPosition=above matTooltipShowDelay="700" matTooltipHideDelay="0" aria-label="Remove from watch history">
           <mat-icon class="checkedWatchHistory">check_circle</mat-icon>
         </button>
-        <button mat-icon-button (click)="toggleFavorite()" class="favorite-button" matTooltip="Toggle Movie as Favorite" matTooltipPosition=above matTooltipShowDelay="700" matTooltipHideDelay="0" aria-label="Toggle Favorite">
+
+        <button mat-icon-button (click)="toggleFavorite()" class="favorite-button" matTooltip="Toggle Movie as Favorite" matTooltipPosition=above matTooltipShowDelay="700" matTooltipHideDelay="0" disableRipple="true" aria-label="Toggle Favorite">
           <mat-icon class="favorite-icon">{{ isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
         </button>
       </div>

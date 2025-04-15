@@ -6,7 +6,7 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId, watchHistoryExists, check_favorite, remove_Watch_History
+from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId, watchHistoryExists, check_favorite, remove_Watch_History, remove_Review_Rating
 import joblib
 
 import pandas as pd
@@ -115,6 +115,13 @@ def addWatchHistory():
 def removeWatchHistory():
     print("Remove Watch History being accessed\n")
     response = remove_Watch_History()
+    print(response)
+    return response
+
+@search.route('/removeReviewRating', methods=['POST'])
+def removeReviewRating():
+    print("Remove Review and Rating being accessed\n")
+    response = remove_Review_Rating()
     print(response)
     return response
 
