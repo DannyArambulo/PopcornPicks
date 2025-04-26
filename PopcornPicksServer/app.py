@@ -85,9 +85,17 @@ def get_user():
     user_id = data.decode("utf-8")
     
     with app.app_context():
-        q = db.session.get(Users, (user_id)).firsttimesetup
-    
-    return jsonify({"user_id": user_id, "firsttimesetup": q}), 200
+        q = db.session.query(Users).filter(
+        Users.user_id==user_id
+        )
+        
+        if(db.session.query(q.exists()).scalar()):
+            print("Getting User Now!!!")
+            y = db.session.get(Users, (user_id)).firsttimesetup
+            return jsonify({"user_id": user_id, "firsttimesetup": y}), 200
+        
+        else:
+            return jsonify({"user_id": "NULL", "firsttimesetup": -1}), 200
 
 @app.route('/set-user', methods=['POST'])
 def set_user():

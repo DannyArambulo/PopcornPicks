@@ -113,16 +113,23 @@ export class MovieInfoComponent implements OnInit{
   setRating(rating: Rating): void {
     const apiUrl = environment.baseUrl + 'addRating';
     const headers = { 'Content-Type': 'application/json'}; 
+
+    /* console.log("Current rating:" + (this.rating));
+    console.log("Current wasWatched:" + (this.wasWatched));
+
+    console.log("First statement bool: " + (this.rating != 0));
+    console.log("Second statement bool: " + (this.wasWatched == 0)); */
     
-    if(this.rating != 0)
+    if(this.rating != 0 && this.wasWatched == 0)
     {
+      // console.log("Adding to Watch History")
       this.addToWatchHistory();
       this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
         response => {
-          // console.log('Rating successfully sent to backend:', response);
+          //  console.log('Rating successfully sent to backend:', response);
         },
         error => {
-          // console.error('Error sending Rating to backend:', error);
+          //  console.error('Error sending Rating to backend:', error);
         }
       );
     }
@@ -131,10 +138,10 @@ export class MovieInfoComponent implements OnInit{
     {
       this.http.post<JSON>(apiUrl, JSON.stringify(rating) , {'headers': headers}).subscribe(
         response => {
-          // console.log('Rating successfully sent to backend:', response);
+          //  console.log('Rating successfully sent to backend:', response);
         },
         error => {
-          // console.error('Error sending Rating to backend:', error);
+          //  console.error('Error sending Rating to backend:', error);
         }
       );
     }
@@ -160,16 +167,22 @@ export class MovieInfoComponent implements OnInit{
 
   setReview(review: Review): void {
     const apiUrl = environment.baseUrl + 'addReview';
-    const headers = { 'Content-Type': 'application/json'}; 
+    const headers = { 'Content-Type': 'application/json'};
+    
+    /* console.log("Current movieReview:" + (this.movieReview));
+    console.log("Current wasWatched:" + (this.wasWatched));
 
-    if(this.movieReview != "")
+    console.log("First statement bool: " + (this.movieReview != ""));
+    console.log("Second statement bool: " + (this.wasWatched == 0)); */
+
+    if(this.movieReview != "" && this.wasWatched == 0)
     {
-      console.log("Will add to watch history")
+      // console.log("Will add to watch history");
       this.addToWatchHistory();
 
       this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
         response => {
-          // console.log('Review successfully sent to backend:', response);
+          //  console.log('Review successfully sent to backend:', response);
         },
         error => {
           // console.error('Error sending Review to backend:', error);
@@ -181,10 +194,10 @@ export class MovieInfoComponent implements OnInit{
     {
       this.http.post<JSON>(apiUrl, JSON.stringify(review), {'headers': headers}).subscribe(
         response => {
-          // console.log('Review successfully sent to backend:', response);
+          //  console.log('Review successfully sent to backend:', response);
         },
         error => {
-          // console.error('Error sending Review to backend:', error);
+          //  console.error('Error sending Review to backend:', error);
         }
       );
     }
@@ -213,8 +226,8 @@ export class MovieInfoComponent implements OnInit{
     const headers = { 'Content-Type': 'application/json'}; 
     this.http.post<JSON>(apiUrl, JSON.stringify(userMovie), {'headers': headers}).subscribe(
       (response) => {
-        /* console.log("This is the response:", response);
-        console.log('Watch History successfully sent to backend:', response); */
+        // console.log("This is the response:", response);
+        // console.log('Watch History successfully sent to backend:', response);
         const WatchHistoryResponse: WatchHistory = <WatchHistory><unknown>response;
         this.watchDate = WatchHistoryResponse.watch_datetime;
         this.checkWatchHistory();
@@ -397,6 +410,7 @@ export class MovieInfoComponent implements OnInit{
 export class WarningRemoveHistory extends MovieInfoComponent {
   acceptWatchRemoval(){
     this.removeWatchHistory();
-    this.router.navigate(['/home']);
+    window.location.reload();
+    //this.router.navigate(['/home']);
   }
 }

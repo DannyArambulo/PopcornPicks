@@ -34,7 +34,7 @@ interface User{
 
 export class AuthbuttonComponent implements OnInit {
 
-  userId: string | null = null;
+  userId: string = "";
   resUser: User | null = null;
   firsttimesetup: Number = 0;
 
@@ -49,10 +49,9 @@ export class AuthbuttonComponent implements OnInit {
       this.auth.user$.subscribe(user => {
         if (user && user.sub) {
           this.userId = user.sub;
-          // console.log('User ID:', this.userId);
+          //console.log('User ID:', this.userId);
 
           if (this.userId && this.auth.isAuthenticated$) {
-            this.addUserId(this.userId);
 
             this.getUserId(this.userId);
 
@@ -66,10 +65,13 @@ export class AuthbuttonComponent implements OnInit {
     const headers = { 'content-type': 'text/plain'}; 
     this.http.post<String>(apiUrl, userId, {'headers': headers}).subscribe(
       response => {
-        // console.log('User ID successfully sent to backend:', response);
+         //console.log('User ID successfully sent to backend:', response);
+         this.userId = <string>response
+        //  console.log(this.userId)
+         window.location.reload()
       },
       error => {
-        // console.error('Error sending User ID to backend:', error);
+         //console.error('Error sending User ID to backend:', error);
       }
     );
   }
@@ -81,11 +83,20 @@ export class AuthbuttonComponent implements OnInit {
       (response) => {
         /* console.log("This is the response:", response);
         console.log('Users successfully sent to backend:', response); */
+
         this.resUser = <User><unknown>response;
         this.firsttimesetup = this.resUser.firsttimesetup
 
-        if(this.firsttimesetup == 0){
-          // console.log("User has not performed first time setup");
+        // console.log("User_ID:" + this.resUser.user_id);
+        // console.log("FirstTime: " + this.firsttimesetup)
+        if((this.resUser.user_id == "NULL") && (this.firsttimesetup == -1))
+        {
+          // console.log("Adding User")
+          this.addUserId(this.userId);
+        }
+
+        else if(this.firsttimesetup == 0){
+          // console.log("User already added but hasn't completed setup")
           this.firsttimesetup = 1;
           const userSet: User = {user_id: this.userId, firsttimesetup: this.firsttimesetup};
           // console.log(JSON.stringify(userSet));
@@ -95,6 +106,7 @@ export class AuthbuttonComponent implements OnInit {
 
         else
         {
+          // console.log("Setup already done")
           this.router.navigate(['/home']);
         }
 
