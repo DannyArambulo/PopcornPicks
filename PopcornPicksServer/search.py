@@ -13,6 +13,7 @@ import pandas as pd
 import pickle
 import random
 
+# Loads key to make requests from TMDB API.
 load_dotenv()
 TMDB_API_KEY = os.getenv('TMDB_API_KEY')
 
@@ -26,13 +27,20 @@ CORS(search, resources={r"/addReview": {"origins": "http://localhost:4200"}})  "
 
 
 search.app_context()
+# Loading joblib file at beginning of login.
 SimilarityTMDB = joblib.load("../PopcornPicks Movie Recommender/SimilarityTMDB.joblib", mmap_mode='r')
+
+# Note: All functions in this file except for get_recommendations, findRecMovie, and testServer are calling
+# functions in the app.py file. See comments in that file for more details on how the functions work.
+
+# Makes a request to the search function in the TMDB API in order to get search results.
 @search.route('/search', methods=['GET'])
 def search_movies():
     query = request.args.get('query')
     response = requests.get(f'https://api.themoviedb.org/3/search/movie?api_key={TMDB_API_KEY}&query={query}')
     return jsonify(response.json())
 
+# Retrieves movie data from TMDB API by sending a request using the movie_id as input.
 @search.route('/movie', methods=['GET'])
 def getMovie():
     print("I am getting a movie!")
@@ -41,6 +49,7 @@ def getMovie():
     print(response.text)
     return response.json()
 
+# Adds user id from Auth0 to the PopcornPicks Database.
 @search.route('/addUser', methods=['POST', 'OPTIONS'])
 def addUser():
     print("Add user being accessed\n")
@@ -48,6 +57,7 @@ def addUser():
     print(response)
     return response
 
+# Gets the user data that is currently logged in from the PopcornPicks Database.
 @search.route('/getUser', methods=['POST', 'OPTIONS'])
 def getUser():
     print("Get User being accessed\n")
@@ -55,6 +65,7 @@ def getUser():
     print(response)
     return response
 
+# Set a value to indicate that the user has logged in at least once.
 @search.route('/setUser', methods=['POST'])
 def setUser():
     print("Set user being accessed\n")
@@ -62,6 +73,7 @@ def setUser():
     print(response)
     return response
 
+# Adds rating to a movie based on user id and movie id.
 @search.route('/addRating', methods=['POST'])
 def addRating():
     print("Add Rating being accessed\n")
@@ -69,6 +81,7 @@ def addRating():
     print(response)
     return response
 
+# Adds review to a movie based on user id and movie id
 @search.route('/addReview', methods=['POST'])
 def addReview():
     print("Add Review being accessed\n")
@@ -76,6 +89,7 @@ def addReview():
     print(response)
     return response
 
+# Requests rating from PopcornPicks database based on user id and movie id.
 @search.route('/getRating', methods=['POST'])
 def getRating():
     print("Get Rating being accessed\n")
@@ -83,6 +97,7 @@ def getRating():
     print(response)
     return response
 
+# Requests rating from PopcornPicks database based on user id and movie id.
 @search.route('/getReview', methods=['POST'])
 def getReview():
     print("Get Review being accessed\n")
@@ -90,6 +105,8 @@ def getReview():
     print(response)
     return response
 
+# This function was to get favorite genres based on the user. 
+# This function is depreciated and no longer used.
 @search.route('/getGenre', methods=['POST'])
 def getGenre():
     print("Get Genre being accessed\n")
@@ -97,6 +114,8 @@ def getGenre():
     print(response)
     return response
 
+# This function was to set favorite genres based on the user. 
+# This function is depreciated and no longer used.
 @search.route('/setGenre', methods=['POST'])
 def setGenre():
     print("Set Genre being accessed\n")
@@ -104,6 +123,7 @@ def setGenre():
     print(response)
     return response
 
+# Adds movie id to user id's Watch History in the PopcornPicks database.
 @search.route('/addWatchHistory', methods=['POST'])
 def addWatchHistory():
     print("Add Watch History being accessed\n")
@@ -111,6 +131,7 @@ def addWatchHistory():
     print(response)
     return response
 
+# Removes movie id from user id's Watch History in the PopcorPicks database.
 @search.route('/removeWatchHistory', methods=['POST'])
 def removeWatchHistory():
     print("Remove Watch History being accessed\n")
@@ -118,6 +139,8 @@ def removeWatchHistory():
     print(response)
     return response
 
+# Removes the review and rating for a movie in the PopcornPicks database
+# based on the user id and movie id.
 @search.route('/removeReviewRating', methods=['POST'])
 def removeReviewRating():
     print("Remove Review and Rating being accessed\n")
@@ -125,6 +148,7 @@ def removeReviewRating():
     print(response)
     return response
 
+# Requests all the movie ids for a user id.
 @search.route('/getWatchHistory', methods=['POST'])
 def getWatchHistory():
     print("Get Watch History being accessed\n")
@@ -132,6 +156,8 @@ def getWatchHistory():
     print(response)
     return response
 
+# Updates the favorite status of a particular movie in the PopcornPicks database
+# based on movie id and user id.
 @search.route('/updateFavorite', methods=['POST'])
 def updateFavorite():
     print("Updating favorite status\n")
@@ -139,6 +165,8 @@ def updateFavorite():
     print(response)
     return response
 
+# Requests the favorite status for a movie in the PopcornPicks database 
+# based on the user id and movie id.
 @search.route('/checkFavorite', methods=['POST'])
 def checkFavorite():
     print("Checking favorite status\n")
@@ -146,12 +174,14 @@ def checkFavorite():
     print(response)
     return response
 
+# Checks to see if a movie exists in a user id's Watch History on the PopcornPicks database.
 @search.route('/hasWatchHistory', methods=['POST'])
 def hasWatchHistory():
     print("Entering Watch History Exists function")
     response = watchHistoryExists()
     print(response)
     return response
+
 
 def get_recommendations(fav_imdb_ids):
     count=len(fav_imdb_ids)+30
@@ -211,6 +241,7 @@ def findRecMovie():
     print("\n\n")
     return jsonify(response.json())
 
+# Test function to see if Flask app is running.
 @search.route('/')
 def testServer():
     return "Hello World!"
