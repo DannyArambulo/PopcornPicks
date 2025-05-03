@@ -60,6 +60,7 @@ export class AuthbuttonComponent implements OnInit {
       });
   }
 
+// Adds User ID to PopcornPicks database.
   addUserId(userId: string): void {
     const apiUrl = environment.baseUrl + 'addUser';
     const headers = { 'content-type': 'text/plain'}; 
@@ -76,6 +77,9 @@ export class AuthbuttonComponent implements OnInit {
     );
   }
 
+// Retrieves User ID and firstimesetup values from PopcornPicks database 
+// when user logs in. If firsttimesetup == 0, the user gets taken to
+// firsttimesetup page. Otherwise, user is taken to home page.
   getUserId(userID: string): void {
     const apiUrl = environment.baseUrl + 'getUser';
     const headers = { 'Content-Type': 'text/plain'}; 
@@ -117,6 +121,8 @@ export class AuthbuttonComponent implements OnInit {
     );
   }
 
+// Sends API request to update the firsttimesetup value for a User ID in the
+// PopcornPicks database.
   setUser(user: User): void {
     const apiUrl = environment.baseUrl + 'setUser';
     const headers = { 'Content-Type': 'application/json'}; 

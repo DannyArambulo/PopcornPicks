@@ -36,7 +36,8 @@ export class NavBarComponent {
 
   }
 
-
+// Checks if user is logged in and authenticated. Affects what the navbar looks like
+// depending on if the user is logged in or not.
     userLoggedIn(){
       if(this.isAuthenticated)
       {
@@ -49,6 +50,7 @@ export class NavBarComponent {
         return false;
     }
 
+// Redirects User to the Universal Login screen from Auth0.
     registerAccount(){
       this.auth.loginWithRedirect({ 
         authorizationParams: {

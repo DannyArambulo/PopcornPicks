@@ -14,12 +14,14 @@ export class LoaderService
 
   constructor() { }
 
+// Starts loading screen.
   loadingStart()
   {
     // console.log("Turning ON Loading");
     this.loadStatus.next(true);
   }
 
+// Stops loading screen.
   loadingStop()
   {
     // console.log("Turning OFF Loading");

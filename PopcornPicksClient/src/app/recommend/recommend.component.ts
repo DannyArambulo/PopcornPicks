@@ -55,7 +55,8 @@ export class RecommendComponent implements OnInit{
       }
     });
 }
-
+// Calls the PopcornPicks API to recommend a movie. The API responds with the
+// movie information for the recommendation.
 recommendMovie(){
     const apiUrl = environment.baseUrl + 'recMovie';
     const headers = { 'Content-Type': 'text/plain'}; 
@@ -85,6 +86,7 @@ recommendMovie(){
     );
 }
 
+// Displays the recommeded movie information on the Recommended Movie page.
 movieRec()
 {
   this.videoLoad = false;
@@ -93,6 +95,8 @@ movieRec()
   this.ShowMovieCard = 1;
 }
 
+// Retrieves the trailer for the recommended movie from the TMDB API and
+// displays in on an embedded Youtube player.
 getTrailer()
 {
   

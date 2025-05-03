@@ -226,48 +226,48 @@ def get_review():
             return jsonify({"user_id": user_id, "movie_id": movie_id, "movie_review": ""}), 200
         
 # This function is depreciated and is no longer in use.          
-def add_genres():
-    print("Add Genre DB being accessed.")
-    data = request.get_json()
-    user_id = data.get('user_id')
-    gen_array = data.get('userGenres')
+# def add_genres():
+#     print("Add Genre DB being accessed.")
+#     data = request.get_json()
+#     user_id = data.get('user_id')
+#     gen_array = data.get('userGenres')
     
-    with app.app_context():
-        db.session.query(User_Info).filter(User_Info.user_id == user_id).delete()
-        db.session.commit()
+#     with app.app_context():
+#         db.session.query(User_Info).filter(User_Info.user_id == user_id).delete()
+#         db.session.commit()
         
-        for gen in gen_array:
-            print("User_id is: " + user_id + "\n")
-            print("Genre is: " + gen + "\n")
-            new_entry = User_Info(user_id=user_id, genre=gen)
-            db.session.add(new_entry)
-            db.session.commit()
+#         for gen in gen_array:
+#             print("User_id is: " + user_id + "\n")
+#             print("Genre is: " + gen + "\n")
+#             new_entry = User_Info(user_id=user_id, genre=gen)
+#             db.session.add(new_entry)
+#             db.session.commit()
     
-    return jsonify({"status": "success", "genres": gen_array}), 200
+#     return jsonify({"status": "success", "genres": gen_array}), 200
 
-# This function is depreciated and no longer in use.
-@app.route('/get-genres', methods=['POST'])
-def get_genres():
-    genIdArray = ["28","35","10749","27","878","12","16","80","99","18","10751","14","36","10402","9648","10770","53","10752","37"]
-    print("Get Genres DB being accessed.")
-    user_id = request.get_data()
-    gen_array = []
+# # This function is depreciated and no longer in use.
+# @app.route('/get-genres', methods=['POST'])
+# def get_genres():
+#     genIdArray = ["28","35","10749","27","878","12","16","80","99","18","10751","14","36","10402","9648","10770","53","10752","37"]
+#     print("Get Genres DB being accessed.")
+#     user_id = request.get_data()
+#     gen_array = []
     
-    print(user_id)
-    with app.app_context():
-        for x in genIdArray:
-            print("X is: " + x)
-            q = db.session.query(User_Info).filter(
-            User_Info.user_id==user_id,
-            User_Info.genre==x
-            )
+#     print(user_id)
+#     with app.app_context():
+#         for x in genIdArray:
+#             print("X is: " + x)
+#             q = db.session.query(User_Info).filter(
+#             User_Info.user_id==user_id,
+#             User_Info.genre==x
+#             )
             
-            print(q)
-            if(db.session.query(q.exists()).scalar()):
-                print("FOUND GENRE!\n")
-                gen_array.append(x)
+#             print(q)
+#             if(db.session.query(q.exists()).scalar()):
+#                 print("FOUND GENRE!\n")
+#                 gen_array.append(x)
     
-    return jsonify({"userGenres": gen_array}), 200
+#     return jsonify({"userGenres": gen_array}), 200
 
 # Adds movie to User_Watch_History table in db based on user_id and movie_id
 @app.route('/add-watch-history', methods=['POST'])

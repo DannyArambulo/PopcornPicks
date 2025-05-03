@@ -110,6 +110,7 @@ export class MovieInfoComponent implements OnInit{
     this.posterPath = this.movieService.getPoster();
   } */
 
+  // Sets rating on movie for a given User and sends updated rating to API.
   setRating(rating: Rating): void {
     const apiUrl = environment.baseUrl + 'addRating';
     const headers = { 'Content-Type': 'application/json'}; 
@@ -120,6 +121,8 @@ export class MovieInfoComponent implements OnInit{
     console.log("First statement bool: " + (this.rating != 0));
     console.log("Second statement bool: " + (this.wasWatched == 0)); */
     
+    // Checks if Movie was in a User's Watch History. If it wasn't, add it to 
+    // the Watch History and update the rating. If not, just update the rating.
     if(this.rating != 0 && this.wasWatched == 0)
     {
       // console.log("Adding to Watch History")
@@ -148,6 +151,7 @@ export class MovieInfoComponent implements OnInit{
     
   }
 
+// Retrieves rating for a movie depending on the User logged in from the API.
   getRating(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
     const apiUrl = environment.baseUrl + 'getRating';
@@ -165,6 +169,7 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+// Saves review for a Movie based on the User and sends the information to the API.
   setReview(review: Review): void {
     const apiUrl = environment.baseUrl + 'addReview';
     const headers = { 'Content-Type': 'application/json'};
@@ -175,6 +180,8 @@ export class MovieInfoComponent implements OnInit{
     console.log("First statement bool: " + (this.movieReview != ""));
     console.log("Second statement bool: " + (this.wasWatched == 0)); */
 
+    // Checks if Movie was in a User's Watch History. If it wasn't, add it to 
+    // the Watch History and update the review. If not, just update the review.
     if(this.movieReview != "" && this.wasWatched == 0)
     {
       // console.log("Will add to watch history");
@@ -203,6 +210,7 @@ export class MovieInfoComponent implements OnInit{
     }
   }
 
+// Retrieves review for a movie based on the User.
   getReview(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
     const apiUrl = environment.baseUrl + 'getReview';
@@ -220,6 +228,8 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+// Adds movie to a User's Watch History and updates the movie page to reflect that
+// the movie was watched.
   addToWatchHistory(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
     const apiUrl = environment.baseUrl + 'addWatchHistory';
@@ -238,6 +248,8 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+// Checks if movie is on User's Watch History. If it is, then reflect the movie page
+// to indicate so, and check if the movie is favorited.
   checkWatchHistory(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
     const apiUrl = environment.baseUrl + 'hasWatchHistory';
@@ -259,6 +271,8 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+// Opens warning dialog about the repercussions of removing a movie from the 
+// User's Watch History.
   openWarningDialog(): void
   {
     this.dialog.open(WarningRemoveHistory).afterClosed().subscribe(result => {
@@ -266,6 +280,8 @@ export class MovieInfoComponent implements OnInit{
     })
   }
 
+// Removes the movie from the User's Watch History. Also calls a function to remove
+// the rating and review for said movie for the User logged in.
   removeWatchHistory(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
     const apiUrl = environment.baseUrl + 'removeWatchHistory';
@@ -283,6 +299,7 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+// Removes the rating and review for a movie depending on the User logged in.
   removeReviewRating(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId}
     const apiUrl = environment.baseUrl + 'removeReviewRating';
@@ -300,6 +317,7 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+// Toggles the favorite button for a movie and sends the updated value to the API.
   toggleFavorite(): void {
     const userMovie: WatchHistory = {
       user_id: this.userId,
@@ -322,6 +340,8 @@ export class MovieInfoComponent implements OnInit{
     );
   }
 
+// Checks if the movie is favorited by the User and changes the Favorite value on
+// the movie page.
   checkFavoriteStatus(): void {
     const userMovie: UserMovieStats = {user_id: this.userId, movie_id: this.movieId};
     const apiUrl = environment.baseUrl + 'checkFavorite';
@@ -342,6 +362,7 @@ export class MovieInfoComponent implements OnInit{
     );
   }  
 
+// Adjusts the star rating off a movie based on the User logged in.
   starRating(score: number) {
     this.rating = score;
     // console.log("Rating: ", this.rating);
@@ -354,6 +375,8 @@ export class MovieInfoComponent implements OnInit{
     
   }
 
+// Adjusts the number of filled in stars on the rating of the movie based on 
+// the rating value the User gives the movie.
   showStar(id:number){
     if (this.rating >= id + 1) {
       return 'star';
@@ -364,6 +387,8 @@ export class MovieInfoComponent implements OnInit{
     }
   }
 
+// Enables the review input box so that the User can write a review.
+// Also disables the Edit Button, but enables the Save and Cancel buttons.
   activateRevEdit(){
     this.movieReviewTemp = this.movieReview;
     this.disableEdit = true;
@@ -372,6 +397,10 @@ export class MovieInfoComponent implements OnInit{
     this.disableText = false;
   }
 
+
+// Disables the review input box, Save, and Cancel buttons. Enables the Edit button.
+// Sends the inputed Movie review to the API depending if anything was written in the
+// input box or not.
   subReview(){
     this.movieReview = this.movieReview
     this.disableEdit = false;
@@ -391,6 +420,9 @@ export class MovieInfoComponent implements OnInit{
     
   }
 
+// Disables the review input box, and the Save and Cancel buttons. Renables the Edit
+// Button and reverts the text in the review input box to the original text before
+// the Edit button was pressed.
   revertReview(){
     this.movieReview = this.movieReviewTemp;
     this.disableEdit = false;
@@ -407,7 +439,11 @@ export class MovieInfoComponent implements OnInit{
   imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
   styleUrl: './movie-info.component.css',
 })
+
 export class WarningRemoveHistory extends MovieInfoComponent {
+
+// Calls the removeWatchHistory function from above and reloads the site so that
+// the User is taken back to their Home page.
   acceptWatchRemoval(){
     this.removeWatchHistory();
     //console.log("Removed Watch History!");

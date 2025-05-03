@@ -16,6 +16,7 @@ export class WelcomeComponent {
 
   }
 
+// Sends User to the Universal Login page from Auth0
   registerAccount(){
     this.auth.loginWithRedirect({ 
       authorizationParams: {

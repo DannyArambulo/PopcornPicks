@@ -11,14 +11,14 @@ import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../environments/environment';
 
-interface ResGenre{
-  userGenres: string[];
-}
+// interface ResGenre{
+//   userGenres: string[];
+// }
 
-interface UserGenre{
-  user_id: string;
-  userGenres: string[];
-}
+// interface UserGenre{
+//   user_id: string;
+//   userGenres: string[];
+// }
 
 @Component({
   selector: 'app-accountinfo',
@@ -44,7 +44,7 @@ export class AccountinfoComponent implements OnInit{
   userId: string = "";
   passMessage: string = "";
   genres: string[] = [];
-  genResponse: ResGenre = {userGenres: []};
+  // genResponse: ResGenre = {userGenres: []};
   genIdArray: string[] = ["28","35","10749","27","878","12","16","80","99","18","10751","14","36","10402","9648","10770","53","10752","37"];
   
 
@@ -59,6 +59,8 @@ export class AccountinfoComponent implements OnInit{
     });
   }
 
+  // Makes request for Auth0 to send an email to currently logged in user that 
+  // allows user to change password. 
   changePassword(): void {
     this.user$.subscribe(user => {
       if (user && user.email) {
@@ -115,54 +117,57 @@ export class AccountinfoComponent implements OnInit{
     );
   } */
 
-  setChecks(inputGenres: string[]): void {
-    /* console.log("The input Genres are:")
-    console.log(inputGenres);
-    console.log("Total number of elements: ", 
-      inputGenres.length); */
-    for (let x of inputGenres){
-      let checkbox = (<HTMLInputElement>document.getElementById(x+"-input"));
-      // console.log(checkbox)
-      checkbox.checked=true;
-    }
-  }
+  // setChecks(inputGenres: string[]): void {
+  //   /* console.log("The input Genres are:")
+  //   console.log(inputGenres);
+  //   console.log("Total number of elements: ", 
+  //     inputGenres.length); */
+  //   for (let x of inputGenres){
+  //     let checkbox = (<HTMLInputElement>document.getElementById(x+"-input"));
+  //     // console.log(checkbox)
+  //     checkbox.checked=true;
+  //   }
+  // }
 
-  setGenres(): void{
-    this.genres = [];
-    for (var x of this.genIdArray){
-      var curCheckbox = (<HTMLInputElement>document.getElementById(x+"-input"));
-      if (curCheckbox.checked){
-        // console.log(curCheckbox.value)
-        this.genres.push(curCheckbox.value)
-      }
+  // setGenres(): void{
+  //   this.genres = [];
+  //   for (var x of this.genIdArray){
+  //     var curCheckbox = (<HTMLInputElement>document.getElementById(x+"-input"));
+  //     if (curCheckbox.checked){
+  //       // console.log(curCheckbox.value)
+  //       this.genres.push(curCheckbox.value)
+  //     }
 
-      else;
-    }
+  //     else;
+  //   }
 
-    const genreRes: UserGenre = {user_id: this.userId, userGenres: this.genres};
+  //   const genreRes: UserGenre = {user_id: this.userId, userGenres: this.genres};
 
-    this.sendGenres(genreRes);
-  }
+  //   this.sendGenres(genreRes);
+  // }
 
-  sendGenres(userInfo: UserGenre){
-    const apiUrl = environment.baseUrl + 'setGenre';
-    const headers = { 'Content-Type': 'application/json'}; 
-    this.http.post<JSON>(apiUrl, JSON.stringify(userInfo), {'headers': headers}).subscribe(
-    response => {
-      // console.log('Genres successfully sent to backend:', response);
-    },
-    error => {
-      // console.error('Error sending Genres to backend:', error);
-    }
-  );
-  }
+  // sendGenres(userInfo: UserGenre){
+  //   const apiUrl = environment.baseUrl + 'setGenre';
+  //   const headers = { 'Content-Type': 'application/json'}; 
+  //   this.http.post<JSON>(apiUrl, JSON.stringify(userInfo), {'headers': headers}).subscribe(
+  //   response => {
+  //     // console.log('Genres successfully sent to backend:', response);
+  //   },
+  //   error => {
+  //     // console.error('Error sending Genres to backend:', error);
+  //   }
+  // );
+  // }
 
-  editProfile(){
-    this.disableEdit = true;
-    this.disableSave = false;
-    this.disableCheckbox = false;
-  }
+  // editProfile(){
+  //   this.disableEdit = true;
+  //   this.disableSave = false;
+  //   this.disableCheckbox = false;
+  // }
 
+// Checks to see if user logged in with SSO or not. If not logged in SSO, enables reset
+// password button. If user is logged in SSO, disables reset password button and gives
+// message on why button is disabled.
   enablePassChange()
   {
     if (this.userId.startsWith("auth0"))
@@ -178,11 +183,11 @@ export class AccountinfoComponent implements OnInit{
     }
   }
 
-  subProfile(){
-    this.disableEdit = false;
-    this.disableSave = true;
-    this.disableCheckbox = true;
-    this.setGenres();
-  }
+  // subProfile(){
+  //   this.disableEdit = false;
+  //   this.disableSave = true;
+  //   this.disableCheckbox = true;
+  //   this.setGenres();
+  // }
 
 }

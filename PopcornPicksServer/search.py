@@ -6,7 +6,7 @@ import sys
 import sqlalchemy
 from dotenv import load_dotenv
 from flask_mysqldb import MySQL
-from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_genres, add_genres, get_user, set_user, getFavMovId, watchHistoryExists, check_favorite, remove_Watch_History, remove_Review_Rating
+from app import add_user, add_rating, add_review, get_rating, get_review, add_watch_history, get_watch_history, update_favorite, get_user, set_user, getFavMovId, watchHistoryExists, check_favorite, remove_Watch_History, remove_Review_Rating
 import joblib
 
 import pandas as pd
@@ -105,23 +105,23 @@ def getReview():
     print(response)
     return response
 
-# This function was to get favorite genres based on the user. 
-# This function is depreciated and no longer used.
-@search.route('/getGenre', methods=['POST'])
-def getGenre():
-    print("Get Genre being accessed\n")
-    response = get_genres()
-    print(response)
-    return response
+# # This function was to get favorite genres based on the user. 
+# # This function is depreciated and no longer used.
+# @search.route('/getGenre', methods=['POST'])
+# def getGenre():
+#     print("Get Genre being accessed\n")
+#     response = get_genres()
+#     print(response)
+#     return response
 
-# This function was to set favorite genres based on the user. 
-# This function is depreciated and no longer used.
-@search.route('/setGenre', methods=['POST'])
-def setGenre():
-    print("Set Genre being accessed\n")
-    response = add_genres()
-    print(response)
-    return response
+# # This function was to set favorite genres based on the user. 
+# # This function is depreciated and no longer used.
+# @search.route('/setGenre', methods=['POST'])
+# def setGenre():
+#     print("Set Genre being accessed\n")
+#     response = add_genres()
+#     print(response)
+#     return response
 
 # Adds movie id to user id's Watch History in the PopcornPicks database.
 @search.route('/addWatchHistory', methods=['POST'])

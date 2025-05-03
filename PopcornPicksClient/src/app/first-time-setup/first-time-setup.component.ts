@@ -44,20 +44,8 @@ export class FirstTimeSetupComponent implements OnInit{
       });
     }
   
-    setGenres(): void{
-      /* this.genres = [];
-      for (var x of this.genIdArray){
-        var curCheckbox = (<HTMLInputElement>document.getElementById(x+"-input"));
-        if (curCheckbox.checked){
-          this.genres.push(curCheckbox.value)
-        }
-
-        else;
-      }
-
-      const genreRes: UserGenre = {user_id: this.userId, userGenres: this.genres};
-
-      this.sendGenres(genreRes); */
+// Sends user to their home page.
+    goHome(): void{
 
       this.router.navigate(['/home']);
     }
