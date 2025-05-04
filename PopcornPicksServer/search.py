@@ -182,44 +182,65 @@ def hasWatchHistory():
     print(response)
     return response
 
-
+# helper function for findRecMovie
+# takes in a list of favorited movies length n 
+# returns a list of recommendations size n + 30 (n + 30 to increase randomness when asking for multiple recomendations)
+# removes any recommendations that are already watched ( in A but not in B )
+# returns one of the new movies at random. 
 def get_recommendations(fav_imdb_ids):
     count=len(fav_imdb_ids)+30
 
     MovieReviewDatasetTMDB = pd.read_csv("../PopcornPicks Movie Recommender/tmdb_movies_data.csv")
 
     # with open('../PopcornPicks Movie Recommender/SimilarityTMDB.pickle', 'rb') as handle:
+    # picks one of the favorite movies from the list
     imdb_id = random.choice(fav_imdb_ids)
 
+    #runs model using imdb_id as input
     index = MovieReviewDatasetTMDB.index[MovieReviewDatasetTMDB['imdb_id'].str.lower() == imdb_id]
     
     if (len(index) == 0):
         print("\n\nNothing Found\n\n")
         return []
 
+    # results
     similarities = list(enumerate(SimilarityTMDB[index[0]]))
     
+    #sorted results
     recommendations = sorted(similarities, key=lambda x: x[1], reverse=True)
     
+    #top results
     top_recs = recommendations[1:count + 1]
 
     imdb_ids = []
 
+    # cross checks list of recommendations with favorites list
+    # returns in A but not B list
     for i in range(len(top_recs)):
         imdb_id = MovieReviewDatasetTMDB.iloc[top_recs[i][0]]['imdb_id']
         if  imdb_id not in fav_imdb_ids:
             imdb_ids.append(imdb_id)
 
+    # random choice
     return random.choice(imdb_ids)
 
+# get recommended movie function
+# gets list of of favorite movies using getFavMovID
+# calls the get_recommendations function with the list as the input
+# returns one recommended movie that is not in the favorite movie list (new movie)
+# print functions are part of testing methods
 @search.route('/recMovie', methods=['POST'])
 def findRecMovie():
-    print("Finding Recommended Movie\n\n")
+    # print("Finding Recommended Movie\n\n")
 
-    ##Needs a list of favorite movies## 
-    tmdb_id = getFavMovId() #Get a favorite movie from sql database
-    print("favorite movies: ")
-    print(tmdb_id)
+    # Gets list of favorite movie from sql database 
+    tmdb_id = getFavMovId() 
+
+    # checks list
+    # print("favorite movies: ")
+    # print(tmdb_id)
+
+    # turns TMDB_id into IMDB_id
     user_imdb_id_list = []
     for i in tmdb_id:
         response = requests.get(f'https://api.themoviedb.org/3/movie/{i}/external_ids?api_key={TMDB_API_KEY}')
@@ -232,6 +253,7 @@ def findRecMovie():
 
     recommend = get_recommendations(user_imdb_id_list)
     
+    # turns imdb_id from recommender to TMDB_id for proper api usage 
     response = requests.get(f'https://api.themoviedb.org/3/find/{recommend}?api_key={TMDB_API_KEY}&external_source=imdb_id')
     print("Recommended Movie: \n")
     print(response.text)

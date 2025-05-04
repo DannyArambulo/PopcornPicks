@@ -432,6 +432,7 @@ def check_favorite():
 
 # Retrieves a list of movie_ids that have the favorite value of 1 in the User_Watch_History
 # table. The function is used in findRecMovie function in search.py.
+# Helper Function for rec model
 def getFavMovId():
     data = request.get_data()
     user_id = data.decode("utf-8")
