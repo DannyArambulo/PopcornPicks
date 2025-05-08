@@ -10,19 +10,21 @@ export class LoaderService
 
   loading$ = this.loadStatus.asObservable()
 
-  loadValue = this.loadStatus.subscribe((loadValue: boolean) => console.log('Observable emitted the next value: ' + loadValue))
+  // loadValue = this.loadStatus.subscribe((loadValue: boolean) => console.log('Observable emitted the next value: ' + loadValue))
 
   constructor() { }
 
+// Starts loading screen.
   loadingStart()
   {
-    console.log("Turning ON Loading");
+    // console.log("Turning ON Loading");
     this.loadStatus.next(true);
   }
 
+// Stops loading screen.
   loadingStop()
   {
-    console.log("Turning OFF Loading");
+    // console.log("Turning OFF Loading");
     this.loadStatus.next(false);
   }
   

@@ -15,11 +15,15 @@ export class MovieDataService {
 
   constructor(private http: HttpClient) { }
 
+// Sets the movie ID number to be retrived.
   setMovieId(inputId: number)
   {
     this.movieIdSub.next(inputId);
   }
 
+// Gets the movie information from the TMDB API, and returns the data
+// as an Observable. This allows the movie to be changed depending on
+// the movie ID that was set.
   getMovie(): Observable<Movie>{
     /* this.http.get<TMDbResponse>(environment.baseUrl + `movie?id=${this.getMovieId()}`)
     .subscribe(response => {
@@ -33,9 +37,9 @@ export class MovieDataService {
       return this.movieIdSub.asObservable().pipe(
         filter(inputId => inputId !== null),
         switchMap(inputId => {
-          console.log("getting movie data");
+          // console.log("getting movie data");
           return this.http.get<Movie>(`${this.apiUrl}${inputId}`).pipe(
-            tap(response => console.log('API Response:', response.videos.results[0])),
+            // tap(response => console.log('API Response:', response.poster_path)),
           );
         })
       );

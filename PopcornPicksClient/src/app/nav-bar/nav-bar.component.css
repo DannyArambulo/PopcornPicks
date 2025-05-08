@@ -9,19 +9,17 @@
 
 }
 
-mat-icon
-{
-  color:black;
-}
+
 
 mat-toolbar
 {
   background-color:transparent;
 }
 
-.example-spacer 
+.spacer 
 {
-    flex: .65 1 auto;
+    flex: .55 1 auto;
+    align-items: center;
 }
 
 .searchBar 
@@ -45,11 +43,13 @@ mat-toolbar
 .register
 {
   margin-right: 40px;
+  background-color: #990000 !important; 
 }
 
 .login
 {
   margin: auto;
+  background-color: #990000;
 }
 
 a

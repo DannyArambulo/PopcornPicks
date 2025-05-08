@@ -14,17 +14,17 @@ import { LoadingscreenComponent } from './loadingscreen/loadingscreen.component'
 
 
 export const routes: Routes = [
-  {path: 'welcomecomponent', component: WelcomeComponent},
-  {path: 'registercomponent', component: RegisterComponent},
-  {path: 'homecomponent', component: HomeComponent }, 
-  {path: 'historycomponent', component: HistoryComponent }, 
-  {path: 'firsttimesetupcomponent', component: FirstTimeSetupComponent }, 
-  {path: 'searchcomponent', component: SearchComponent }, 
-  {path: 'accountinfocomponent', component: AccountinfoComponent }, 
+  {path: 'welcome', component: WelcomeComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'home', component: HomeComponent }, 
+  {path: 'history', component: HistoryComponent }, 
+  {path: 'firsttimesetup', component: FirstTimeSetupComponent }, 
+  {path: 'search', component: SearchComponent }, 
+  {path: 'accountinfo', component: AccountinfoComponent }, 
   {path: 'searchresults', component: SearchResultsComponent },
   {path: 'movie', component: MovieInfoComponent}, 
-  {path: 'recommendcomponent', component: RecommendComponent},
-  {path: '', redirectTo: 'welcomecomponent', pathMatch: 'full'}
+  {path: 'recommend', component: RecommendComponent},
+  {path: '', redirectTo: 'welcome', pathMatch: 'full'}
 ];
 
 @NgModule({

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { NavBarComponent } from '../nav-bar/nav-bar.component';
-import { RouterLink, RouterLinkActive, RouterOutlet, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '@auth0/auth0-angular';
 import { MatIcon } from '@angular/material/icon';
@@ -17,6 +16,7 @@ export class WelcomeComponent {
 
   }
 
+// Sends User to the Universal Login page from Auth0
   registerAccount(){
     this.auth.loginWithRedirect({ 
       authorizationParams: {

@@ -27,8 +27,8 @@ mat-label
   margin:auto;
 }
 
-p {
-  color: black;
+h3 {
+  color: white;
   align-content: center;
 }
 
@@ -37,6 +37,12 @@ p {
   padding: 10px;
 }
 
+.continue
+{
+  background-color:#9a090e;
+}
+
 mat-raised-button {
+  background-color:#9a090e;
   width: 20px
 }

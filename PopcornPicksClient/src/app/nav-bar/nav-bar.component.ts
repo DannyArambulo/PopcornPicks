@@ -30,25 +30,27 @@ export class NavBarComponent {
         this.isAuthenticated = isAuthenticated
       },
       error: (msg) => {
-        console.log('error')
+        // console.log('error')
       }
     })
 
   }
 
-
+// Checks if user is logged in and authenticated. Affects what the navbar looks like
+// depending on if the user is logged in or not.
     userLoggedIn(){
       if(this.isAuthenticated)
       {
-        console.log("User is logged in");
+        // console.log("User is logged in");
         return true;
       }
         
       else
-      console.log("User is logged out");
+      // console.log("User is logged out");
         return false;
     }
 
+// Redirects User to the Universal Login screen from Auth0.
     registerAccount(){
       this.auth.loginWithRedirect({ 
         authorizationParams: {

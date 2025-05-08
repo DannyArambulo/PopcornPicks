@@ -1,5 +1,9 @@
-p {
-    color: black;
+p, h1 {
+    color: white;
+}
+
+mat-card-title {
+    color: white;
 }
 
 .RecommendCard
@@ -47,10 +51,11 @@ iframe
     padding: 10px;
 }
 
-button
+.recButton
 {
     margin:auto;
     margin-bottom: 20px;
+    background-color: #990000 !important;
 }
 
 .videoPlayer

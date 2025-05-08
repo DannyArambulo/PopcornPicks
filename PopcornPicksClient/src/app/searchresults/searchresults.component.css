@@ -11,7 +11,7 @@ mat-card {
 }
 
 mat-card-title {
-    color: #1976d2;
+    color: white;
     text-decoration: none;
     font-weight: bold;
 }
@@ -35,12 +35,17 @@ mat-card-title {
 .movie-item {
     display: flex;
     justify-content: center;
-    transition: transform .3s ease, box-shadow .3s ease;
+    transition: transform .3s ease-out, box-shadow .3s ease-out;
 }
 
 .movie-item:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+    box-shadow: 0 12px 24px rgba(255, 255, 255, 0.2);
+}
+
+.noMoviePoster
+{
+    background-color: white;
 }
 
 

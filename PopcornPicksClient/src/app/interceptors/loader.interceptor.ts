@@ -14,16 +14,20 @@ export class LoadingInterceptor
     implements HttpInterceptor {
   constructor(private loadingService: LoaderService) {}  
   
+  // Checks if any HTTPRequests are being made 
+  // (I.E. if a new page loads, if data is being retrieved, etc.). If the requests
+  // are being made, run the loading service. Otherwise, when done, stop the loading
+  // service.
   intercept
   (
     req: HttpRequest<any>, 
     next: HttpHandler
   ): Observable<HttpEvent<any>> 
   {
-    console.log("Intercepting!!!");
+    // console.log("Intercepting!!!");
     if(req.context.get(SkipLoading))
     {
-      console.log("Skiploading!!!")
+      // console.log("Skiploading!!!")
       return next.handle(req);
     }
 

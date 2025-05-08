@@ -62,16 +62,21 @@ h2 {
 }
 
 .movie-info h3 {
-  color: #1976d2;
+  color: white;
   margin: 0 0 10px 0;
   font-weight: bold;
 }
 
 .movie-info p {
   margin: 0 0 10px 0;
-  color: black;
+  color: white;
 }
 
 button {
   align-self: flex-start;
+}
+
+.favoriteIcon
+{
+  color: #9a090e;
 }

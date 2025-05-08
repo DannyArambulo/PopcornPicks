@@ -10,12 +10,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
 
+// Interface defining the structure of a movie object
 interface Movie {
   title: string;
   overview: string;
   release_date: string;
 }
 
+// Interface for the response from TMDb API
 interface TMDbResponse {
   results: Movie[];
 }
@@ -36,13 +38,19 @@ interface TMDbResponse {
   ]
 })
 export class SearchComponent {
+  // Property to store the search query string
   query: string = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  // Method to search movies
   searchMovies() {
+    // If query is not empty
     if (this.query) {
+        // Navigates to search results page with the query as a parameter
       this.router.navigate(['/searchresults'], { queryParams: { query: this.query } });
+      // Clear search field after navigation
+      this.query = "";
     }
   }
 }

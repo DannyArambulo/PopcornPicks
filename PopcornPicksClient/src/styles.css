@@ -4,11 +4,12 @@ html, body
 { 
     height: 100%; 
     background-color: black;
+    background-image: url("/assets/11014.jpg"); 
 }
 
 body 
 { 
-    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+    margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 p
@@ -18,5 +19,10 @@ p
 
 input:disabled,select:disabled,textarea:disabled 
 {
-    color: black !important;
+    color: white !important;
+}
+
+img
+{
+    color:white;
 }

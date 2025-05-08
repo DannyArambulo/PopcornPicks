@@ -5,10 +5,10 @@ import {MatCardModule} from '@angular/material/card';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { CommonModule, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MovieDataService } from '../moviedata/movie-data.service';
-import { Movie, Video } from '../moviedata/movie';
-import { delay, map, Observable, of, tap } from 'rxjs';
+import { Movie } from '../moviedata/movie';
+import { map, Observable, of } from 'rxjs';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { YouTubePlayer } from '@angular/youtube-player';
 
@@ -51,23 +51,24 @@ export class RecommendComponent implements OnInit{
     this.auth.user$.subscribe(user => {
       if (user && user.sub) {
         this.userId = user.sub;
-        console.log('User ID:', this.userId);
+        // console.log('User ID:', this.userId);
       }
     });
 }
-
+// Calls the PopcornPicks API to recommend a movie. The API responds with the
+// movie information for the recommendation.
 recommendMovie(){
     const apiUrl = environment.baseUrl + 'recMovie';
     const headers = { 'Content-Type': 'text/plain'}; 
     this.http.post<JSON>(apiUrl, this.userId , {'headers': headers}).subscribe(
       (response) => {
-        console.log("This is the response:", response);
-        console.log('recMovieInfo successfully sent to backend:', response);
+        /* console.log("This is the response:", response);
+        console.log('recMovieInfo successfully sent to backend:', response); */
         this.recMovieInfo = <MovieArray><unknown>response;
 
         if(this.recMovieInfo.movie_results.length === 0)
         {
-          console.log("No recommendations, trying again.")
+          // console.log("No recommendations, trying again.")
           this.recommendMovie();
         }
         
@@ -80,11 +81,12 @@ recommendMovie(){
         }
       },
       error => {
-        console.error('Error getting RecMovieInfo to backend:', error);
+        // console.error('Error getting RecMovieInfo to backend:', error);
       }
     );
 }
 
+// Displays the recommeded movie information on the Recommended Movie page.
 movieRec()
 {
   this.videoLoad = false;
@@ -93,19 +95,21 @@ movieRec()
   this.ShowMovieCard = 1;
 }
 
+// Retrieves the trailer for the recommended movie from the TMDB API and
+// displays in on an embedded Youtube player.
 getTrailer()
 {
   
   this.trailerKey$ = this.currMovie$?.pipe
   (
     map((movie: Movie) => {
-      console.log("Removed previous video");
+      // console.log("Removed previous video");
       let videoArray = movie.videos.results;
       for(let i = videoArray.length - 1; i >= 0; i--)
       {
         if(videoArray[i].type == "Trailer")
         {
-          console.log('Found the trailer!!');
+          // console.log('Found the trailer!!');
           return videoArray[i].key;
         }
 

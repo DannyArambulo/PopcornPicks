@@ -16,3 +16,12 @@ PopcornPicks Movie Recommender/SimilarityTMDB.joblib
 PopcornPicksClient/src/environments/environment.development.ts
 PopcornPicksClient/src/environments/environment.ts
 PopcornPicksServer/.env
+node_modules/
+.vite/
+.angular/
+PopcornPicksClient/dist/
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksClient/dist/popcorn-picks-client/browser/index.html
+PopcornPicksServer/__pycache__/search.cpython-313.pyc
+PopcornPicksServer/__pycache__/search.cpython-313.pyc

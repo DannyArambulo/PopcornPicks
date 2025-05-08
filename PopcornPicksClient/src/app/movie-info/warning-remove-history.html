@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Removing Movie from Watch History</h2>
+<mat-dialog-content>
+  This action will remove this movie from your Watch History. It will also delete your rating and review for this movie. Are you sure?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button class="noButton" mat-dialog-close cdkFocusInitial>Don't remove movie from Watch History</button>
+  <button mat-raised-button class="yesButton" mat-dialog-close (click)="acceptWatchRemoval()">Remove movie from Watch History and delete my rating and review.</button>
+</mat-dialog-actions>
