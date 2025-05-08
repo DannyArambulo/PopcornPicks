@@ -25,23 +25,28 @@ export class HistoryComponent implements OnInit {
   constructor(private route: ActivatedRoute, private watchHistoryService: WatchHistoryService) {}
 
   ngOnInit(): void {
+    // Subscribe to URL query parameters to get the filter value
+    // Default to 'all' if no filter parameter is provided
     this.route.queryParams.subscribe((params) => {
       this.filter = params['filter'] || 'all';
     });
-
+    // Load watch history data from watch history service
     this.watchHistoryService.loadWatchHistory();
     this.watchHistoryService.getWatchHistory().subscribe((history) => {
       this.watchHistory = history;
     });
   }
-
+  // Returns filtered watch history items based on the current filter value
+  // If filter is 'favorites', returns only favorite items
+  // Otherwise returns the complete watch history
   filteredWatchHistory(): WatchHistoryItem[] {
     if (this.filter === 'favorites') {
       return this.watchHistory.filter((item) => item.favorite);
     }
     return this.watchHistory;
   }
-
+  // Stops event propagation to prevent leading to movie page when clicking the heart
+  // Calls the watch history service method to toggle the favorite status
   toggleFavorite(event: MouseEvent, item: WatchHistoryItem): void {
     event.stopPropagation();
     this.watchHistoryService.toggleFavorite(item);
